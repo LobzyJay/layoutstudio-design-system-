@@ -312,8 +312,8 @@ code, pre { font-family: var(--font-mono); }
 }
 
 .hero-title {
-  font-family: var(--font-display);
-  font-weight: 900;
+  font-family: 'Coolvetica', 'Arial Black', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
   font-size: clamp(48px, 7vw, 96px);
   line-height: 0.88;
   letter-spacing: -0.01em;
@@ -1116,7 +1116,7 @@ section:first-of-type { border-top: none; }
 .font-switcher {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   margin: 20px 0 28px;
   align-items: center;
 }
@@ -1124,39 +1124,41 @@ section:first-of-type { border-top: none; }
 .fs-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 14px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: var(--radius-pill);
-  color: rgba(255,255,255,0.45);
+  gap: 10px;
+  padding: 11px 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-small);
+  color: rgba(255,255,255,0.55);
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: border-color 160ms, color 160ms, background 160ms;
+  transition: border-color 160ms, color 160ms, background 160ms, transform 120ms;
   user-select: none;
 }
 .fs-btn:hover {
-  border-color: rgba(255,255,255,0.40);
-  color: rgba(255,255,255,0.85);
-  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.30);
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.10);
+  transform: translateY(-1px);
 }
 .fs-btn.active {
   background: var(--ls-purple);
   border-color: var(--ls-purple);
   color: var(--ls-white);
+  box-shadow: 0 4px 16px rgba(90,40,221,0.4);
 }
 
-/* Tiny specimen preview inside each button */
+/* Specimen preview inside each button */
 .fs-preview {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 900;
   line-height: 1;
-  opacity: 0.75;
   letter-spacing: 0;
   margin-right: 2px;
+  opacity: 0.9;
 }
 
 /* =========================================================
@@ -1232,7 +1234,18 @@ section:first-of-type { border-top: none; }
       <div class="hero-glow"></div>
       <div class="hero-chrome">
         <span>Layout Studio 2026 <span style="opacity:0.4">/</span> Design System</span>
-        <span>v2.0</span>
+        <!-- Full logo: icon + "Layout Studio" wordmark, white -->
+        <svg height="18" viewBox="0 0 510 128" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.85;flex-shrink:0;">
+          <path d="M0 0.71875H44.2189L47.5481 48.3522L0 41.523V0.71875Z" fill="white"/>
+          <path d="M0 95.9003H44.2189L47.5481 48.3522L0 55.096V95.9003Z" fill="white"/>
+          <path d="M95.0962 95.9003H50.8773L47.5481 48.3522L95.0962 55.096V95.9003Z" fill="white"/>
+          <path d="M175.175 95.8146H111.816V0.670355H131.679V77.016H175.175V95.8146Z" fill="white"/>
+          <path d="M222.131 67.5846L222.274 59.868C220.416 61.7257 217.13 62.726 210.271 64.0121C199.696 66.0127 196.267 69.0136 196.267 75.0154C196.267 80.3026 199.41 82.8748 205.269 82.8748C214.843 82.8748 221.988 75.8728 222.131 67.5846ZM240.851 95.7666H222.417V88.0192C217.987 92.8778 210.556 96.1644 201.125 96.1644C185.12 96.1644 177.69 88.305 177.69 76.8731C177.69 56.5814 191.265 54.295 209.985 51.7228C219.273 50.4367 221.845 48.579 221.845 43.7204C221.845 39.1477 217.273 36.4326 209.985 36.4326C201.554 36.4326 198.124 40.5766 197.267 46.8642H179.976C180.262 32.2885 188.264 22.1427 210.842 22.1427C233.135 22.1427 240.851 32.1456 240.851 49.8651V95.7666Z" fill="white"/>
+          <path d="M289.484 96.4502V86.267C286.912 92.5546 279.195 96.2699 270.478 96.2699C255.759 96.2699 244.756 85.0183 244.756 69.5852V24.0003H263.333V66.8701C263.333 75.587 267.334 80.0168 275.194 80.0168C283.625 80.0168 289.484 74.4438 289.484 66.8701V24.0003H308.061V96.1644C308.061 116.027 293.771 127.602 275.765 127.602C255.188 127.602 244.756 116.313 244.756 98.165H262.047C262.047 106.453 266.906 111.598 276.623 111.598C283.339 111.598 289.484 105.739 289.484 96.4502Z" fill="white"/>
+          <path d="M346.78 80.5884C358.069 80.5884 363.785 73.4435 363.785 59.1535C363.785 44.8636 358.069 37.8616 346.78 37.8616C335.491 37.8616 329.775 44.8636 329.775 59.1535C329.775 73.4435 335.491 80.5884 346.78 80.5884ZM346.78 96.1644C324.059 96.1644 310.626 81.0171 310.626 59.1535C310.626 36.8613 324.487 22.1427 346.78 22.1427C368.786 22.1427 382.504 36.7184 382.504 59.1535C382.504 81.4458 368.643 96.1644 346.78 96.1644Z" fill="white"/>
+          <path d="M448.247 95.7666H430.67V84.4467C425.812 92.4491 418.524 96.1644 408.807 96.1644C394.803 96.1644 384.943 85.7328 384.943 70.2997V24.0003H403.52V67.4417C403.52 76.3015 407.521 80.5884 415.38 80.5884C424.812 80.5884 429.813 73.8722 429.813 64.5837V24.0003H448.247V95.7666Z" fill="white"/>
+          <path d="M491.974 66.2985V48.0074H509.265V68.0133C509.265 82.8748 500.691 96.1644 480.828 96.1644C460.251 96.1644 452.105 83.0177 452.105 67.8704V0H470.396V24.0003H509.265V37.1471H470.396V66.0127C470.396 74.8725 473.54 80.0168 481.114 80.0168C488.545 80.0168 491.974 75.0154 491.974 66.2985Z" fill="white"/>
+        </svg>
       </div>
 
       <div class="hero-body">
@@ -1243,17 +1256,17 @@ section:first-of-type { border-top: none; }
           <span class="hero-word">Layout's</span> <span class="hero-word is-gradient">visual</span> <span class="hero-word">layer.</span>
         </h1>
         <div class="font-switcher" id="fontSwitcher">
-          <button class="fs-btn active" data-font="'CoolveticaW05-CondHeavy','Coolvetica','Arial Black','Helvetica Neue',sans-serif">
-            <span class="fs-preview" style="font-family:'Arial Black',sans-serif;font-weight:900;">Aa</span>
-            CoolveticaW05-CondHeavy
+          <button class="fs-btn active" data-font="'Coolvetica','Arial Black','Helvetica Neue',sans-serif" data-weight="400">
+            <span class="fs-preview" style="font-family:'Coolvetica','Arial Black',sans-serif;font-weight:400;">Aa</span>
+            Coolvetica Regular
           </button>
-          <button class="fs-btn" data-font="'Founders Grotesk','Inter',sans-serif">
+          <button class="fs-btn" data-font="'CoolveticaW05-CondHeavy','Coolvetica','Arial Black','Helvetica Neue',sans-serif" data-weight="900">
+            <span class="fs-preview" style="font-family:'CoolveticaW05-CondHeavy','Arial Black',sans-serif;font-weight:900;">Aa</span>
+            Coolvetica Cond Heavy
+          </button>
+          <button class="fs-btn" data-font="'Founders Grotesk','Inter',sans-serif" data-weight="700">
             <span class="fs-preview" style="font-family:'Inter',sans-serif;font-weight:700;">Aa</span>
             Founders Grotesk
-          </button>
-          <button class="fs-btn" data-font="'JetBrains Mono',monospace">
-            <span class="fs-preview" style="font-family:'JetBrains Mono',monospace;">Aa</span>
-            JetBrains Mono
           </button>
         </div>
         <p class="hero-lede">
@@ -2240,6 +2253,7 @@ fontBtns.forEach(btn => {
     heroTitle.classList.add('switching');
     setTimeout(() => {
       heroTitle.style.fontFamily = btn.dataset.font;
+      heroTitle.style.fontWeight = btn.dataset.weight || '400';
       heroTitle.classList.remove('switching');
       fontBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
