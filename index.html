@@ -3,1922 +3,2089 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Layout Studio — Design System v2</title>
-<meta name="description" content="Layout Studio Design System v2. Tokens, components, and patterns for building on-brand Web3 interfaces." />
+<title>Layout Studio — Design System</title>
+<meta name="description" content="The design system for Layout Studio. Tokens, components, and patterns for building on-brand interfaces and prototypes." />
 
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 <style>
-/* =====================================================
-   RESET + BASE
-   ===================================================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+/* =========================================================
+   LAYOUT STUDIO DESIGN SYSTEM — TOKENS
+   Single source of truth. Link directly from GitHub.
+   ========================================================= */
 :root {
-  --ls-black:          #000000;
-  --ls-charcoal:       #1E1E1E;
-  --ls-purple:         #5A28DD;
-  --ls-deep-purple:    #3B1FA8;
-  --ls-lavender:       #9B7FE8;
-  --ls-mauve:          #AD72BD;
-  --ls-white:          #FFFFFF;
-  --ls-off-white:      #F5F5F0;
-  --ls-coral:          #E8453C;
-  --ls-cream:          #FFF3CA;
-  --ls-peach:          #FF9F94;
-  --ls-surface-dark:   #111111;
-  --ls-surface-mid:    #1A1A1A;
-  --ls-surface-alt:    #242424;
-  --ls-border-dark:    rgba(255,255,255,0.08);
-  --ls-border-mid:     rgba(255,255,255,0.14);
-  --ls-gradient:       linear-gradient(135deg, #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%);
-  --ls-gradient-h:     linear-gradient(90deg,  #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%);
+  /* ---- Core Colors ---- */
+  --ls-black:        #000000;
+  --ls-charcoal:     #1E1E1E;
+  --ls-purple:       #5A28DD;
+  --ls-deep-purple:  #3B1FA8;
+  --ls-lavender:     #9B7FE8;
+  --ls-white:        #FFFFFF;
+  --ls-off-white:    #F5F5F0;
+  --ls-coral:        #E8453C;
+  --ls-cream:        #FFF3CA;
+  --ls-peach:        #FF9F94;
 
-  --font-display: 'Impact', 'Arial Black', 'Helvetica Neue', sans-serif;
-  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-script:  'Caveat', cursive;
-  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+  /* ---- Surfaces ---- */
+  --ls-surface-dark:      #1A1A1A;
+  --ls-surface-dark-alt:  #2A2A2A;
+  --ls-surface-light:     #F0F0F0;
+  --ls-border-dark:       rgba(255,255,255,0.08);
+  --ls-border-light:      #E0E0E0;
 
-  --radius-card: 16px;
-  --radius-sm:   8px;
-  --radius-pill: 100px;
-  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  /* ---- Signature Gradient ---- */
+  --ls-gradient: linear-gradient(135deg, #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%);
+  --ls-gradient-purple: linear-gradient(180deg, #5A28DD 0%, #3B1FA8 100%);
+
+  /* ---- Typography ---- */
+  --font-display: 'Coolvetica', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --font-body:    'Founders Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Type Scale ---- */
+  --fs-hero:     72px;   /* Cover / statement */
+  --fs-display:  48px;   /* Section headlines */
+  --fs-h1:       40px;   /* Page titles */
+  --fs-h2:       32px;
+  --fs-h3:       24px;
+  --fs-h4:       18px;
+  --fs-body:     15px;
+  --fs-small:    13px;
+  --fs-caption:  11px;
+  --fs-chrome:   10px;
+
+  /* ---- Spacing (8px base) ---- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  30px;
+  --space-8:  40px;
+  --space-10: 64px;
+  --space-12: 96px;
+
+  /* ---- Slide Canvas ---- */
+  --slide-w: 1440px;
+  --slide-h: 810px;
+
+  /* ---- Radius ---- */
+  --radius-card:   14px;
+  --radius-small:  8px;
+  --radius-pill:   100px;
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-glow: 0 0 80px rgba(90,40,221,0.35);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 180ms;
+  --duration-base: 280ms;
+  --duration-slow: 520ms;
 }
+
+/* =========================================================
+   RESET + BASE
+   ========================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
 
 body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--ls-charcoal);
+  background: var(--ls-off-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+code, pre { font-family: var(--font-mono); }
+
+::selection { background: var(--ls-purple); color: #fff; }
+
+/* =========================================================
+   LAYOUT — SIDEBAR + CONTENT
+   ========================================================= */
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: static !important; height: auto !important; border-right: none !important; border-bottom: 1px solid var(--ls-border-light); }
+  .sidebar-nav { display: none; }
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: var(--space-7);
   background: var(--ls-black);
   color: var(--ls-white);
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* =====================================================
-   LAYOUT UTILITIES
-   ===================================================== */
-.container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
-.section    { padding: 120px 0; }
-.section-sm { padding: 80px 0; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.flex    { display: flex; }
-.flex-col { display: flex; flex-direction: column; }
-.gap-2  { gap: 8px; }
-.gap-3  { gap: 12px; }
-.gap-4  { gap: 16px; }
-.gap-6  { gap: 24px; }
-
-/* =====================================================
-   TYPE
-   ===================================================== */
-.label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.45;
-  margin-bottom: 24px;
-}
-.label-purple { color: var(--ls-purple); opacity: 1; }
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 900;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  margin-bottom: 48px;
-}
-
-.section-sub {
-  font-size: 15px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.55);
-  max-width: 480px;
-  margin-bottom: 48px;
-  line-height: 1.6;
-}
-
-/* =====================================================
-   DIVIDER
-   ===================================================== */
-.divider {
-  width: 100%;
-  height: 1px;
-  background: var(--ls-border-dark);
-}
-
-/* =====================================================
-   NAV
-   ===================================================== */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 0 40px;
-  height: 56px;
+  border-right: 1px solid var(--ls-border-dark);
+  overflow-y: auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--ls-border-dark);
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
-.nav-logo {
+.sidebar-brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  text-decoration: none;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  list-style: none;
-}
-.nav-links a {
-  color: rgba(255,255,255,0.5);
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: color 200ms;
-}
-.nav-links a:hover { color: var(--ls-white); }
-
-.nav-badge {
-  background: var(--ls-purple);
-  color: var(--ls-white);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 3px 8px;
-  border-radius: 100px;
-  text-transform: uppercase;
-}
-
-/* =====================================================
-   HERO
-   ===================================================== */
-#hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 40px 80px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(90,40,221,0.18) 0%, transparent 70%),
-              radial-gradient(ellipse 40% 50% at 20% 80%, rgba(173,114,189,0.08) 0%, transparent 60%),
-              var(--ls-black);
-}
-
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 32px;
-  position: relative;
-}
-.hero-tag::before {
-  content: '';
-  width: 20px; height: 1px;
-  background: var(--ls-purple);
-}
-
-.hero-headline {
-  font-family: var(--font-display);
-  font-size: clamp(72px, 11vw, 160px);
-  font-weight: 900;
-  line-height: 0.88;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-  position: relative;
-  margin-bottom: 48px;
-}
-
-.hero-headline .gradient-text {
-  background: var(--ls-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-bottom {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  position: relative;
-}
-
-.hero-desc {
-  font-size: 15px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.5);
-  max-width: 360px;
-  line-height: 1.6;
-}
-
-.hero-meta {
-  text-align: right;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.3);
-  text-transform: uppercase;
-}
-.hero-meta strong { color: rgba(255,255,255,0.7); display: block; font-size: 13px; margin-bottom: 4px; }
-
-/* =====================================================
-   LOGO SECTION
-   ===================================================== */
-#logo { background: var(--ls-surface-dark); }
-
-.logo-mark {
-  display: inline-flex;
-}
-
-.logo-showcase {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  border-radius: var(--radius-card);
-  overflow: hidden;
-}
-
-.logo-swatch {
-  padding: 48px 40px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.logo-swatch.bg-light   { background: #F0F0F0; }
-.logo-swatch.bg-dark    { background: #111; }
-.logo-swatch.bg-purple  { background: var(--ls-purple); }
-.logo-swatch.bg-gradient{ background: var(--ls-gradient); }
-.logo-swatch.bg-cream   { background: var(--ls-cream); }
-.logo-swatch.bg-coral   { background: var(--ls-coral); }
-
-.logo-wordmark {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-}
-
-.logo-dont-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 48px;
-}
-
-.logo-dont {
-  background: var(--ls-surface-mid);
-  border: 1px solid var(--ls-border-dark);
-  border-radius: var(--radius-sm);
-  padding: 24px;
-}
-.logo-dont-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--ls-coral);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.logo-dont p {
-  font-size: 12px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.5;
-}
-
-/* =====================================================
-   COLOR
-   ===================================================== */
-#colors {}
-
-.color-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin-bottom: 40px;
-}
-
-.color-chip {
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.color-swatch {
-  height: 100px;
-}
-
-.color-info {
-  background: var(--ls-surface-mid);
-  padding: 12px 14px;
-}
-
-.color-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ls-white);
-  margin-bottom: 2px;
-}
-
-.color-hex {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.06em;
-}
-
-.color-desc {
-  font-size: 10px;
-  color: rgba(255,255,255,0.3);
-  margin-top: 4px;
-  line-height: 1.4;
-}
-
-.gradient-strip {
-  height: 80px;
-  border-radius: var(--radius-card);
-  background: var(--ls-gradient);
-  margin-bottom: 16px;
-}
-
-.gradient-info {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.gradient-stop {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.5);
-}
-.gradient-stop-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-}
-
-/* =====================================================
-   TYPOGRAPHY
-   ===================================================== */
-#typography { background: var(--ls-surface-dark); }
-
-.type-specimen {
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.type-specimen-dark {
-  background: var(--ls-black);
-  padding: 48px;
-}
-
-.type-specimen-purple {
-  background: var(--ls-purple);
-  padding: 48px;
-}
-
-.display-specimen {
-  font-family: var(--font-display);
-  font-size: clamp(60px, 8vw, 120px);
-  font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  color: var(--ls-white);
-}
-
-.type-scale {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.type-row {
-  display: flex;
-  align-items: baseline;
-  gap: 32px;
-  padding: 20px 0;
+  padding-bottom: var(--space-5);
   border-bottom: 1px solid var(--ls-border-dark);
 }
 
-.type-meta {
-  width: 100px;
+.brand-mark {
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
+}
+
+.brand-text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand-text em {
+  font-style: normal;
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+.sidebar-meta {
+  font-size: var(--fs-caption);
+  font-weight: 300;
+  opacity: 0.5;
+  line-height: 1.5;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sidebar-section-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.sidebar-section-label:first-child { margin-top: 0; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  border-radius: 6px;
+  transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.nav-link:hover { background: rgba(255,255,255,0.06); color: var(--ls-white); }
+.nav-link.active { background: var(--ls-purple); color: var(--ls-white); }
+
+.nav-num {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 0.08em;
+  opacity: 0.5;
+  min-width: 20px;
+}
+
+.sidebar-footer {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--ls-border-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.sidebar-footer a:hover { color: var(--ls-lavender); opacity: 1; }
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+.content {
+  padding: var(--space-12) var(--space-10);
+  max-width: 1100px;
+}
+
+@media (max-width: 900px) {
+  .content { padding: var(--space-8) var(--space-6); }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  min-height: 560px;
+  padding: var(--space-12) var(--space-10);
+  background: var(--ls-black);
+  color: var(--ls-white);
+  position: relative;
+  overflow: hidden;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 700px;
+  background: radial-gradient(ellipse at center, rgba(90,40,221,0.55) 0%, rgba(90,40,221,0.15) 40%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.hero-chrome {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-chrome);
+  font-weight: 300;
+  opacity: 0.6;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-body {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+}
+
+.hero-title span { color: var(--ls-lavender); }
+
+.hero-lede {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 640px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: var(--space-6);
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+}
+
+.btn-primary {
+  background: var(--ls-purple);
+  color: var(--ls-white);
+}
+
+.btn-primary:hover {
+  background: var(--ls-deep-purple);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ls-white);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+section {
+  padding: var(--space-12) 0;
+  border-top: 1px solid var(--ls-border-light);
+}
+
+section:first-of-type { border-top: none; }
+
+.section-head {
+  margin-bottom: var(--space-8);
+  max-width: 720px;
+}
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ls-purple);
+  margin-bottom: var(--space-3);
+  letter-spacing: 0.05em;
+}
+
+.section-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+}
+
+.section-lede {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(30,30,30,0.7);
+  line-height: 1.6;
+}
+
+.subsection-title {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  margin: var(--space-8) 0 var(--space-5);
+  letter-spacing: -0.01em;
+}
+
+.subsection-title:first-of-type { margin-top: 0; }
+
+/* =========================================================
+   TOKEN GRID — GENERIC
+   ========================================================= */
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+/* =========================================================
+   COLOR SWATCHES
+   ========================================================= */
+.swatch {
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  border: 1px solid var(--ls-border-light);
+  background: var(--ls-white);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.swatch:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.swatch-fill {
+  height: 120px;
+  position: relative;
+}
+
+.swatch-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.swatch-meta {
+  padding: 12px;
+}
+
+.swatch-name {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.swatch-hex {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(30,30,30,0.5);
+  cursor: pointer;
+  user-select: all;
+}
+
+.swatch-hex:hover { color: var(--ls-purple); }
+
+.swatch.swatch-gradient .swatch-fill {
+  background: var(--ls-gradient);
+}
+
+/* =========================================================
+   TYPE SPECIMEN
+   ========================================================= */
+.type-specimen {
+  padding: var(--space-6);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+  margin-bottom: var(--space-3);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-6);
+  align-items: baseline;
+}
+
+.type-meta { font-family: var(--font-mono); font-size: 11px; color: rgba(30,30,30,0.6); line-height: 1.6; }
+.type-meta strong { display: block; color: var(--ls-charcoal); font-weight: 500; margin-bottom: 4px; }
+
+.type-sample-hero {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
 .type-sample-display {
   font-family: var(--font-display);
   font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  line-height: 1;
-  color: var(--ls-white);
-}
-
-.type-sample-body {
-  font-family: var(--font-body);
-  color: rgba(255,255,255,0.85);
-}
-
-.font-families {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-  margin-top: 48px;
-}
-
-.font-card {
-  background: var(--ls-surface-mid);
-  border: 1px solid var(--ls-border-dark);
-  border-radius: var(--radius-card);
-  padding: 32px;
-}
-
-.font-card-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ls-purple);
-  margin-bottom: 16px;
-}
-
-.font-card-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ls-white);
-  margin-bottom: 6px;
-}
-
-.font-card-desc {
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-  line-height: 1.5;
-  margin-bottom: 24px;
-}
-
-.font-demo-display {
-  font-family: var(--font-display);
-  font-size: 48px;
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
-  color: var(--ls-white);
-}
-
-.font-demo-body {
-  font-family: var(--font-body);
-  font-size: 28px;
-  font-weight: 300;
-  color: var(--ls-white);
-  line-height: 1.2;
-}
-
-.font-demo-script {
-  font-family: var(--font-script);
   font-size: 40px;
-  color: rgba(255,255,255,0.8);
-}
-
-/* =====================================================
-   PILLARS
-   ===================================================== */
-#pillars {}
-
-.pillars-intro {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: end;
-  margin-bottom: 64px;
-}
-
-.pillar-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-
-.pillar-card {
-  background: var(--ls-black);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-card);
-  padding: 32px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-height: 380px;
-  transition: border-color 280ms var(--ease-out), transform 280ms var(--ease-out);
-}
-.pillar-card:hover {
-  border-color: rgba(90,40,221,0.4);
-  transform: translateY(-4px);
-}
-
-.pillar-num {
-  font-family: var(--font-display);
-  font-size: 88px;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--ls-purple);
-}
-
-.pillar-tag {
-  display: inline-flex;
-  padding: 4px 12px;
-  background: var(--ls-purple);
-  color: var(--ls-white);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border-radius: 100px;
-  width: fit-content;
-}
-
-.pillar-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--ls-white);
-  line-height: 1.2;
-}
-
-.pillar-divider {
-  width: 100%;
-  height: 1px;
-  background: rgba(255,255,255,0.1);
-}
-
-.pillar-body {
-  font-size: 12px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.6;
-  flex: 1;
-}
-
-/* =====================================================
-   COMPONENTS
-   ===================================================== */
-#components { background: var(--ls-surface-dark); }
-
-.component-group {
-  margin-bottom: 64px;
-}
-
-.component-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--ls-border-dark);
-}
-
-/* Pills */
-.pill-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 16px;
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-}
-.pill-purple   { background: var(--ls-purple); color: #fff; }
-.pill-black    { background: var(--ls-charcoal); color: #fff; }
-.pill-coral    { background: var(--ls-coral); color: #fff; }
-.pill-gradient { background: var(--ls-gradient); color: var(--ls-black); }
-.pill-outline  { background: transparent; border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
-.pill-light    { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
-
-/* Buttons */
-.btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 28px;
-  border-radius: 100px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: opacity 160ms, transform 160ms var(--ease-out);
-  text-decoration: none;
-}
-.btn:hover { opacity: 0.85; transform: translateY(-1px); }
-.btn-primary  { background: var(--ls-purple); color: #fff; }
-.btn-black    { background: #fff; color: var(--ls-black); }
-.btn-gradient { background: var(--ls-gradient); color: var(--ls-black); }
-.btn-outline  { background: transparent; border: 1.5px solid rgba(255,255,255,0.25); color: #fff; }
-.btn-coral    { background: var(--ls-coral); color: #fff; }
-
-/* Stats */
-.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.stat-card {
-  padding: 28px 24px;
-  border-radius: var(--radius-card);
-  border: 1px solid var(--ls-border-dark);
-}
-.stat-card-dark    { background: var(--ls-surface-mid); }
-.stat-card-purple  { background: var(--ls-purple); }
-.stat-card-light   { background: var(--ls-white); }
-.stat-card-outline { background: transparent; border-color: rgba(90,40,221,0.4); }
-
-.stat-val {
-  font-family: var(--font-display);
-  font-size: 48px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-.stat-card-dark .stat-val   { color: var(--ls-white); }
-.stat-card-purple .stat-val { color: var(--ls-white); }
-.stat-card-light .stat-val  { color: var(--ls-charcoal); }
-.stat-card-outline .stat-val{ color: var(--ls-purple); }
-
-.stat-lbl {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.4;
-}
-.stat-card-dark .stat-lbl    { color: rgba(255,255,255,0.45); }
-.stat-card-purple .stat-lbl  { color: rgba(255,255,255,0.65); }
-.stat-card-light .stat-lbl   { color: rgba(30,30,30,0.5); }
-.stat-card-outline .stat-lbl { color: rgba(255,255,255,0.4); }
-
-/* Dark cards */
-.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.card {
-  background: var(--ls-surface-mid);
-  border: 1px solid var(--ls-border-dark);
-  border-radius: var(--radius-card);
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: 220px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 280ms var(--ease-out);
-}
-.card:hover { border-color: var(--ls-border-mid); }
-
-.card-tag {
-  display: inline-flex;
-  padding: 4px 10px;
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.7);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border-radius: 100px;
-  width: fit-content;
-  margin-bottom: 12px;
-}
-
-.card-num {
-  font-family: var(--font-display);
-  font-size: 64px;
-  font-weight: 900;
-  color: var(--ls-purple);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.card-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 900;
-  line-height: 1.05;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.card-rule {
-  width: 100%; height: 1px;
-  background: rgba(255,255,255,0.1);
-  margin: 12px 0;
-}
-
-.card-body {
-  font-size: 12px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.55;
-}
-
-/* gradient card */
-.card-gradient { background: var(--ls-gradient); color: var(--ls-black); }
-.card-gradient .card-tag { background: rgba(0,0,0,0.12); color: rgba(0,0,0,0.7); }
-.card-gradient .card-num { color: var(--ls-black); }
-.card-gradient .card-rule { background: rgba(0,0,0,0.15); }
-.card-gradient .card-body { color: rgba(0,0,0,0.6); }
-
-/* purple card */
-.card-purple { background: var(--ls-purple); border-color: transparent; }
-.card-purple .card-num { color: rgba(255,255,255,0.3); }
-.card-purple .card-rule { background: rgba(255,255,255,0.15); }
-.card-purple .card-body { color: rgba(255,255,255,0.65); }
-
-/* =====================================================
-   THEMES
-   ===================================================== */
-#themes { background: var(--ls-black); }
-
-.theme-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.theme-swatch {
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  aspect-ratio: 16/9;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-}
-
-.theme-swatch::before {
-  content: attr(data-label);
-  position: absolute;
-  top: 16px; left: 16px;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.5;
-}
-
-.theme-swatch-title {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
+  line-height: 0.95;
   letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
-.theme-swatch-sub {
-  font-size: 11px;
-  opacity: 0.5;
-  margin-top: 4px;
+.type-sample-h1 { font-weight: 700; font-size: 36px; line-height: 1.05; letter-spacing: -0.01em; }
+.type-sample-h2 { font-weight: 600; font-size: 28px; line-height: 1.1; }
+.type-sample-h3 { font-weight: 600; font-size: 22px; line-height: 1.15; }
+.type-sample-body { font-weight: 400; font-size: 16px; line-height: 1.6; }
+.type-sample-caption { font-weight: 300; font-size: 12px; line-height: 1.4; color: rgba(30,30,30,0.7); }
+
+/* =========================================================
+   LOGO DISPLAY
+   ========================================================= */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3);
 }
 
-/* Theme backgrounds */
-.theme-dark     { background: var(--ls-black); color: var(--ls-white); }
-.theme-light    { background: var(--ls-white); color: var(--ls-black); }
-.theme-purple   { background: var(--ls-purple); color: var(--ls-white); }
-.theme-gradient { background: var(--ls-gradient); color: var(--ls-black); }
-.theme-cream    { background: var(--ls-cream); color: var(--ls-black); }
-.theme-coral    { background: var(--ls-coral); color: var(--ls-white); }
-
-/* =====================================================
-   SLIDE LAYOUTS
-   ===================================================== */
-#layouts { background: var(--ls-surface-dark); }
-
-.layout-preview-wrap {
-  margin-bottom: 48px;
+.logo-card {
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  border: 1px solid var(--ls-border-light);
 }
 
-.layout-label-row {
+.logo-stage {
+  height: 160px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
+  justify-content: center;
+  padding: var(--space-6);
 }
 
-.layout-code {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--ls-purple);
-  background: rgba(90,40,221,0.12);
-  padding: 3px 10px;
-  border-radius: 100px;
-}
+.logo-stage-light { background: var(--ls-white); }
+.logo-stage-dark  { background: var(--ls-black); }
+.logo-stage-purple{ background: var(--ls-purple); }
+.logo-stage-gradient { background: var(--ls-gradient); }
 
-.layout-desc {
+.logo-stage svg { max-width: 100%; height: 32px; }
+
+.logo-card-meta {
+  padding: 12px;
+  background: var(--ls-white);
+  border-top: 1px solid var(--ls-border-light);
   font-size: 12px;
-  color: rgba(255,255,255,0.4);
 }
 
-.layout-preview {
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: #0a0a0a;
+.logo-card-meta strong { display: block; font-weight: 500; }
+.logo-card-meta span { color: rgba(30,30,30,0.5); font-size: 11px; }
+
+/* =========================================================
+   GRID DIAGRAMS
+   ========================================================= */
+.grid-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.grid-card {
+  padding: var(--space-5);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+}
+
+.grid-card-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-3);
+}
+
+.grid-card-label strong {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.grid-card-label span {
+  font-size: 11px;
+  color: rgba(30,30,30,0.55);
+}
+
+.grid-diagram {
+  background: var(--ls-off-white);
+  aspect-ratio: 16 / 9;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  border-radius: 6px;
+}
+
+.grid-cell {
+  background: var(--ls-charcoal);
+  border-radius: 3px;
+  opacity: 0.9;
+}
+
+.grid-cell.accent { background: var(--ls-purple); }
+
+/* L01 */ .grid-l01 { grid-template-columns: 24% 1fr; }
+.grid-l01 .right  { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; }
+/* L02 */ .grid-l02 { grid-template-columns: 24% 1fr; }
+.grid-l02 .right  { display: grid; grid-template-rows: 1fr 1fr; gap: 6px; }
+.grid-l02 .right .top { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+/* L03 */ .grid-l03 { grid-template-columns: 24% 1fr; }
+.grid-l03 .right  { display: grid; grid-template-rows: 1fr 1fr; gap: 6px; }
+/* L04 */ .grid-l04 { grid-template-columns: 24% 1fr; }
+/* L05 */ .grid-l05 { grid-template-rows: 1fr 30%; }
+.grid-l05 .top   { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+/* L06 */ .grid-l06 { grid-template-columns: repeat(4, 1fr); }
+/* L07 */ .grid-l07 { grid-template-columns: repeat(3, 1fr); }
+
+.grid-card-desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(30,30,30,0.65);
+  margin-top: var(--space-3);
+  line-height: 1.5;
+}
+
+/* =========================================================
+   COMPONENT EXAMPLES
+   ========================================================= */
+.component-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+/* Dark Card — signature component */
+.ls-card-dark {
+  background: var(--ls-surface-dark);
   border: 1px solid var(--ls-border-dark);
   border-radius: var(--radius-card);
-  padding: 16px;
-  display: grid;
-  gap: 8px;
-  overflow: hidden;
-}
-
-/* Block placeholder */
-.blk {
-  background: var(--ls-surface-alt);
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.05);
+  padding: var(--space-6);
   display: flex;
-  align-items: flex-end;
-  padding: 10px 12px;
-}
-.blk-purple { background: rgba(90,40,221,0.25); border-color: rgba(90,40,221,0.2); }
-.blk-gradient { background: var(--ls-gradient); }
-.blk-dark   { background: #111; }
-
-.blk-num {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 900;
-  color: rgba(90,40,221,0.5);
-  line-height: 1;
-}
-.blk-lbl {
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
-}
-
-/* L01 */
-.lp-l01 { grid-template-columns: 22% 1fr; }
-.lp-l01 .right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; }
-
-/* L02 */
-.lp-l02 { grid-template-columns: 22% 1fr; }
-.lp-l02 .right { display: grid; grid-template-rows: 1fr 1fr; gap: 8px; }
-.lp-l02 .right .top { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-/* L03 */
-.lp-l03 { grid-template-columns: 22% 1fr; }
-.lp-l03 .right { display: grid; grid-template-rows: 1fr 1fr; gap: 8px; }
-
-/* L04 */
-.lp-l04 { grid-template-columns: 22% 1fr; }
-
-/* L05 */
-.lp-l05 { grid-template-rows: 1fr auto; }
-.lp-l05 .top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.lp-l05 .banner { height: 60px; border-radius: 6px; }
-
-/* L06 */
-.lp-l06 { grid-template-columns: repeat(4, 1fr); }
-
-/* L07 */
-.lp-l07 { grid-template-columns: repeat(3, 1fr); }
-
-.layout-grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-.layout-grid-2-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-/* =====================================================
-   VOICE
-   ===================================================== */
-#voice { background: var(--ls-black); }
-
-.voice-hero {
-  background: linear-gradient(135deg, #0a0020 0%, #000 60%);
-  border: 1px solid rgba(90,40,221,0.2);
-  border-radius: var(--radius-card);
-  padding: 80px 64px;
-  text-align: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 320px;
+  color: var(--ls-white);
   position: relative;
   overflow: hidden;
-  margin-bottom: 16px;
 }
 
-.voice-hero::before {
+.ls-card-dark::before {
   content: '';
   position: absolute;
-  top: -40%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(90,40,221,0.25) 0%, transparent 70%);
+  top: -80px;
+  right: -80px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(90,40,221,0.35), transparent 70%);
   pointer-events: none;
 }
 
-.voice-hero-pre {
-  font-size: 12px;
-  font-weight: 400;
+.ls-card-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  color: var(--ls-white);
+  font-size: 9px;
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  margin-bottom: 24px;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-3);
+  width: fit-content;
+  position: relative;
+  z-index: 1;
 }
 
-.voice-hero-headline {
+.ls-card-number {
   font-family: var(--font-display);
-  font-size: clamp(40px, 6vw, 80px);
+  font-size: 72px;
   font-weight: 900;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  color: var(--ls-purple);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+  position: relative;
+  z-index: 1;
+}
+
+.ls-card-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
   text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.ls-card-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: var(--space-3) 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ls-card-body {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* Pill / Tag */
+.ls-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  background: var(--ls-charcoal);
   color: var(--ls-white);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-right: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.ls-pill-light {
+  background: var(--ls-off-white);
+  color: var(--ls-charcoal);
+  border: 1px solid var(--ls-border-light);
+}
+
+.ls-pill-purple {
+  background: var(--ls-purple);
+  color: var(--ls-white);
+}
+
+/* Stat Row */
+.ls-stat {
+  padding: var(--space-5);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+}
+
+.ls-stat-value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--ls-charcoal);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.ls-stat-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(30,30,30,0.6);
+  line-height: 1.4;
+}
+
+/* =========================================================
+   CODE BLOCK
+   ========================================================= */
+.code-block {
+  background: var(--ls-charcoal);
+  color: #E8E8E8;
+  border-radius: var(--radius-small);
+  padding: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin: var(--space-4) 0;
   position: relative;
 }
 
-.voice-hero-sub {
-  font-size: 18px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.5);
-  max-width: 600px;
-  margin: 32px auto 0;
-  line-height: 1.6;
+.code-block .token-comment { color: #7A7A7A; font-style: italic; }
+.code-block .token-prop    { color: #9B7FE8; }
+.code-block .token-value   { color: #FFF3CA; }
+.code-block .token-selector{ color: #FF9F94; }
+
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-pill);
+  color: var(--ls-white);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
 }
 
-.voice-cards {
+.copy-btn:hover { background: rgba(255,255,255,0.14); }
+.copy-btn.copied { background: var(--ls-purple); border-color: var(--ls-purple); }
+
+/* =========================================================
+   SPACING VISUALIZER
+   ========================================================= */
+.spacing-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.spacing-row {
+  display: grid;
+  grid-template-columns: 60px 80px 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 10px var(--space-4);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: 6px;
+}
+
+.spacing-key {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ls-purple);
+  font-weight: 500;
+}
+
+.spacing-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(30,30,30,0.7);
+}
+
+.spacing-bar {
+  height: 12px;
+  background: var(--ls-purple);
+  border-radius: 2px;
+}
+
+.spacing-note {
+  font-size: 12px;
+  color: rgba(30,30,30,0.5);
+}
+
+/* =========================================================
+   VOICE DO/DONT
+   ========================================================= */
+.voice-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: var(--space-4);
 }
+
+@media (max-width: 700px) { .voice-grid { grid-template-columns: 1fr; } }
 
 .voice-card {
-  background: var(--ls-surface-mid);
-  border: 1px solid var(--ls-border-dark);
-  border-radius: var(--radius-card);
-  padding: 32px;
+  padding: var(--space-6);
+  border-radius: var(--radius-small);
+  border: 1px solid var(--ls-border-light);
+  background: var(--ls-white);
 }
 
-.voice-card-tag {
-  display: inline-flex;
-  padding: 3px 10px;
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.5);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border-radius: 100px;
-  margin-bottom: 16px;
-}
+.voice-card.do  { border-left: 3px solid var(--ls-purple); }
+.voice-card.dont { border-left: 3px solid var(--ls-coral); }
 
-.voice-card-tag.purple { background: rgba(90,40,221,0.2); color: var(--ls-lavender); }
-
-.voice-card-headline {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ls-white);
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-
-.voice-card-body {
-  font-size: 13px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.6;
-}
-
-/* =====================================================
-   MOTION
-   ===================================================== */
-#motion { background: var(--ls-surface-dark); }
-
-.motion-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-}
-
-.motion-card {
-  background: var(--ls-surface-mid);
-  border: 1px solid var(--ls-border-dark);
-  border-radius: var(--radius-card);
-  padding: 28px;
-}
-
-.motion-demo {
-  height: 60px;
-  background: var(--ls-purple);
-  border-radius: 8px;
-  margin-bottom: 20px;
-  width: 40%;
-  animation: none;
-}
-.motion-card:hover .motion-demo-fast { animation: slide-demo 160ms var(--ease-out) forwards; }
-.motion-card:hover .motion-demo-base { animation: slide-demo 280ms var(--ease-out) forwards; }
-.motion-card:hover .motion-demo-slow { animation: slide-demo 520ms var(--ease-out) forwards; }
-
-@keyframes slide-demo {
-  from { width: 40%; opacity: 0.5; }
-  to   { width: 100%; opacity: 1; }
-}
-
-.motion-name  { font-size: 14px; font-weight: 600; color: var(--ls-white); margin-bottom: 6px; }
-.motion-value {
+.voice-label {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--ls-purple);
-  background: rgba(90,40,221,0.1);
-  padding: 3px 8px;
-  border-radius: 4px;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-.motion-desc { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.5; }
-
-/* =====================================================
-   FOOTER
-   ===================================================== */
-footer {
-  border-top: 1px solid var(--ls-border-dark);
-  padding: 48px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--ls-black);
-}
-
-.footer-left { display: flex; align-items: center; gap: 16px; }
-.footer-version {
-  font-size: 10px;
-  letter-spacing: 0.10em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
+  margin-bottom: var(--space-3);
 }
-.footer-right {
-  font-size: 11px;
-  color: rgba(255,255,255,0.25);
-  text-align: right;
+
+.voice-card.do .voice-label { color: var(--ls-purple); }
+.voice-card.dont .voice-label { color: var(--ls-coral); }
+
+.voice-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.voice-list li {
+  font-size: 14px;
   line-height: 1.5;
+  padding-left: var(--space-4);
+  position: relative;
 }
 
-/* =====================================================
-   INLINE LOGOMARK SVG STYLES
-   ===================================================== */
-.logomark-svg { display: block; }
-.lm-gradient stop:nth-child(1) { stop-color: #FF9F94; }
-.lm-gradient stop:nth-child(2) { stop-color: #AD72BD; }
-.lm-gradient stop:nth-child(3) { stop-color: #7152DA; }
+.voice-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 10px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
 
+.voice-card.do  .voice-list li::before { background: var(--ls-purple); }
+.voice-card.dont .voice-list li::before { background: var(--ls-coral); }
+
+/* =========================================================
+   PREVIEW CANVAS — inline slide example
+   ========================================================= */
+.preview-wrapper {
+  background: var(--ls-off-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+  padding: var(--space-5);
+  overflow: hidden;
+}
+
+.preview-scale {
+  width: 1440px;
+  height: 810px;
+  transform-origin: top left;
+  transform: scale(0.45);
+  margin-bottom: calc(-810px * 0.55);
+  margin-right: calc(-1440px * 0.55);
+}
+
+@media (max-width: 900px) {
+  .preview-scale { transform: scale(0.22); margin-bottom: calc(-810px * 0.78); margin-right: calc(-1440px * 0.78); }
+}
+
+/* ========= inline slide ========= */
+.slide {
+  width: 1440px;
+  height: 810px;
+  padding: 30px;
+  box-sizing: border-box;
+  position: relative;
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+.slide[data-theme="light"]   { background: var(--ls-white); color: var(--ls-charcoal); }
+.slide[data-theme="dark"]    { background: var(--ls-black); color: var(--ls-white); }
+.slide[data-theme="purple"]  { background: var(--ls-purple); color: var(--ls-white); }
+
+.slide .chrome-top, .slide .chrome-bottom {
+  position: absolute;
+  left: 30px; right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 300;
+  opacity: 0.55;
+}
+
+.slide .chrome-top { top: 20px; }
+.slide .chrome-bottom { bottom: 20px; font-size: 9px; }
+
+.slide .page-title {
+  position: absolute;
+  top: 60px; left: 30px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--ls-purple);
+  margin: 0;
+}
+
+.slide[data-theme="dark"] .page-title,
+.slide[data-theme="purple"] .page-title { color: var(--ls-white); }
+
+.slide .content-area {
+  position: absolute;
+  top: 120px;
+  left: 30px;
+  right: 30px;
+  bottom: 50px;
+  display: grid;
+  gap: 16px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--ls-border-light);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-6);
+  align-items: end;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 96px;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--ls-charcoal);
+  letter-spacing: -0.02em;
+}
+
+.footer-meta {
+  font-size: 11px;
+  color: rgba(30,30,30,0.5);
+  text-align: right;
+  line-height: 1.7;
+}
+
+.footer-meta a { color: var(--ls-purple); }
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+.muted { color: rgba(30,30,30,0.6); }
+.mono  { font-family: var(--font-mono); font-size: 13px; }
+.tight { letter-spacing: -0.01em; }
+
+.token-string {
+  background: #F4EEFF;
+  color: var(--ls-deep-purple);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.anchor { scroll-margin-top: 40px; }
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+@media print {
+  .sidebar, .copy-btn { display: none; }
+  .app { grid-template-columns: 1fr; }
+  .content { padding: 20mm; max-width: none; }
+  section { page-break-inside: avoid; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">
-    <!-- Logomark: gradient version -->
-    <svg width="28" height="28" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" class="logomark-svg">
-      <defs>
-        <linearGradient id="lm-grad-nav" x1="0" y1="56" x2="56" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#FF9F94"/>
-          <stop offset="50%" stop-color="#AD72BD"/>
-          <stop offset="100%" stop-color="#7152DA"/>
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0"  width="24" height="24" rx="3" fill="url(#lm-grad-nav)"/>
-      <rect x="0" y="28" width="32" height="28" rx="3" fill="url(#lm-grad-nav)"/>
-      <rect x="28" y="0" width="28" height="16" rx="3" fill="url(#lm-grad-nav)"/>
-      <rect x="36" y="40" width="20" height="16" rx="3" fill="url(#lm-grad-nav)"/>
-    </svg>
-    <span style="font-family:var(--font-display);font-size:18px;font-weight:900;letter-spacing:-0.01em;text-transform:uppercase;">Layout</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#logo">Logo</a></li>
-    <li><a href="#colors">Colors</a></li>
-    <li><a href="#typography">Type</a></li>
-    <li><a href="#pillars">Pillars</a></li>
-    <li><a href="#components">Components</a></li>
-    <li><a href="#layouts">Layouts</a></li>
-    <li><a href="#voice">Voice</a></li>
-  </ul>
-  <span class="nav-badge">v2.0</span>
-</nav>
+<div class="app">
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-
-  <div style="position:relative;">
-    <div class="hero-tag">Design System · v2.0 · 2026</div>
-
-    <h1 class="hero-headline">
-      Shaping<br>
-      the <span class="gradient-text">visual</span><br>
-      layer
-    </h1>
-
-    <div class="hero-bottom">
-      <p class="hero-desc">
-        One studio. Full-stack visual. Ecosystem native. Every token, component, and pattern built for Web3 at scale.
-      </p>
-      <div class="hero-meta">
-        <strong>Layout Studio</strong>
-        layoutstudios.com
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DIVIDER -->
-<div style="height:1px;background:var(--ls-border-dark);"></div>
-
-<!-- LOGO -->
-<section id="logo" class="section">
-  <div class="container">
-    <div class="label label-purple">Visual Identity</div>
-    <h2 class="section-title">Logo System</h2>
-    <p class="section-sub">Three elements: the Full Logo for formal contexts, the Short Logo for everyday presence, and the Logomark for standalone use.</p>
-
-    <!-- logo elements showcase -->
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:48px;">
-
-      <!-- Full logo on light -->
-      <div style="background:#F0F0F0;border-radius:var(--radius-card);padding:48px 40px;display:flex;align-items:center;gap:14px;">
-        <svg width="40" height="40" viewBox="0 0 56 56" fill="none">
-          <rect x="0" y="0" width="24" height="24" rx="3" fill="#111"/>
-          <rect x="0" y="28" width="32" height="28" rx="3" fill="#111"/>
-          <rect x="28" y="0" width="28" height="16" rx="3" fill="#111"/>
-          <rect x="36" y="40" width="20" height="16" rx="3" fill="#111"/>
-        </svg>
-        <div>
-          <div style="font-family:var(--font-display);font-size:28px;font-weight:900;letter-spacing:-0.01em;text-transform:uppercase;color:#111;line-height:1;">Layout</div>
-          <div style="font-family:var(--font-display);font-size:28px;font-weight:400;letter-spacing:-0.01em;text-transform:uppercase;color:#111;line-height:1;">Studio</div>
-        </div>
-      </div>
-
-      <!-- Short logo gradient -->
-      <div style="background:#111;border-radius:var(--radius-card);padding:48px 40px;display:flex;align-items:center;gap:14px;">
-        <svg width="40" height="40" viewBox="0 0 56 56" fill="none">
-          <defs>
-            <linearGradient id="lm-g1" x1="0" y1="56" x2="56" y2="0" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#FF9F94"/>
-              <stop offset="50%" stop-color="#AD72BD"/>
-              <stop offset="100%" stop-color="#7152DA"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0"  width="24" height="24" rx="3" fill="url(#lm-g1)"/>
-          <rect x="0" y="28" width="32" height="28" rx="3" fill="url(#lm-g1)"/>
-          <rect x="28" y="0" width="28" height="16" rx="3" fill="url(#lm-g1)"/>
-          <rect x="36" y="40" width="20" height="16" rx="3" fill="url(#lm-g1)"/>
-        </svg>
-        <span style="font-family:var(--font-display);font-size:32px;font-weight:900;letter-spacing:-0.01em;text-transform:uppercase;color:#fff;">Layout</span>
-      </div>
-
-      <!-- Logomark only -->
-      <div style="background:var(--ls-purple);border-radius:var(--radius-card);padding:48px 40px;display:flex;align-items:center;justify-content:center;">
-        <svg width="72" height="72" viewBox="0 0 56 56" fill="none">
-          <rect x="0" y="0"  width="24" height="24" rx="3" fill="white"/>
-          <rect x="0" y="28" width="32" height="28" rx="3" fill="white"/>
-          <rect x="28" y="0" width="28" height="16" rx="3" fill="white"/>
-          <rect x="36" y="40" width="20" height="16" rx="3" fill="white"/>
-        </svg>
-      </div>
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <!-- Actual logomark icon paths from brand SVG files -->
+      <svg class="brand-mark" viewBox="0 0 63.1 64.2" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lsgrad-sb" x1="3.596" y1="61.66" x2="-5.405" y2="10.653" gradientUnits="userSpaceOnUse">
+            <stop offset="6.16%"  stop-color="#FFF3CA"/>
+            <stop offset="32.31%" stop-color="#FF9F94"/>
+            <stop offset="71.62%" stop-color="#AD72BD"/>
+            <stop offset="100%"   stop-color="#7152DA"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 0.472656H29.3337L31.5422 32.0715L0 27.5412V0.472656Z"           fill="url(#lsgrad-sb)"/>
+        <path d="M0 63.6136H29.3337L31.5422 32.0715L0 36.5451V63.6136Z"              fill="url(#lsgrad-sb)"/>
+        <path d="M63.0843 63.6136H33.7507L31.5422 32.0715L63.0843 36.5451V63.6136Z"  fill="url(#lsgrad-sb)"/>
+      </svg>
+      <div class="brand-text">Layout <em>DS</em></div>
     </div>
 
-    <!-- colorways -->
-    <div class="label">Primary Logo Colorways</div>
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:48px;">
-      <!-- gradient -->
-      <div style="border-radius:var(--radius-card);overflow:hidden;">
-        <div style="background:#F0F0F0;padding:24px;display:flex;align-items:center;gap:8px;">
-          <svg width="22" height="22" viewBox="0 0 56 56" fill="none">
-            <defs><linearGradient id="lm-cw1" x1="0" y1="56" x2="56" y2="0"><stop offset="0%" stop-color="#FF9F94"/><stop offset="50%" stop-color="#AD72BD"/><stop offset="100%" stop-color="#7152DA"/></linearGradient></defs>
-            <rect x="0" y="0" width="24" height="24" rx="3" fill="url(#lm-cw1)"/>
-            <rect x="0" y="28" width="32" height="28" rx="3" fill="url(#lm-cw1)"/>
-            <rect x="28" y="0" width="28" height="16" rx="3" fill="url(#lm-cw1)"/>
-            <rect x="36" y="40" width="20" height="16" rx="3" fill="url(#lm-cw1)"/>
-          </svg>
-          <span style="font-family:var(--font-display);font-size:16px;font-weight:900;text-transform:uppercase;color:#111;">Layout</span>
-        </div>
-        <div style="background:var(--ls-surface-mid);padding:12px 14px;">
-          <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:4px;">Gradient</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);">Default — all digital</div>
-        </div>
+    <div class="sidebar-meta">
+      Design System v2.0<br/>
+      Last updated Apr 2026
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Foundations</div>
+      <a class="nav-link" href="#brand"><span class="nav-num">00</span> Brand</a>
+      <a class="nav-link" href="#colors"><span class="nav-num">01</span> Color</a>
+      <a class="nav-link" href="#typography"><span class="nav-num">02</span> Typography</a>
+      <a class="nav-link" href="#logo"><span class="nav-num">03</span> Logo</a>
+      <a class="nav-link" href="#spacing"><span class="nav-num">04</span> Spacing</a>
+
+      <div class="sidebar-section-label">System</div>
+      <a class="nav-link" href="#grid"><span class="nav-num">05</span> Grid</a>
+      <a class="nav-link" href="#components"><span class="nav-num">06</span> Components</a>
+      <a class="nav-link" href="#slide-preview"><span class="nav-num">07</span> Slide anatomy</a>
+
+      <div class="sidebar-section-label">Expression</div>
+      <a class="nav-link" href="#voice"><span class="nav-num">08</span> Voice</a>
+      <a class="nav-link" href="#usage"><span class="nav-num">09</span> Usage</a>
+      <a class="nav-link" href="#tokens-export"><span class="nav-num">10</span> Tokens</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="https://www.layoutstudio.co" target="_blank">layoutstudio.co</a>
+      <span>Lagos · Dubai · Zurich · London</span>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN ==================== -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-chrome">
+        <span>Layout Studio 2026 <span style="opacity:0.4">/</span> Design System</span>
+        <span>v2.0</span>
       </div>
-      <!-- solid purple -->
-      <div style="border-radius:var(--radius-card);overflow:hidden;">
-        <div style="background:#F0F0F0;padding:24px;display:flex;align-items:center;gap:8px;">
-          <svg width="22" height="22" viewBox="0 0 56 56" fill="none">
-            <rect x="0" y="0" width="24" height="24" rx="3" fill="#5A28DD"/>
-            <rect x="0" y="28" width="32" height="28" rx="3" fill="#5A28DD"/>
-            <rect x="28" y="0" width="28" height="16" rx="3" fill="#5A28DD"/>
-            <rect x="36" y="40" width="20" height="16" rx="3" fill="#5A28DD"/>
-          </svg>
-          <span style="font-family:var(--font-display);font-size:16px;font-weight:900;text-transform:uppercase;color:#5A28DD;">Layout</span>
-        </div>
-        <div style="background:var(--ls-surface-mid);padding:12px 14px;">
-          <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:4px;">Solid Purple</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);">Merch, print, stickers</div>
-        </div>
-      </div>
-      <!-- mono black -->
-      <div style="border-radius:var(--radius-card);overflow:hidden;">
-        <div style="background:#F0F0F0;padding:24px;display:flex;align-items:center;gap:8px;">
-          <svg width="22" height="22" viewBox="0 0 56 56" fill="none">
-            <rect x="0" y="0" width="24" height="24" rx="3" fill="#000"/>
-            <rect x="0" y="28" width="32" height="28" rx="3" fill="#000"/>
-            <rect x="28" y="0" width="28" height="16" rx="3" fill="#000"/>
-            <rect x="36" y="40" width="20" height="16" rx="3" fill="#000"/>
-          </svg>
-          <span style="font-family:var(--font-display);font-size:16px;font-weight:900;text-transform:uppercase;color:#000;">Layout</span>
-        </div>
-        <div style="background:var(--ls-surface-mid);padding:12px 14px;">
-          <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:4px;">Mono Black</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);">Emboss, engrave, print</div>
-        </div>
-      </div>
-      <!-- mono white -->
-      <div style="border-radius:var(--radius-card);overflow:hidden;">
-        <div style="background:#111;padding:24px;display:flex;align-items:center;gap:8px;">
-          <svg width="22" height="22" viewBox="0 0 56 56" fill="none">
-            <rect x="0" y="0" width="24" height="24" rx="3" fill="#fff"/>
-            <rect x="0" y="28" width="32" height="28" rx="3" fill="#fff"/>
-            <rect x="28" y="0" width="28" height="16" rx="3" fill="#fff"/>
-            <rect x="36" y="40" width="20" height="16" rx="3" fill="#fff"/>
-          </svg>
-          <span style="font-family:var(--font-display);font-size:16px;font-weight:900;text-transform:uppercase;color:#fff;">Layout</span>
-        </div>
-        <div style="background:var(--ls-surface-mid);padding:12px 14px;">
-          <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:4px;">Mono White</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);">Photo overlays, video</div>
-        </div>
-      </div>
-      <!-- coral -->
-      <div style="border-radius:var(--radius-card);overflow:hidden;">
-        <div style="background:#F0F0F0;padding:24px;display:flex;align-items:center;gap:8px;">
-          <svg width="22" height="22" viewBox="0 0 56 56" fill="none">
-            <rect x="0" y="0" width="24" height="24" rx="3" fill="#E8453C"/>
-            <rect x="0" y="28" width="32" height="28" rx="3" fill="#E8453C"/>
-            <rect x="28" y="0" width="28" height="16" rx="3" fill="#E8453C"/>
-            <rect x="36" y="40" width="20" height="16" rx="3" fill="#E8453C"/>
-          </svg>
-          <span style="font-family:var(--font-display);font-size:16px;font-weight:900;text-transform:uppercase;color:#E8453C;">Layout</span>
-        </div>
-        <div style="background:var(--ls-surface-mid);padding:12px 14px;">
-          <div style="font-size:11px;font-weight:600;color:var(--ls-coral);margin-bottom:4px;">Solid Coral</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);">Campaign only — not default</div>
+
+      <div class="hero-body">
+        <span class="hero-eyebrow">Design System — 2026</span>
+        <h1 class="hero-title">Build on<br/>Layout's <span>visual layer.</span></h1>
+        <p class="hero-lede">
+          The tokens, components, and rules behind every piece of Layout Studio work. One source of truth for decks, prototypes, landing pages, and everything in between.
+        </p>
+        <div class="hero-cta-row">
+          <a class="btn btn-primary" href="#colors">
+            Browse the system
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#tokens-export">
+            Copy tokens
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 10V3a1 1 0 0 1 1-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- donts -->
-    <div class="label">Logo Misuse — Don't</div>
-    <div class="logo-dont-grid">
-      <div class="logo-dont"><div class="logo-dont-label">✕ Don't</div><p>Stretch or distort horizontally or vertically</p></div>
-      <div class="logo-dont"><div class="logo-dont-label">✕ Don't</div><p>Use the wordmark alone without the icon</p></div>
-      <div class="logo-dont"><div class="logo-dont-label">✕ Don't</div><p>Rotate or tilt the logo in any direction</p></div>
-      <div class="logo-dont"><div class="logo-dont-label">✕ Don't</div><p>Change the icon and wordmark relationship</p></div>
-      <div class="logo-dont"><div class="logo-dont-label">✕ Don't</div><p>Add drop shadows or glows to the logo</p></div>
-      <div class="logo-dont"><div class="logo-dont-label">✕ Don't</div><p>Add strokes or outlines to the logo</p></div>
-    </div>
-  </div>
-</section>
+    <div class="content">
 
-<div style="height:1px;background:var(--ls-border-dark);"></div>
-
-<!-- COLORS -->
-<section id="colors" class="section">
-  <div class="container">
-    <div class="label label-purple">Visual Identity</div>
-    <h2 class="section-title">Color System</h2>
-    <p class="section-sub">Black is the primary canvas. Purple is the signature accent. Gradient is the hero moment. Coral is campaign-only — never the default.</p>
-
-    <!-- primary palette -->
-    <div class="color-grid">
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#000000;"></div>
-        <div class="color-info"><div class="color-name">Black</div><div class="color-hex">#000000</div><div class="color-desc">Primary canvas</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#1E1E1E;"></div>
-        <div class="color-info"><div class="color-name">Charcoal</div><div class="color-hex">#1E1E1E</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#5A28DD;"></div>
-        <div class="color-info"><div class="color-name">Purple</div><div class="color-hex">#5A28DD</div><div class="color-desc">Primary brand accent</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#3B1FA8;"></div>
-        <div class="color-info"><div class="color-name">Deep Purple</div><div class="color-hex">#3B1FA8</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#9B7FE8;"></div>
-        <div class="color-info"><div class="color-name">Lavender</div><div class="color-hex">#9B7FE8</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#FFFFFF;border:1px solid #E0E0E0;"></div>
-        <div class="color-info"><div class="color-name">White</div><div class="color-hex">#FFFFFF</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#FFF3CA;"></div>
-        <div class="color-info"><div class="color-name">Cream</div><div class="color-hex">#FFF3CA</div><div class="color-desc">Gradient start</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#FF9F94;"></div>
-        <div class="color-info"><div class="color-name">Peach</div><div class="color-hex">#FF9F94</div><div class="color-desc">Gradient stop 2</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#AD72BD;"></div>
-        <div class="color-info"><div class="color-name">Mauve</div><div class="color-hex">#AD72BD</div><div class="color-desc">Gradient stop 3</div></div>
-      </div>
-      <div class="color-chip">
-        <div class="color-swatch" style="background:#E8453C;"></div>
-        <div class="color-info"><div class="color-name">Coral</div><div class="color-hex">#E8453C</div><div class="color-desc">Campaign only</div></div>
-      </div>
-    </div>
-
-    <!-- gradient -->
-    <div class="label">Signature Gradient</div>
-    <div class="gradient-strip"></div>
-    <div class="gradient-info" style="margin-bottom:12px;">
-      <div class="gradient-stop"><div class="gradient-stop-dot" style="background:#FFF3CA;border:1px solid #ccc;"></div>Cream · 0%</div>
-      <div style="color:rgba(255,255,255,0.2);font-size:11px;">→</div>
-      <div class="gradient-stop"><div class="gradient-stop-dot" style="background:#FF9F94;"></div>Peach · 33%</div>
-      <div style="color:rgba(255,255,255,0.2);font-size:11px;">→</div>
-      <div class="gradient-stop"><div class="gradient-stop-dot" style="background:#AD72BD;"></div>Mauve · 66%</div>
-      <div style="color:rgba(255,255,255,0.2);font-size:11px;">→</div>
-      <div class="gradient-stop"><div class="gradient-stop-dot" style="background:#7152DA;"></div>Purple · 100%</div>
-    </div>
-    <p style="font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;">Default for logo, hero surfaces, and key brand moments. Use on white or dark backgrounds where the gradient can shine.</p>
-  </div>
-</section>
-
-<div style="height:1px;background:var(--ls-border-dark);"></div>
-
-<!-- TYPOGRAPHY -->
-<section id="typography" class="section" style="background:var(--ls-surface-dark);">
-  <div class="container">
-    <div class="label label-purple">Typography</div>
-    <h2 class="section-title">Type System</h2>
-
-    <!-- hero specimen -->
-    <div style="background:linear-gradient(135deg,#0d0020,#000);border-radius:var(--radius-card);padding:64px;margin-bottom:8px;overflow:hidden;position:relative;">
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(90,40,221,0.2) 0%,transparent 70%);"></div>
-      <div style="position:relative;">
-        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:24px;">Coolvetica — Primary Display Typeface</div>
-        <div style="font-family:var(--font-display);font-size:clamp(72px,10vw,140px);font-weight:900;line-height:0.88;letter-spacing:-0.02em;text-transform:uppercase;color:#fff;">THERE'S NO<br>EXACT RULE</div>
-        <div style="margin-top:32px;font-size:18px;font-weight:300;color:rgba(255,255,255,0.5);max-width:480px;line-height:1.6;">When setting type sizes, keep in mind they should have noticeable contrast between one another.</div>
-      </div>
-    </div>
-
-    <!-- secondary specimen -->
-    <div style="background:var(--ls-purple);border-radius:var(--radius-card);padding:64px;margin-bottom:48px;">
-      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px;">Founders Grotesk — Secondary Typeface</div>
-      <div style="font-size:52px;font-weight:300;color:rgba(255,255,255,0.9);line-height:1.1;margin-bottom:8px;">Light</div>
-      <div style="font-size:52px;font-weight:400;color:#fff;line-height:1.1;margin-bottom:8px;">Regular</div>
-      <div style="font-size:52px;font-weight:500;color:#fff;line-height:1.1;margin-bottom:8px;">Medium</div>
-      <div style="font-size:52px;font-weight:600;color:#fff;line-height:1.1;margin-bottom:8px;">Semibold</div>
-      <div style="font-size:52px;font-weight:700;color:#fff;line-height:1.1;">Bold</div>
-    </div>
-
-    <!-- type scale table -->
-    <div class="label">Type Scale</div>
-    <div class="type-scale">
-      <div class="type-row">
-        <div class="type-meta">Hero · 120px</div>
-        <div class="type-sample-display" style="font-size:clamp(40px,6vw,80px);">Web3 Moves Fast</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">Display · 72px</div>
-        <div class="type-sample-display" style="font-size:clamp(28px,4vw,56px);">Full-Stack Visual</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">H1 · 48px</div>
-        <div class="type-sample-display" style="font-size:clamp(22px,3vw,40px);">Design at Protocol Speed</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">H2 · 36px</div>
-        <div class="type-sample-body" style="font-size:28px;font-weight:600;">Built for builders everywhere</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">H3 · 24px</div>
-        <div class="type-sample-body" style="font-size:20px;font-weight:500;">No onboarding overhead</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">Body · 15px</div>
-        <div class="type-sample-body">Your protocol is complex. Your brand should communicate that. Visual systems that speak to developers and remain approachable for users.</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">Small · 13px</div>
-        <div class="type-sample-body" style="font-size:13px;color:rgba(255,255,255,0.6);">Every deliverable is production-ready. Visual systems that get built.</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">Caption · 11px</div>
-        <div class="type-sample-body" style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.06em;">www.layoutstudios.com · Page number</div>
-      </div>
-    </div>
-
-    <!-- font families -->
-    <div class="font-families">
-      <div class="font-card">
-        <div class="font-card-label">Display</div>
-        <div class="font-card-name">Coolvetica Condensed</div>
-        <div class="font-card-desc">Primary typeface. Heavy Crammed and Heavy Condensed for hero moments. Never use for body copy.</div>
-        <div class="font-demo-display">Aa</div>
-      </div>
-      <div class="font-card">
-        <div class="font-card-label">Body</div>
-        <div class="font-card-name">Founders Grotesk</div>
-        <div class="font-card-desc">Secondary typeface. Light through Bold. Used for subheads, body, UI labels, and documentation.</div>
-        <div class="font-demo-body">Aa</div>
-      </div>
-      <div class="font-card">
-        <div class="font-card-label">Accent / Script</div>
-        <div class="font-card-name">Sailhill</div>
-        <div class="font-card-desc">The occasional deviation — personality moments only. Never for UI or documentation.</div>
-        <div class="font-demo-script">The Deviation!</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div style="height:1px;background:rgba(255,255,255,0.06);"></div>
-
-<!-- PILLARS -->
-<section id="pillars" class="section" style="background:var(--ls-black);">
-  <div class="container">
-    <div class="pillars-intro">
-      <div>
-        <div class="label label-purple">Brand</div>
-        <h2 class="section-title">Brand<br>Pillars</h2>
-      </div>
-      <div>
-        <p style="font-size:16px;font-weight:300;color:rgba(255,255,255,0.5);line-height:1.7;">Four principles that define how Layout Studio thinks, works, and delivers. Every piece of output reflects all four — not just one.</p>
-      </div>
-    </div>
-
-    <div class="pillar-grid">
-      <!-- 01 -->
-      <div class="pillar-card">
-        <div class="pillar-num">01</div>
-        <div>
-          <div class="pillar-tag">Culture</div>
+      <!-- ========== 00 BRAND ========== -->
+      <section id="brand" class="anchor">
+        <div class="section-head">
+          <div class="section-num">00 — Foundations</div>
+          <h2 class="section-title">We design for companies building the future.</h2>
+          <p class="section-lede">
+            Layout Studio is a full-service design agency out of Lagos, working across brand, product, motion, 3D, and frontend. This system exists so every output — from a pitch deck to a shipped product — feels like it came from the same room.
+          </p>
         </div>
-        <div class="pillar-title">Ecosystem Native</div>
-        <div class="pillar-divider" style="width:100%;height:1px;background:rgba(255,255,255,0.08);"></div>
-        <div class="pillar-body">We don't design for Web3 — we build in it. Same culture. Same audience. Same instincts. We know what makes a drop hit. No learning curve. No glossary. Just work.</div>
-      </div>
-      <!-- 02 -->
-      <div class="pillar-card">
-        <div class="pillar-num">02</div>
-        <div>
-          <div class="pillar-tag">Discipline</div>
+
+        <div class="component-row">
+          <div class="ls-stat"><div class="ls-stat-value">6+</div><div class="ls-stat-label">Years across brand, product &amp; 3D</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">5</div><div class="ls-stat-label">Disciplines under one roof</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">4</div><div class="ls-stat-label">Countries served regularly</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">1</div><div class="ls-stat-label">Source of truth (this doc)</div></div>
         </div>
-        <div class="pillar-title">Full-Stack Visual</div>
-        <div class="pillar-divider" style="width:100%;height:1px;background:rgba(255,255,255,0.08);"></div>
-        <div class="pillar-body">One studio. Every discipline. Brand, motion, UI/UX, 3D visual design. All connected through a single system, not five vendors. We make sure it ships.</div>
-      </div>
-      <!-- 03 -->
-      <div class="pillar-card">
-        <div class="pillar-num">03</div>
-        <div>
-          <div class="pillar-tag">Execution</div>
-        </div>
-        <div class="pillar-title">Built to Ship</div>
-        <div class="pillar-divider" style="width:100%;height:1px;background:rgba(255,255,255,0.08);"></div>
-        <div class="pillar-body">No concepts that die in Notion. Every deliverable is production-ready, polished, built for every surface. If it leaves our studio, it goes live.</div>
-      </div>
-      <!-- 04 -->
-      <div class="pillar-card">
-        <div class="pillar-num">04</div>
-        <div>
-          <div class="pillar-tag">Reach</div>
-        </div>
-        <div class="pillar-title">Work Without Borders</div>
-        <div class="pillar-divider" style="width:100%;height:1px;background:rgba(255,255,255,0.08);"></div>
-        <div class="pillar-body">Web3 is global. So are we. Based in Dubai, working with teams in Singapore, Switzerland, and London. Standard standards everywhere. Any timezone.</div>
-      </div>
-    </div>
 
-    <!-- tagline banner -->
-    <div style="margin-top:8px;background:var(--ls-white);border-radius:var(--radius-card);padding:40px 48px;text-align:center;">
-      <div style="font-family:var(--font-display);font-size:clamp(22px,3.5vw,42px);font-weight:900;letter-spacing:-0.02em;text-transform:uppercase;color:var(--ls-black);line-height:1;">You build the product. We build the visual layer.</div>
-    </div>
-  </div>
-</section>
-
-<div style="height:1px;background:var(--ls-border-dark);"></div>
-
-<!-- COMPONENTS -->
-<section id="components" class="section" style="background:var(--ls-surface-dark);">
-  <div class="container">
-    <div class="label label-purple">Components</div>
-    <h2 class="section-title">Component<br>Library</h2>
-
-    <!-- Pills -->
-    <div class="component-group">
-      <div class="component-label">Pills / Tags</div>
-      <div class="pill-row">
-        <span class="pill pill-purple">Protocol Teams</span>
-        <span class="pill pill-black">NFT Projects</span>
-        <span class="pill pill-gradient">Crypto VC</span>
-        <span class="pill pill-coral">Campaign</span>
-        <span class="pill pill-outline">DAOs</span>
-        <span class="pill pill-light">Web3 Native</span>
-      </div>
-    </div>
-
-    <!-- Buttons -->
-    <div class="component-group">
-      <div class="component-label">Buttons</div>
-      <div class="btn-row">
-        <a href="#" class="btn btn-primary">Start a Project</a>
-        <a href="#" class="btn btn-black">View Portfolio</a>
-        <a href="#" class="btn btn-gradient">Get Started</a>
-        <a href="#" class="btn btn-outline">Learn More</a>
-        <a href="#" class="btn btn-coral">Campaign CTA</a>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div class="component-group">
-      <div class="component-label">Stat Cards</div>
-      <div class="stat-grid">
-        <div class="stat-card stat-card-dark">
-          <div class="stat-val">200+</div>
-          <div class="stat-lbl">Protocols designed for across 14 ecosystems</div>
-        </div>
-        <div class="stat-card stat-card-purple">
-          <div class="stat-val">1,500</div>
-          <div class="stat-lbl">NFTs minted. 57 ETH volume. One visual system.</div>
-        </div>
-        <div class="stat-card stat-card-light">
-          <div class="stat-val" style="color:var(--ls-charcoal);">4</div>
-          <div class="stat-lbl" style="color:rgba(30,30,30,0.5);">Global studios: Dubai, Singapore, Switzerland, London</div>
-        </div>
-        <div class="stat-card stat-card-outline">
-          <div class="stat-val">$0</div>
-          <div class="stat-lbl">Onboarding overhead. Skip the "what is an L2" conversations.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dark cards -->
-    <div class="component-group">
-      <div class="component-label">Content Cards</div>
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-tag">For Protocol Teams</div>
-          <div class="card-num">01</div>
-          <div class="card-title">Technical Credibility</div>
-          <div class="card-rule"></div>
-          <div class="card-body">Brand systems that match your protocol's ambition. DApp interfaces developers actually want to use.</div>
-        </div>
-        <div class="card card-gradient">
-          <div class="card-tag">For NFT Projects</div>
-          <div class="card-num">02</div>
-          <div class="card-title">Launch-Ready Visuals</div>
-          <div class="card-rule"></div>
-          <div class="card-body">Art direction that defines the collection. Mint page UX optimised for conversion. Motion that earns attention.</div>
-        </div>
-        <div class="card card-purple">
-          <div class="card-tag">For Crypto VC</div>
-          <div class="card-num">03</div>
-          <div class="card-title">Portfolio-Wide Design</div>
-          <div class="card-rule"></div>
-          <div class="card-body">Premium brand presence for your fund. Pitch decks that help founders close rounds. LP materials.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div style="height:1px;background:rgba(255,255,255,0.06);"></div>
-
-<!-- THEMES -->
-<section id="themes" class="section" style="background:var(--ls-black);">
-  <div class="container">
-    <div class="label label-purple">Themes</div>
-    <h2 class="section-title">Slide Themes</h2>
-    <p class="section-sub">Five backgrounds. Every slide picks one. Gradient and Dark carry the brand furthest.</p>
-
-    <div class="theme-grid">
-      <div class="theme-swatch theme-dark" data-label="Dark">
-        <div class="theme-swatch-title">Dark</div>
-        <div class="theme-swatch-sub">Primary canvas — most slides</div>
-      </div>
-      <div class="theme-swatch theme-light" data-label="Light">
-        <div class="theme-swatch-title">Light</div>
-        <div class="theme-swatch-sub">Documentation, wireframes</div>
-      </div>
-      <div class="theme-swatch theme-purple" data-label="Purple">
-        <div class="theme-swatch-title">Purple</div>
-        <div class="theme-swatch-sub">Brand-forward accent slides</div>
-      </div>
-      <div class="theme-swatch theme-gradient" data-label="Gradient">
-        <div class="theme-swatch-title">Gradient</div>
-        <div class="theme-swatch-sub">Hero moments, covers</div>
-      </div>
-      <div class="theme-swatch theme-cream" data-label="Cream">
-        <div class="theme-swatch-title">Cream</div>
-        <div class="theme-swatch-sub">Warm editorial moments</div>
-      </div>
-      <div class="theme-swatch theme-coral" data-label="Coral">
-        <div class="theme-swatch-title">Coral</div>
-        <div class="theme-swatch-sub">Campaign only — not default</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div style="height:1px;background:var(--ls-border-dark);"></div>
-
-<!-- LAYOUTS -->
-<section id="layouts" class="section" style="background:var(--ls-surface-dark);">
-  <div class="container">
-    <div class="label label-purple">Layout Grid</div>
-    <h2 class="section-title">Slide Layouts<br>L01 — L07</h2>
-    <p class="section-sub">Seven named layouts for 1440×810 slide canvases. Mix and match across a deck — but pick one per slide.</p>
-
-    <div class="layout-grid-3">
-      <!-- L01 -->
-      <div class="layout-preview-wrap">
-        <div class="layout-label-row">
-          <span class="layout-code">L01</span>
-          <span class="layout-desc">22% left + 2×2 grid</span>
-        </div>
-        <div class="layout-preview lp-l01">
-          <div class="blk blk-purple"><div><div class="blk-lbl">Left</div></div></div>
-          <div class="right">
-            <div class="blk"><div class="blk-num">01</div></div>
-            <div class="blk"><div class="blk-num">02</div></div>
-            <div class="blk"><div class="blk-num">03</div></div>
-            <div class="blk"><div class="blk-num">04</div></div>
+        <h3 class="subsection-title">Brand pillars</h3>
+        <div class="component-row">
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Culture</span>
+            <div class="ls-card-number">01</div>
+            <div class="ls-card-title">Ecosystem<br/>Native</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Fluent in tech, startups, and Web3. No onboarding needed, no translation layer.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Discipline</span>
+            <div class="ls-card-number">02</div>
+            <div class="ls-card-title">Full-Stack<br/>Visual</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">One studio, every discipline. Brand, product, motion, 3D, frontend.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Execution</span>
+            <div class="ls-card-number">03</div>
+            <div class="ls-card-title">Built<br/>to Ship</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Production-ready, always. Every file handoff is a working file.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Reach</span>
+            <div class="ls-card-number">04</div>
+            <div class="ls-card-title">Without<br/>Borders</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Based in Lagos, operating at the global standard of craft.</p>
           </div>
         </div>
-      </div>
-      <!-- L02 -->
-      <div class="layout-preview-wrap">
-        <div class="layout-label-row">
-          <span class="layout-code">L02</span>
-          <span class="layout-desc">22% left + top 2-col + wide bottom</span>
+      </section>
+
+      <!-- ========== 01 COLORS ========== -->
+      <section id="colors" class="anchor">
+        <div class="section-head">
+          <div class="section-num">01 — Color</div>
+          <h2 class="section-title">A sharp palette, used with intent.</h2>
+          <p class="section-lede">
+            Dark-first, purple-accented. Gradients are reserved for signature moments — never filler. Coral is campaign-only.
+          </p>
         </div>
-        <div class="layout-preview lp-l02">
-          <div class="blk blk-purple"></div>
-          <div class="right">
-            <div class="top">
-              <div class="blk"></div>
-              <div class="blk"></div>
+
+        <h3 class="subsection-title">Core</h3>
+        <div class="token-grid">
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#000000;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Pure Black</div><div class="swatch-hex">#000000</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#1E1E1E;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Midnight Charcoal</div><div class="swatch-hex">#1E1E1E</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#5A28DD;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Electric Purple</div><div class="swatch-hex">#5A28DD</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#FFFFFF; border-bottom: 1px solid #E0E0E0;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Pure White</div><div class="swatch-hex">#FFFFFF</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#F5F5F0;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Off White</div><div class="swatch-hex">#F5F5F0</div></div>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Extended</h3>
+        <div class="token-grid">
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#3B1FA8;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Deep Purple</div><div class="swatch-hex">#3B1FA8</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#9B7FE8;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Lavender</div><div class="swatch-hex">#9B7FE8</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#E8453C;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Coral <span style="opacity:0.5">(campaign only)</span></div><div class="swatch-hex">#E8453C</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#FFF3CA;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Warm Cream</div><div class="swatch-hex">#FFF3CA</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#FF9F94;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Peach</div><div class="swatch-hex">#FF9F94</div></div>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Signature gradient</h3>
+        <div class="swatch swatch-gradient" style="grid-column: span 2;">
+          <div class="swatch-fill" style="height: 180px;"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Layout Gradient</div>
+            <div class="swatch-hex">#FFF3CA → #FF9F94 → #AD72BD → #7152DA</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <button class="copy-btn" data-copy="gradient-code">Copy</button>
+<pre id="gradient-code"><span class="token-selector">background</span>: <span class="token-value">linear-gradient(135deg, #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%);</span></pre>
+        </div>
+      </section>
+
+      <!-- ========== 02 TYPOGRAPHY ========== -->
+      <section id="typography" class="anchor">
+        <div class="section-head">
+          <div class="section-num">02 — Typography</div>
+          <h2 class="section-title">Coolvetica commands. Founders Grotesk carries the weight.</h2>
+          <p class="section-lede">
+            Coolvetica for headlines that need to hold a room. Founders Grotesk for everything else. Never Helvetica, never Arial — not on designed surfaces.
+          </p>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Hero / Statement</strong>
+            Coolvetica<br/>
+            Heavy Compressed<br/>
+            72px · 0.9 lh
+          </div>
+          <div class="type-sample-hero">Every ambitious company deserves design that matches the scale of what they're building.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Display</strong>
+            Coolvetica<br/>
+            Heavy Condensed<br/>
+            40px · 0.95 lh
+          </div>
+          <div class="type-sample-display">Stop the scroll</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Page title (H1)</strong>
+            Founders Grotesk<br/>
+            Bold · 700<br/>
+            36px · 1.05 lh
+          </div>
+          <div class="type-sample-h1">We design for companies building the future.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Section (H2)</strong>
+            Founders Grotesk<br/>
+            Semibold · 600<br/>
+            28px · 1.1 lh
+          </div>
+          <div class="type-sample-h2">Four areas where design moves the needle.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Subhead (H3)</strong>
+            Founders Grotesk<br/>
+            Semibold · 600<br/>
+            22px · 1.15 lh
+          </div>
+          <div class="type-sample-h3">Serving clients worldwide</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Body</strong>
+            Founders Grotesk<br/>
+            Regular · 400<br/>
+            16px · 1.6 lh
+          </div>
+          <div class="type-sample-body">We embed into your team's workflow, treating every project as a true partnership. Collaboration isn't a pitch deck word for us.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Caption / Chrome</strong>
+            Founders Grotesk<br/>
+            Light · 300<br/>
+            12px · 1.4 lh
+          </div>
+          <div class="type-sample-caption">Layout Studios 2026 ⊛ Proposal · Introduction</div>
+        </div>
+
+        <div class="code-block">
+          <button class="copy-btn" data-copy="font-code">Copy</button>
+<pre id="font-code"><span class="token-prop">--font-display</span>: <span class="token-value">'Coolvetica', 'Arial Black', sans-serif;</span>
+<span class="token-prop">--font-body</span>:    <span class="token-value">'Founders Grotesk', 'Inter', sans-serif;</span>
+
+<span class="token-comment">/* Font files in /assets/fonts/ — see layout-studio-brand skill */</span>
+<span class="token-comment">/* Most used: Coolvetica_Hv_Comp.otf · FoundersGrotesk-Regular.otf */</span></pre>
+        </div>
+      </section>
+
+      <!-- ========== 03 LOGO ========== -->
+      <section id="logo" class="anchor">
+        <div class="section-head">
+          <div class="section-num">03 — Logo</div>
+          <h2 class="section-title">The mark and how it behaves.</h2>
+          <p class="section-lede">
+            Three interlocking panels. Gradient is default on digital. Solid white or black only when gradient can't reproduce. The wordmark never travels without the mark.
+          </p>
+        </div>
+
+        <div class="logo-grid">
+          <!-- Gradient on light — Frame 2147234829.svg (actual brand file) -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-light">
+              <svg viewBox="0 0 338 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g-light-grad" x1="3.59559" y1="61.6597" x2="-5.40537" y2="10.653" gradientUnits="userSpaceOnUse">
+                    <stop offset="6.16%"  stop-color="#FFF3CA"/>
+                    <stop offset="32.31%" stop-color="#FF9F94"/>
+                    <stop offset="71.62%" stop-color="#AD72BD"/>
+                    <stop offset="100%"   stop-color="#7152DA"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 0.472656H29.3337L31.5422 32.0715L0 27.5412V0.472656Z"           fill="url(#g-light-grad)"/>
+                <path d="M0 63.6136H29.3337L31.5422 32.0715L0 36.5451V63.6136Z"              fill="url(#g-light-grad)"/>
+                <path d="M63.0843 63.6136H33.7507L31.5422 32.0715L63.0843 36.5451V63.6136Z"  fill="url(#g-light-grad)"/>
+                <path d="M116.196 63.5609H74.166V0.444696H87.3426V51.0904H116.196V63.5609Z"  fill="black"/>
+                <path d="M147.346 44.8339L147.441 39.7149C146.209 40.9473 144.028 41.6108 139.478 42.464C132.463 43.7911 130.188 45.7818 130.188 49.7633C130.188 53.2707 132.274 54.977 136.16 54.977C142.511 54.977 147.251 50.332 147.346 44.8339ZM159.764 63.5291H147.536V58.3897C144.597 61.6127 139.668 63.793 133.411 63.793C122.794 63.793 117.865 58.5793 117.865 50.9956C117.865 37.5346 126.87 36.0179 139.288 34.3116C145.45 33.4584 147.156 32.2261 147.156 29.003C147.156 25.9696 144.123 24.1684 139.288 24.1684C133.695 24.1684 131.42 26.9175 130.852 31.0885H119.381C119.571 21.4194 124.879 14.6889 139.857 14.6889C154.645 14.6889 159.764 21.3246 159.764 33.0792V63.5291Z" fill="black"/>
+                <path d="M192.026 63.9826V57.2273C190.32 61.3983 185.201 63.863 179.418 63.863C169.654 63.863 162.355 56.399 162.355 46.161V15.9212H174.678V44.3599C174.678 50.1425 177.333 53.0811 182.546 53.0811C188.139 53.0811 192.026 49.3841 192.026 44.3599V15.9212H204.349V63.793C204.349 76.9696 194.87 84.6481 182.926 84.6481C169.275 84.6481 162.355 77.1592 162.355 65.1202H173.825C173.825 70.6183 177.048 74.031 183.494 74.031C187.95 74.031 192.026 70.1443 192.026 63.9826Z" fill="black"/>
+                <path d="M230.035 53.4603C237.523 53.4603 241.315 48.7205 241.315 39.2409C241.315 29.7614 237.523 25.1164 230.035 25.1164C222.546 25.1164 218.754 29.7614 218.754 39.2409C218.754 48.7205 222.546 53.4603 230.035 53.4603ZM230.035 63.793C214.962 63.793 206.051 53.7447 206.051 39.2409C206.051 24.4528 215.246 14.6889 230.035 14.6889C244.633 14.6889 253.733 24.358 253.733 39.2409C253.733 54.0291 244.538 63.793 230.035 63.793Z" fill="black"/>
+                <path d="M297.345 63.5291H285.686V56.0198C282.462 61.3283 277.628 63.793 271.182 63.793C261.892 63.793 255.351 56.8729 255.351 46.635V15.9212H267.674V44.7391C267.674 50.6164 270.329 53.4603 275.542 53.4603C281.799 53.4603 285.117 49.0049 285.117 42.8432V15.9212H297.345V63.5291Z" fill="black"/>
+                <path d="M326.353 43.9807V31.8469H337.823V45.1183C337.823 54.977 332.135 63.793 318.959 63.793C305.308 63.793 299.905 55.0718 299.905 45.0235V0H312.039V15.9212H337.823V24.6424H312.039V43.7911C312.039 49.6685 314.124 53.0811 319.148 53.0811C324.078 53.0811 326.353 49.7633 326.353 43.9807Z" fill="black"/>
+              </svg>
             </div>
-            <div class="blk blk-dark"></div>
+            <div class="logo-card-meta">
+              <strong>Primary · Gradient</strong>
+              <span>Default for digital</span>
+            </div>
+          </div>
+
+          <!-- Mono White on dark — Frame 2147234829.svg paths, all fills white -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-dark">
+              <svg viewBox="0 0 338 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0.472656H29.3337L31.5422 32.0715L0 27.5412V0.472656Z"           fill="white"/>
+                <path d="M0 63.6136H29.3337L31.5422 32.0715L0 36.5451V63.6136Z"              fill="white"/>
+                <path d="M63.0843 63.6136H33.7507L31.5422 32.0715L63.0843 36.5451V63.6136Z"  fill="white"/>
+                <path d="M116.196 63.5609H74.166V0.444696H87.3426V51.0904H116.196V63.5609Z"  fill="white"/>
+                <path d="M147.346 44.8339L147.441 39.7149C146.209 40.9473 144.028 41.6108 139.478 42.464C132.463 43.7911 130.188 45.7818 130.188 49.7633C130.188 53.2707 132.274 54.977 136.16 54.977C142.511 54.977 147.251 50.332 147.346 44.8339ZM159.764 63.5291H147.536V58.3897C144.597 61.6127 139.668 63.793 133.411 63.793C122.794 63.793 117.865 58.5793 117.865 50.9956C117.865 37.5346 126.87 36.0179 139.288 34.3116C145.45 33.4584 147.156 32.2261 147.156 29.003C147.156 25.9696 144.123 24.1684 139.288 24.1684C133.695 24.1684 131.42 26.9175 130.852 31.0885H119.381C119.571 21.4194 124.879 14.6889 139.857 14.6889C154.645 14.6889 159.764 21.3246 159.764 33.0792V63.5291Z" fill="white"/>
+                <path d="M192.026 63.9826V57.2273C190.32 61.3983 185.201 63.863 179.418 63.863C169.654 63.863 162.355 56.399 162.355 46.161V15.9212H174.678V44.3599C174.678 50.1425 177.333 53.0811 182.546 53.0811C188.139 53.0811 192.026 49.3841 192.026 44.3599V15.9212H204.349V63.793C204.349 76.9696 194.87 84.6481 182.926 84.6481C169.275 84.6481 162.355 77.1592 162.355 65.1202H173.825C173.825 70.6183 177.048 74.031 183.494 74.031C187.95 74.031 192.026 70.1443 192.026 63.9826Z" fill="white"/>
+                <path d="M230.035 53.4603C237.523 53.4603 241.315 48.7205 241.315 39.2409C241.315 29.7614 237.523 25.1164 230.035 25.1164C222.546 25.1164 218.754 29.7614 218.754 39.2409C218.754 48.7205 222.546 53.4603 230.035 53.4603ZM230.035 63.793C214.962 63.793 206.051 53.7447 206.051 39.2409C206.051 24.4528 215.246 14.6889 230.035 14.6889C244.633 14.6889 253.733 24.358 253.733 39.2409C253.733 54.0291 244.538 63.793 230.035 63.793Z" fill="white"/>
+                <path d="M297.345 63.5291H285.686V56.0198C282.462 61.3283 277.628 63.793 271.182 63.793C261.892 63.793 255.351 56.8729 255.351 46.635V15.9212H267.674V44.7391C267.674 50.6164 270.329 53.4603 275.542 53.4603C281.799 53.4603 285.117 49.0049 285.117 42.8432V15.9212H297.345V63.5291Z" fill="white"/>
+                <path d="M326.353 43.9807V31.8469H337.823V45.1183C337.823 54.977 332.135 63.793 318.959 63.793C305.308 63.793 299.905 55.0718 299.905 45.0235V0H312.039V15.9212H337.823V24.6424H312.039V43.7911C312.039 49.6685 314.124 53.0811 319.148 53.0811C324.078 53.0811 326.353 49.7633 326.353 43.9807Z" fill="white"/>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Primary · White</strong>
+              <span>Dark backgrounds, photo overlays</span>
+            </div>
+          </div>
+
+          <!-- Mono Black on light — Frame 2147234885.svg (actual brand file, all black) -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-light">
+              <svg viewBox="0 0 510 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0.71875H44.2189L47.5481 48.3522L0 41.523V0.71875Z" fill="black"/>
+                <path d="M0 95.9003H44.2189L47.5481 48.3522L0 55.096V95.9003Z" fill="black"/>
+                <path d="M95.0962 95.9003H50.8773L47.5481 48.3522L95.0962 55.096V95.9003Z" fill="black"/>
+                <path d="M175.175 95.8146H111.816V0.670355H131.679V77.016H175.175V95.8146Z" fill="black"/>
+                <path d="M222.131 67.5846L222.274 59.868C220.416 61.7257 217.13 62.726 210.271 64.0121C199.696 66.0127 196.267 69.0136 196.267 75.0154C196.267 80.3026 199.41 82.8748 205.269 82.8748C214.843 82.8748 221.988 75.8728 222.131 67.5846ZM240.851 95.7666H222.417V88.0192C217.987 92.8778 210.556 96.1644 201.125 96.1644C185.12 96.1644 177.69 88.305 177.69 76.8731C177.69 56.5814 191.265 54.295 209.985 51.7228C219.273 50.4367 221.845 48.579 221.845 43.7204C221.845 39.1477 217.273 36.4326 209.985 36.4326C201.554 36.4326 198.124 40.5766 197.267 46.8642H179.976C180.262 32.2885 188.264 22.1427 210.842 22.1427C233.135 22.1427 240.851 32.1456 240.851 49.8651V95.7666Z" fill="black"/>
+                <path d="M289.484 96.4502V86.267C286.912 92.5546 279.195 96.2699 270.478 96.2699C255.759 96.2699 244.756 85.0183 244.756 69.5852V24.0003H263.333V66.8701C263.333 75.587 267.334 80.0168 275.194 80.0168C283.625 80.0168 289.484 74.4438 289.484 66.8701V24.0003H308.061V96.1644C308.061 116.027 293.771 127.602 275.765 127.602C255.188 127.602 244.756 116.313 244.756 98.165H262.047C262.047 106.453 266.906 111.598 276.623 111.598C283.339 111.598 289.484 105.739 289.484 96.4502Z" fill="black"/>
+                <path d="M346.78 80.5884C358.069 80.5884 363.785 73.4435 363.785 59.1535C363.785 44.8636 358.069 37.8616 346.78 37.8616C335.491 37.8616 329.775 44.8636 329.775 59.1535C329.775 73.4435 335.491 80.5884 346.78 80.5884ZM346.78 96.1644C324.059 96.1644 310.626 81.0171 310.626 59.1535C310.626 36.8613 324.487 22.1427 346.78 22.1427C368.786 22.1427 382.504 36.7184 382.504 59.1535C382.504 81.4458 368.643 96.1644 346.78 96.1644Z" fill="black"/>
+                <path d="M448.247 95.7666H430.67V84.4467C425.812 92.4491 418.524 96.1644 408.807 96.1644C394.803 96.1644 384.943 85.7328 384.943 70.2997V24.0003H403.52V67.4417C403.52 76.3015 407.521 80.5884 415.38 80.5884C424.812 80.5884 429.813 73.8722 429.813 64.5837V24.0003H448.247V95.7666Z" fill="black"/>
+                <path d="M491.974 66.2985V48.0074H509.265V68.0133C509.265 82.8748 500.691 96.1644 480.828 96.1644C460.251 96.1644 452.105 83.0177 452.105 67.8704V0H470.396V24.0003H509.265V37.1471H470.396V66.0127C470.396 74.8725 473.54 80.0168 481.114 80.0168C488.545 80.0168 491.974 75.0154 491.974 66.2985Z" fill="black"/>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Primary · Black</strong>
+              <span>Print, embossing, single-tone</span>
+            </div>
+          </div>
+
+          <!-- On Purple — Frame 2147234829.svg paths, all fills white -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-purple">
+              <svg viewBox="0 0 338 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0.472656H29.3337L31.5422 32.0715L0 27.5412V0.472656Z"           fill="white"/>
+                <path d="M0 63.6136H29.3337L31.5422 32.0715L0 36.5451V63.6136Z"              fill="white"/>
+                <path d="M63.0843 63.6136H33.7507L31.5422 32.0715L63.0843 36.5451V63.6136Z"  fill="white"/>
+                <path d="M116.196 63.5609H74.166V0.444696H87.3426V51.0904H116.196V63.5609Z"  fill="white"/>
+                <path d="M147.346 44.8339L147.441 39.7149C146.209 40.9473 144.028 41.6108 139.478 42.464C132.463 43.7911 130.188 45.7818 130.188 49.7633C130.188 53.2707 132.274 54.977 136.16 54.977C142.511 54.977 147.251 50.332 147.346 44.8339ZM159.764 63.5291H147.536V58.3897C144.597 61.6127 139.668 63.793 133.411 63.793C122.794 63.793 117.865 58.5793 117.865 50.9956C117.865 37.5346 126.87 36.0179 139.288 34.3116C145.45 33.4584 147.156 32.2261 147.156 29.003C147.156 25.9696 144.123 24.1684 139.288 24.1684C133.695 24.1684 131.42 26.9175 130.852 31.0885H119.381C119.571 21.4194 124.879 14.6889 139.857 14.6889C154.645 14.6889 159.764 21.3246 159.764 33.0792V63.5291Z" fill="white"/>
+                <path d="M192.026 63.9826V57.2273C190.32 61.3983 185.201 63.863 179.418 63.863C169.654 63.863 162.355 56.399 162.355 46.161V15.9212H174.678V44.3599C174.678 50.1425 177.333 53.0811 182.546 53.0811C188.139 53.0811 192.026 49.3841 192.026 44.3599V15.9212H204.349V63.793C204.349 76.9696 194.87 84.6481 182.926 84.6481C169.275 84.6481 162.355 77.1592 162.355 65.1202H173.825C173.825 70.6183 177.048 74.031 183.494 74.031C187.95 74.031 192.026 70.1443 192.026 63.9826Z" fill="white"/>
+                <path d="M230.035 53.4603C237.523 53.4603 241.315 48.7205 241.315 39.2409C241.315 29.7614 237.523 25.1164 230.035 25.1164C222.546 25.1164 218.754 29.7614 218.754 39.2409C218.754 48.7205 222.546 53.4603 230.035 53.4603ZM230.035 63.793C214.962 63.793 206.051 53.7447 206.051 39.2409C206.051 24.4528 215.246 14.6889 230.035 14.6889C244.633 14.6889 253.733 24.358 253.733 39.2409C253.733 54.0291 244.538 63.793 230.035 63.793Z" fill="white"/>
+                <path d="M297.345 63.5291H285.686V56.0198C282.462 61.3283 277.628 63.793 271.182 63.793C261.892 63.793 255.351 56.8729 255.351 46.635V15.9212H267.674V44.7391C267.674 50.6164 270.329 53.4603 275.542 53.4603C281.799 53.4603 285.117 49.0049 285.117 42.8432V15.9212H297.345V63.5291Z" fill="white"/>
+                <path d="M326.353 43.9807V31.8469H337.823V45.1183C337.823 54.977 332.135 63.793 318.959 63.793C305.308 63.793 299.905 55.0718 299.905 45.0235V0H312.039V15.9212H337.823V24.6424H312.039V43.7911C312.039 49.6685 314.124 53.0811 319.148 53.0811C324.078 53.0811 326.353 49.7633 326.353 43.9807Z" fill="white"/>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>On Purple</strong>
+              <span>Brand moments, section breaks</span>
+            </div>
+          </div>
+
+          <!-- Full Logo · Gradient — Frame 2147234885.svg with gradient on icon paths -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-light">
+              <svg viewBox="0 0 510 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g-full-grad" x1="5.416" y1="92.748" x2="-8.134" y2="16.012" gradientUnits="userSpaceOnUse">
+                    <stop offset="6.16%"  stop-color="#FFF3CA"/>
+                    <stop offset="32.31%" stop-color="#FF9F94"/>
+                    <stop offset="71.62%" stop-color="#AD72BD"/>
+                    <stop offset="100%"   stop-color="#7152DA"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 0.71875H44.2189L47.5481 48.3522L0 41.523V0.71875Z"    fill="url(#g-full-grad)"/>
+                <path d="M0 95.9003H44.2189L47.5481 48.3522L0 55.096V95.9003Z"    fill="url(#g-full-grad)"/>
+                <path d="M95.0962 95.9003H50.8773L47.5481 48.3522L95.0962 55.096V95.9003Z" fill="url(#g-full-grad)"/>
+                <path d="M175.175 95.8146H111.816V0.670355H131.679V77.016H175.175V95.8146Z" fill="black"/>
+                <path d="M222.131 67.5846L222.274 59.868C220.416 61.7257 217.13 62.726 210.271 64.0121C199.696 66.0127 196.267 69.0136 196.267 75.0154C196.267 80.3026 199.41 82.8748 205.269 82.8748C214.843 82.8748 221.988 75.8728 222.131 67.5846ZM240.851 95.7666H222.417V88.0192C217.987 92.8778 210.556 96.1644 201.125 96.1644C185.12 96.1644 177.69 88.305 177.69 76.8731C177.69 56.5814 191.265 54.295 209.985 51.7228C219.273 50.4367 221.845 48.579 221.845 43.7204C221.845 39.1477 217.273 36.4326 209.985 36.4326C201.554 36.4326 198.124 40.5766 197.267 46.8642H179.976C180.262 32.2885 188.264 22.1427 210.842 22.1427C233.135 22.1427 240.851 32.1456 240.851 49.8651V95.7666Z" fill="black"/>
+                <path d="M289.484 96.4502V86.267C286.912 92.5546 279.195 96.2699 270.478 96.2699C255.759 96.2699 244.756 85.0183 244.756 69.5852V24.0003H263.333V66.8701C263.333 75.587 267.334 80.0168 275.194 80.0168C283.625 80.0168 289.484 74.4438 289.484 66.8701V24.0003H308.061V96.1644C308.061 116.027 293.771 127.602 275.765 127.602C255.188 127.602 244.756 116.313 244.756 98.165H262.047C262.047 106.453 266.906 111.598 276.623 111.598C283.339 111.598 289.484 105.739 289.484 96.4502Z" fill="black"/>
+                <path d="M346.78 80.5884C358.069 80.5884 363.785 73.4435 363.785 59.1535C363.785 44.8636 358.069 37.8616 346.78 37.8616C335.491 37.8616 329.775 44.8636 329.775 59.1535C329.775 73.4435 335.491 80.5884 346.78 80.5884ZM346.78 96.1644C324.059 96.1644 310.626 81.0171 310.626 59.1535C310.626 36.8613 324.487 22.1427 346.78 22.1427C368.786 22.1427 382.504 36.7184 382.504 59.1535C382.504 81.4458 368.643 96.1644 346.78 96.1644Z" fill="black"/>
+                <path d="M448.247 95.7666H430.67V84.4467C425.812 92.4491 418.524 96.1644 408.807 96.1644C394.803 96.1644 384.943 85.7328 384.943 70.2997V24.0003H403.52V67.4417C403.52 76.3015 407.521 80.5884 415.38 80.5884C424.812 80.5884 429.813 73.8722 429.813 64.5837V24.0003H448.247V95.7666Z" fill="black"/>
+                <path d="M491.974 66.2985V48.0074H509.265V68.0133C509.265 82.8748 500.691 96.1644 480.828 96.1644C460.251 96.1644 452.105 83.0177 452.105 67.8704V0H470.396V24.0003H509.265V37.1471H470.396V66.0127C470.396 74.8725 473.54 80.0168 481.114 80.0168C488.545 80.0168 491.974 75.0154 491.974 66.2985Z" fill="black"/>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Full · Gradient</strong>
+              <span>Proposals, pitch decks, formal</span>
+            </div>
+          </div>
+
+          <!-- Logomark only on gradient — actual icon paths from brand file, white fill -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-gradient">
+              <svg viewBox="0 0 63.1 64.2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0.472656H29.3337L31.5422 32.0715L0 27.5412V0.472656Z"           fill="white"/>
+                <path d="M0 63.6136H29.3337L31.5422 32.0715L0 36.5451V63.6136Z"              fill="white"/>
+                <path d="M63.0843 63.6136H33.7507L31.5422 32.0715L63.0843 36.5451V63.6136Z"  fill="white"/>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Logomark only</strong>
+              <span>Favicons, social avatars, watermarks</span>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- L03 -->
-      <div class="layout-preview-wrap">
-        <div class="layout-label-row">
-          <span class="layout-code">L03</span>
-          <span class="layout-desc">22% left + 2 stacked</span>
+
+        <h3 class="subsection-title">Clearance &amp; minimum size</h3>
+        <ul class="voice-list" style="max-width: 640px;">
+          <li>Clear space equal to the logomark "x" height on all sides</li>
+          <li>Minimum print size 30mm · Minimum digital size 100px</li>
+          <li>Logomark alone: 7mm print · 24px digital</li>
+          <li>Never stretch, rotate, shadow, or recolor outside the approved set</li>
+        </ul>
+      </section>
+
+      <!-- ========== 04 SPACING ========== -->
+      <section id="spacing" class="anchor">
+        <div class="section-head">
+          <div class="section-num">04 — Spacing</div>
+          <h2 class="section-title">Eight-pixel base. No odd numbers.</h2>
+          <p class="section-lede">
+            All spacing is a multiple of 4 or 8. When in doubt, round to the nearest 8. Never 7, never 13, never 22.
+          </p>
         </div>
-        <div class="layout-preview lp-l03">
-          <div class="blk blk-purple"></div>
-          <div class="right">
-            <div class="blk"></div>
-            <div class="blk blk-dark"></div>
+
+        <div class="spacing-list">
+          <div class="spacing-row">
+            <div class="spacing-key">--space-1</div>
+            <div class="spacing-value">4px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:4px;"></div><span class="spacing-note">Micro gaps · tag padding, divider margins</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-2</div>
+            <div class="spacing-value">8px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:8px;"></div><span class="spacing-note">Tight gaps · between related elements</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-3</div>
+            <div class="spacing-value">12px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:12px;"></div><span class="spacing-note">Default internal card spacing</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-4</div>
+            <div class="spacing-value">16px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:16px;"></div><span class="spacing-note">Gap between panels / cards</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-6</div>
+            <div class="spacing-value">24px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:24px;"></div><span class="spacing-note">Card internal padding</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-7</div>
+            <div class="spacing-value">30px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:30px;"></div><span class="spacing-note">Outer slide margin</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-8</div>
+            <div class="spacing-value">40px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:40px;"></div><span class="spacing-note">Breathing space · major section gaps</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-10</div>
+            <div class="spacing-value">64px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:64px;"></div><span class="spacing-note">Section padding on web layouts</span></div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <div class="layout-grid-2-2">
-      <!-- L04 -->
-      <div class="layout-preview-wrap">
-        <div class="layout-label-row">
-          <span class="layout-code">L04</span>
-          <span class="layout-desc">22% left + single large panel</span>
+      <!-- ========== 05 GRID ========== -->
+      <section id="grid" class="anchor">
+        <div class="section-head">
+          <div class="section-num">05 — Grid</div>
+          <h2 class="section-title">Seven canonical layouts.</h2>
+          <p class="section-lede">
+            Every slide, mockup, or content page starts from one of these. The tall left column at 24% is the signature anchor. Right side gets the remaining 76%.
+          </p>
         </div>
-        <div class="layout-preview lp-l04">
-          <div class="blk blk-purple"></div>
-          <div class="blk" style="min-height:unset;"></div>
-        </div>
-      </div>
-      <!-- L05 -->
-      <div class="layout-preview-wrap">
-        <div class="layout-label-row">
-          <span class="layout-code">L05</span>
-          <span class="layout-desc">4-col top + full banner bottom</span>
-        </div>
-        <div class="layout-preview lp-l05">
-          <div class="top">
-            <div class="blk"></div>
-            <div class="blk"></div>
-            <div class="blk"></div>
-            <div class="blk"></div>
+
+        <div class="grid-showcase">
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L01</strong><span>Split + 2×2</span></div>
+            <div class="grid-diagram grid-l01">
+              <div class="grid-cell"></div>
+              <div class="right"><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div></div>
+            </div>
+            <p class="grid-card-desc">Portfolio grids, case studies, image-heavy content</p>
           </div>
-          <div class="blk blk-gradient banner"></div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L02</strong><span>Split + wide bottom</span></div>
+            <div class="grid-diagram grid-l02">
+              <div class="grid-cell"></div>
+              <div class="right">
+                <div class="top"><div class="grid-cell"></div><div class="grid-cell"></div></div>
+                <div class="grid-cell"></div>
+              </div>
+            </div>
+            <p class="grid-card-desc">Hero image top, supporting visual bottom</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L03</strong><span>Split + 2 stacked</span></div>
+            <div class="grid-diagram grid-l03">
+              <div class="grid-cell"></div>
+              <div class="right"><div class="grid-cell"></div><div class="grid-cell"></div></div>
+            </div>
+            <p class="grid-card-desc">Before / after, comparison, two key visuals</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L04</strong><span>Split + single large</span></div>
+            <div class="grid-diagram grid-l04">
+              <div class="grid-cell"></div>
+              <div class="grid-cell accent"></div>
+            </div>
+            <p class="grid-card-desc">Hero shot, key mockup, most-used split</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L05</strong><span>4-col + banner</span></div>
+            <div class="grid-diagram grid-l05">
+              <div class="top"><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div></div>
+              <div class="grid-cell accent"></div>
+            </div>
+            <p class="grid-card-desc">Team grid, feature row, services + banner</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L06</strong><span>4 equal</span></div>
+            <div class="grid-diagram grid-l06">
+              <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            </div>
+            <p class="grid-card-desc">Four pillars, services, team members</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L07</strong><span>3 equal</span></div>
+            <div class="grid-diagram grid-l07">
+              <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            </div>
+            <p class="grid-card-desc">Three services, three steps, why us</p>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <button class="copy-btn" data-copy="grid-code">Copy</button>
+<pre id="grid-code"><span class="token-comment">/* L04 — Split Column + Single Large (most common) */</span>
+<span class="token-selector">.layout-l04</span> {
+  <span class="token-prop">display</span>: <span class="token-value">grid</span>;
+  <span class="token-prop">grid-template-columns</span>: <span class="token-value">24% 1fr</span>;
+  <span class="token-prop">gap</span>: <span class="token-value">var(--space-4)</span>;
+  <span class="token-prop">height</span>: <span class="token-value">100%</span>;
+}</pre>
+        </div>
+      </section>
+
+      <!-- ========== 06 COMPONENTS ========== -->
+      <section id="components" class="anchor">
+        <div class="section-head">
+          <div class="section-num">06 — Components</div>
+          <h2 class="section-title">The five components that show up everywhere.</h2>
+          <p class="section-lede">
+            Signature pieces of the system. Copy the markup, use the tokens, keep the geometry.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">Dark card — numbered pillar</h3>
+        <div class="component-row">
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Speed</span>
+            <div class="ls-card-number">01</div>
+            <div class="ls-card-title">Startup<br/>Native</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">We get early-stage companies. What moves fast, what investors look for.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Craft</span>
+            <div class="ls-card-number">02</div>
+            <div class="ls-card-title">Premium<br/>Quality</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Every pixel earns its place. Work that holds up against any agency, anywhere.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Reach</span>
+            <div class="ls-card-number">03</div>
+            <div class="ls-card-title">Global<br/>Perspective</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Working across continents gives us a unique lens on diverse markets.</p>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Tag pills</h3>
+        <div>
+          <span class="ls-pill">Brand Systems</span>
+          <span class="ls-pill">Product Design</span>
+          <span class="ls-pill ls-pill-purple">Motion Graphics</span>
+          <span class="ls-pill ls-pill-light">3D Design</span>
+          <span class="ls-pill ls-pill-light">Frontend</span>
+        </div>
+
+        <h3 class="subsection-title">Stat block</h3>
+        <div class="component-row">
+          <div class="ls-stat"><div class="ls-stat-value">$200M</div><div class="ls-stat-label">Assets under management across portfolio</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">10+</div><div class="ls-stat-label">Ventures in active incubation</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">6yrs</div><div class="ls-stat-label">Operating across tech and Web3</div></div>
+        </div>
+
+        <h3 class="subsection-title">Buttons</h3>
+        <div style="display:flex; gap: 12px; flex-wrap: wrap; padding: var(--space-5); background: var(--ls-black); border-radius: var(--radius-small);">
+          <button class="btn btn-primary">Meet with Layout <span>→</span></button>
+          <button class="btn btn-ghost">View portfolio</button>
+        </div>
+
+        <h3 class="subsection-title">Component CSS</h3>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="card-code">Copy</button>
+<pre id="card-code"><span class="token-selector">.ls-card-dark</span> {
+  <span class="token-prop">background</span>: <span class="token-value">var(--ls-surface-dark)</span>;
+  <span class="token-prop">border</span>: <span class="token-value">1px solid var(--ls-border-dark)</span>;
+  <span class="token-prop">border-radius</span>: <span class="token-value">var(--radius-card)</span>;
+  <span class="token-prop">padding</span>: <span class="token-value">var(--space-6)</span>;
+  <span class="token-prop">display</span>: <span class="token-value">flex</span>;
+  <span class="token-prop">flex-direction</span>: <span class="token-value">column</span>;
+  <span class="token-prop">justify-content</span>: <span class="token-value">flex-end</span>;
+  <span class="token-prop">color</span>: <span class="token-value">var(--ls-white)</span>;
+}</pre>
+        </div>
+      </section>
+
+      <!-- ========== 07 SLIDE ANATOMY ========== -->
+      <section id="slide-preview" class="anchor">
+        <div class="section-head">
+          <div class="section-num">07 — Slide anatomy</div>
+          <h2 class="section-title">How a single slide is built.</h2>
+          <p class="section-lede">
+            Chrome top and bottom, page title, content area. Canvas is 1440×810 at 16:9. Every slide inherits the same scaffolding.
+          </p>
+        </div>
+
+        <div class="preview-wrapper">
+          <div class="preview-scale">
+            <div class="slide" data-theme="dark">
+              <div class="chrome-top">
+                <span>Layout Studio 2026 · Design System</span>
+                <span>Components</span>
+                <!-- Chrome logo: white version of Frame 2147234829.svg -->
+                <svg width="80" height="20" viewBox="0 0 338 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0.472656H29.3337L31.5422 32.0715L0 27.5412V0.472656Z"           fill="white"/>
+                  <path d="M0 63.6136H29.3337L31.5422 32.0715L0 36.5451V63.6136Z"              fill="white"/>
+                  <path d="M63.0843 63.6136H33.7507L31.5422 32.0715L63.0843 36.5451V63.6136Z"  fill="white"/>
+                  <path d="M116.196 63.5609H74.166V0.444696H87.3426V51.0904H116.196V63.5609Z"  fill="white"/>
+                  <path d="M147.346 44.8339L147.441 39.7149C146.209 40.9473 144.028 41.6108 139.478 42.464C132.463 43.7911 130.188 45.7818 130.188 49.7633C130.188 53.2707 132.274 54.977 136.16 54.977C142.511 54.977 147.251 50.332 147.346 44.8339ZM159.764 63.5291H147.536V58.3897C144.597 61.6127 139.668 63.793 133.411 63.793C122.794 63.793 117.865 58.5793 117.865 50.9956C117.865 37.5346 126.87 36.0179 139.288 34.3116C145.45 33.4584 147.156 32.2261 147.156 29.003C147.156 25.9696 144.123 24.1684 139.288 24.1684C133.695 24.1684 131.42 26.9175 130.852 31.0885H119.381C119.571 21.4194 124.879 14.6889 139.857 14.6889C154.645 14.6889 159.764 21.3246 159.764 33.0792V63.5291Z" fill="white"/>
+                  <path d="M192.026 63.9826V57.2273C190.32 61.3983 185.201 63.863 179.418 63.863C169.654 63.863 162.355 56.399 162.355 46.161V15.9212H174.678V44.3599C174.678 50.1425 177.333 53.0811 182.546 53.0811C188.139 53.0811 192.026 49.3841 192.026 44.3599V15.9212H204.349V63.793C204.349 76.9696 194.87 84.6481 182.926 84.6481C169.275 84.6481 162.355 77.1592 162.355 65.1202H173.825C173.825 70.6183 177.048 74.031 183.494 74.031C187.95 74.031 192.026 70.1443 192.026 63.9826Z" fill="white"/>
+                  <path d="M230.035 53.4603C237.523 53.4603 241.315 48.7205 241.315 39.2409C241.315 29.7614 237.523 25.1164 230.035 25.1164C222.546 25.1164 218.754 29.7614 218.754 39.2409C218.754 48.7205 222.546 53.4603 230.035 53.4603ZM230.035 63.793C214.962 63.793 206.051 53.7447 206.051 39.2409C206.051 24.4528 215.246 14.6889 230.035 14.6889C244.633 14.6889 253.733 24.358 253.733 39.2409C253.733 54.0291 244.538 63.793 230.035 63.793Z" fill="white"/>
+                  <path d="M297.345 63.5291H285.686V56.0198C282.462 61.3283 277.628 63.793 271.182 63.793C261.892 63.793 255.351 56.8729 255.351 46.635V15.9212H267.674V44.7391C267.674 50.6164 270.329 53.4603 275.542 53.4603C281.799 53.4603 285.117 49.0049 285.117 42.8432V15.9212H297.345V63.5291Z" fill="white"/>
+                  <path d="M326.353 43.9807V31.8469H337.823V45.1183C337.823 54.977 332.135 63.793 318.959 63.793C305.308 63.793 299.905 55.0718 299.905 45.0235V0H312.039V15.9212H337.823V24.6424H312.039V43.7911C312.039 49.6685 314.124 53.0811 319.148 53.0811C324.078 53.0811 326.353 49.7633 326.353 43.9807Z" fill="white"/>
+                </svg>
+              </div>
+
+              <h2 class="page-title">Brand pillars</h2>
+
+              <div class="content-area" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="ls-card-dark">
+                  <span class="ls-card-tag">Culture</span>
+                  <div class="ls-card-number">01</div>
+                  <div class="ls-card-title">Ecosystem<br/>Native</div>
+                  <div class="ls-card-divider"></div>
+                  <p class="ls-card-body">Fluent in tech, startups, and Web3. No translation layer.</p>
+                </div>
+                <div class="ls-card-dark">
+                  <span class="ls-card-tag">Discipline</span>
+                  <div class="ls-card-number">02</div>
+                  <div class="ls-card-title">Full-Stack<br/>Visual</div>
+                  <div class="ls-card-divider"></div>
+                  <p class="ls-card-body">One studio, every discipline. Brand, product, motion, 3D.</p>
+                </div>
+                <div class="ls-card-dark">
+                  <span class="ls-card-tag">Execution</span>
+                  <div class="ls-card-number">03</div>
+                  <div class="ls-card-title">Built<br/>to Ship</div>
+                  <div class="ls-card-divider"></div>
+                  <p class="ls-card-body">Production-ready, always. Every file is a working file.</p>
+                </div>
+                <div class="ls-card-dark">
+                  <span class="ls-card-tag">Reach</span>
+                  <div class="ls-card-number">04</div>
+                  <div class="ls-card-title">Without<br/>Borders</div>
+                  <div class="ls-card-divider"></div>
+                  <p class="ls-card-body">Based in Lagos, operating at the global standard of craft.</p>
+                </div>
+              </div>
+
+              <div class="chrome-bottom">
+                <span>www.layoutstudio.co</span>
+                <span>07</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <button class="copy-btn" data-copy="slide-code">Copy</button>
+<pre id="slide-code"><span class="token-comment">&lt;!-- Base slide shell --&gt;</span>
+&lt;<span class="token-selector">div</span> <span class="token-prop">class</span>=<span class="token-value">"slide"</span> <span class="token-prop">data-theme</span>=<span class="token-value">"dark"</span>&gt;
+  &lt;<span class="token-selector">div</span> <span class="token-prop">class</span>=<span class="token-value">"chrome-top"</span>&gt;...&lt;/div&gt;
+  &lt;<span class="token-selector">h2</span> <span class="token-prop">class</span>=<span class="token-value">"page-title"</span>&gt;Brand pillars&lt;/h2&gt;
+  &lt;<span class="token-selector">div</span> <span class="token-prop">class</span>=<span class="token-value">"content-area layout-l06"</span>&gt;...&lt;/div&gt;
+  &lt;<span class="token-selector">div</span> <span class="token-prop">class</span>=<span class="token-value">"chrome-bottom"</span>&gt;...&lt;/div&gt;
+&lt;/<span class="token-selector">div</span>&gt;</pre>
+        </div>
+      </section>
+
+      <!-- ========== 08 VOICE ========== -->
+      <section id="voice" class="anchor">
+        <div class="section-head">
+          <div class="section-num">08 — Voice</div>
+          <h2 class="section-title">Direct. Confident. No corporate filler.</h2>
+          <p class="section-lede">
+            Short sentences. Real verbs. Fragments when they land. Numbers over adjectives.
+          </p>
+        </div>
+
+        <div class="voice-grid">
+          <div class="voice-card do">
+            <div class="voice-label">Do</div>
+            <ul class="voice-list">
+              <li>"We design for companies building the future."</li>
+              <li>"Ship ready, not concept-ready."</li>
+              <li>"One studio. Full-stack visual. Ecosystem native."</li>
+              <li>"Every pixel earns its place."</li>
+              <li>"1,500 NFTs sold. 57.7 ETH volume."</li>
+              <li>Use commas and full stops. Nothing else.</li>
+            </ul>
+          </div>
+          <div class="voice-card dont">
+            <div class="voice-label">Don't</div>
+            <ul class="voice-list">
+              <li>"Leveraging end-to-end solutions" — cut it</li>
+              <li>"Spearheading a paradigm shift" — cut it</li>
+              <li>"Best-in-class synergy" — delete</li>
+              <li>Em dashes in copy. They read as AI.</li>
+              <li>Helvetica or Arial on designed materials</li>
+              <li>Generic blue. Purple is the accent.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Core messages</h3>
+        <div class="component-row">
+          <div class="ls-stat" style="background: var(--ls-off-white);">
+            <div class="ls-stat-label" style="margin-bottom: 8px;">Tagline</div>
+            <div style="font-size: 20px; font-weight: 600; line-height: 1.2;">We design for companies building the future.</div>
+          </div>
+          <div class="ls-stat" style="background: var(--ls-off-white);">
+            <div class="ls-stat-label" style="margin-bottom: 8px;">Positioning</div>
+            <div style="font-size: 20px; font-weight: 600; line-height: 1.2;">You build the product. We build the visual layer.</div>
+          </div>
+          <div class="ls-stat" style="background: var(--ls-off-white);">
+            <div class="ls-stat-label" style="margin-bottom: 8px;">Value prop</div>
+            <div style="font-size: 20px; font-weight: 600; line-height: 1.2;">One studio. Full-stack visual. Ecosystem native.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 09 USAGE ========== -->
+      <section id="usage" class="anchor">
+        <div class="section-head">
+          <div class="section-num">09 — Usage</div>
+          <h2 class="section-title">How to pull this into Claude Design AI.</h2>
+          <p class="section-lede">
+            This file is self-contained. Host it on GitHub and point Claude Design AI at the raw URL. Every token and component becomes referenceable context.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">1 · Host on GitHub</h3>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="git-code">Copy</button>
+<pre id="git-code"><span class="token-comment"># Create repo</span>
+git init layoutstudio-design-system
+cd layoutstudio-design-system
+
+<span class="token-comment"># Add this file as index.html</span>
+cp ~/Downloads/index.html .
+
+<span class="token-comment"># Commit and push</span>
+git add .
+git commit -m <span class="token-value">"Initial design system v1.0"</span>
+git remote add origin https://github.com/lobzyjay/layoutstudio-design-system.git
+git push -u origin main
+
+<span class="token-comment"># Enable GitHub Pages in repo settings → Pages → Branch: main</span>
+<span class="token-comment"># Your system lives at: https://lobzyjay.github.io/layoutstudio-design-system/</span></pre>
+        </div>
+
+        <h3 class="subsection-title">2 · Point Claude Design AI at it</h3>
+        <p class="muted" style="max-width: 680px; margin-bottom: var(--space-4);">
+          In Claude Design AI, reference either the GitHub Pages URL or the raw file URL directly in your prompt.
+        </p>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="prompt-code">Copy</button>
+<pre id="prompt-code"><span class="token-comment"># Prompt template for Claude Design AI</span>
+
+Use the Layout Studio design system at
+https://lobzyjay.github.io/layoutstudio-design-system/
+
+Apply all tokens (colors, typography, spacing),
+components (ls-card-dark, ls-pill, ls-stat),
+and grid templates (L01–L07) exactly as defined.
+
+Build: <span class="token-value">[your brief here]</span></pre>
+        </div>
+
+        <h3 class="subsection-title">3 · Link specific sections</h3>
+        <p class="muted" style="max-width: 680px; margin-bottom: var(--space-4);">
+          Every section has a stable anchor. Reference them directly when you want Claude to focus on a specific part of the system.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px;">
+          <code class="token-string">/#colors</code>
+          <code class="token-string">/#typography</code>
+          <code class="token-string">/#logo</code>
+          <code class="token-string">/#spacing</code>
+          <code class="token-string">/#grid</code>
+          <code class="token-string">/#components</code>
+          <code class="token-string">/#voice</code>
+          <code class="token-string">/#tokens-export</code>
+        </div>
+      </section>
+
+      <!-- ========== 10 TOKENS EXPORT ========== -->
+      <section id="tokens-export" class="anchor">
+        <div class="section-head">
+          <div class="section-num">10 — Tokens</div>
+          <h2 class="section-title">Copy the whole thing.</h2>
+          <p class="section-lede">
+            Every token in one block. Drop it into any project, any stack. CSS variables below; JSON export follows.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">CSS variables</h3>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="all-tokens-css">Copy</button>
+<pre id="all-tokens-css"><span class="token-selector">:root</span> {
+  <span class="token-comment">/* Colors */</span>
+  <span class="token-prop">--ls-black</span>:        <span class="token-value">#000000</span>;
+  <span class="token-prop">--ls-charcoal</span>:     <span class="token-value">#1E1E1E</span>;
+  <span class="token-prop">--ls-purple</span>:       <span class="token-value">#5A28DD</span>;
+  <span class="token-prop">--ls-deep-purple</span>:  <span class="token-value">#3B1FA8</span>;
+  <span class="token-prop">--ls-lavender</span>:     <span class="token-value">#9B7FE8</span>;
+  <span class="token-prop">--ls-white</span>:        <span class="token-value">#FFFFFF</span>;
+  <span class="token-prop">--ls-off-white</span>:    <span class="token-value">#F5F5F0</span>;
+  <span class="token-prop">--ls-coral</span>:        <span class="token-value">#E8453C</span>;
+  <span class="token-prop">--ls-cream</span>:        <span class="token-value">#FFF3CA</span>;
+  <span class="token-prop">--ls-peach</span>:        <span class="token-value">#FF9F94</span>;
+
+  <span class="token-comment">/* Gradient */</span>
+  <span class="token-prop">--ls-gradient</span>: <span class="token-value">linear-gradient(135deg, #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%)</span>;
+
+  <span class="token-comment">/* Typography */</span>
+  <span class="token-prop">--font-display</span>: <span class="token-value">'Coolvetica', 'Arial Black', sans-serif</span>;
+  <span class="token-prop">--font-body</span>:    <span class="token-value">'Founders Grotesk', 'Inter', sans-serif</span>;
+
+  <span class="token-comment">/* Type scale */</span>
+  <span class="token-prop">--fs-hero</span>:    <span class="token-value">72px</span>;
+  <span class="token-prop">--fs-display</span>: <span class="token-value">48px</span>;
+  <span class="token-prop">--fs-h1</span>:      <span class="token-value">40px</span>;
+  <span class="token-prop">--fs-h2</span>:      <span class="token-value">32px</span>;
+  <span class="token-prop">--fs-h3</span>:      <span class="token-value">24px</span>;
+  <span class="token-prop">--fs-body</span>:    <span class="token-value">15px</span>;
+  <span class="token-prop">--fs-caption</span>: <span class="token-value">11px</span>;
+
+  <span class="token-comment">/* Spacing · 8px base */</span>
+  <span class="token-prop">--space-1</span>:  <span class="token-value">4px</span>;
+  <span class="token-prop">--space-2</span>:  <span class="token-value">8px</span>;
+  <span class="token-prop">--space-3</span>:  <span class="token-value">12px</span>;
+  <span class="token-prop">--space-4</span>:  <span class="token-value">16px</span>;
+  <span class="token-prop">--space-6</span>:  <span class="token-value">24px</span>;
+  <span class="token-prop">--space-7</span>:  <span class="token-value">30px</span>;
+  <span class="token-prop">--space-8</span>:  <span class="token-value">40px</span>;
+
+  <span class="token-comment">/* Slide canvas */</span>
+  <span class="token-prop">--slide-w</span>: <span class="token-value">1440px</span>;
+  <span class="token-prop">--slide-h</span>: <span class="token-value">810px</span>;
+
+  <span class="token-comment">/* Radius */</span>
+  <span class="token-prop">--radius-card</span>:  <span class="token-value">14px</span>;
+  <span class="token-prop">--radius-small</span>: <span class="token-value">8px</span>;
+  <span class="token-prop">--radius-pill</span>:  <span class="token-value">100px</span>;
+}</pre>
+        </div>
+
+        <h3 class="subsection-title">JSON (design tokens spec)</h3>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="all-tokens-json">Copy</button>
+<pre id="all-tokens-json">{
+  <span class="token-selector">"color"</span>: {
+    <span class="token-prop">"black"</span>:       { <span class="token-prop">"value"</span>: <span class="token-value">"#000000"</span> },
+    <span class="token-prop">"charcoal"</span>:    { <span class="token-prop">"value"</span>: <span class="token-value">"#1E1E1E"</span> },
+    <span class="token-prop">"purple"</span>:      { <span class="token-prop">"value"</span>: <span class="token-value">"#5A28DD"</span> },
+    <span class="token-prop">"deepPurple"</span>:  { <span class="token-prop">"value"</span>: <span class="token-value">"#3B1FA8"</span> },
+    <span class="token-prop">"lavender"</span>:    { <span class="token-prop">"value"</span>: <span class="token-value">"#9B7FE8"</span> },
+    <span class="token-prop">"white"</span>:       { <span class="token-prop">"value"</span>: <span class="token-value">"#FFFFFF"</span> },
+    <span class="token-prop">"offWhite"</span>:    { <span class="token-prop">"value"</span>: <span class="token-value">"#F5F5F0"</span> },
+    <span class="token-prop">"coral"</span>:       { <span class="token-prop">"value"</span>: <span class="token-value">"#E8453C"</span> }
+  },
+  <span class="token-selector">"font"</span>: {
+    <span class="token-prop">"display"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"Coolvetica, 'Arial Black', sans-serif"</span> },
+    <span class="token-prop">"body"</span>:    { <span class="token-prop">"value"</span>: <span class="token-value">"'Founders Grotesk', Inter, sans-serif"</span> }
+  },
+  <span class="token-selector">"space"</span>: {
+    <span class="token-prop">"1"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"4px"</span> },
+    <span class="token-prop">"2"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"8px"</span> },
+    <span class="token-prop">"3"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"12px"</span> },
+    <span class="token-prop">"4"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"16px"</span> },
+    <span class="token-prop">"6"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"24px"</span> },
+    <span class="token-prop">"7"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"30px"</span> },
+    <span class="token-prop">"8"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"40px"</span> }
+  },
+  <span class="token-selector">"radius"</span>: {
+    <span class="token-prop">"card"</span>:  { <span class="token-prop">"value"</span>: <span class="token-value">"14px"</span> },
+    <span class="token-prop">"small"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"8px"</span> },
+    <span class="token-prop">"pill"</span>:  { <span class="token-prop">"value"</span>: <span class="token-value">"100px"</span> }
+  }
+}</pre>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="footer-brand">Layout.</div>
+        <div class="footer-meta">
+          Design System v2.0 · 2026<br/>
+          <a href="https://www.layoutstudio.co" target="_blank">www.layoutstudio.co</a><br/>
+          Lagos · Dubai · Zurich · London
         </div>
       </div>
-    </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
-      <!-- L06 -->
-      <div class="layout-preview-wrap">
-        <div class="layout-label-row">
-          <span class="layout-code">L06</span>
-          <span class="layout-desc">4 equal columns</span>
-        </div>
-        <div class="layout-preview lp-l06">
-          <div class="blk blk-purple"><div class="blk-num">01</div></div>
-          <div class="blk"><div class="blk-num">02</div></div>
-          <div class="blk"><div class="blk-num">03</div></div>
-          <div class="blk"><div class="blk-num">04</div></div>
-        </div>
-      </div>
-      <!-- L07 -->
-      <div class="layout-preview-wrap">
-        <div class="layout-label-row">
-          <span class="layout-code">L07</span>
-          <span class="layout-desc">3 equal columns</span>
-        </div>
-        <div class="layout-preview lp-l07">
-          <div class="blk blk-purple"><div class="blk-num">01</div></div>
-          <div class="blk"><div class="blk-num">02</div></div>
-          <div class="blk"><div class="blk-num">03</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </div><!-- /.content -->
 
-<div style="height:1px;background:var(--ls-border-dark);"></div>
+  </main>
+</div>
 
-<!-- VOICE -->
-<section id="voice" class="section" style="background:var(--ls-black);">
-  <div class="container">
-    <div class="label label-purple">Brand Voice</div>
-    <h2 class="section-title">Messaging<br>& Voice</h2>
+<script>
+// ============================================================
+// Sidebar active state on scroll
+// ============================================================
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id], .anchor');
 
-    <div class="voice-hero">
-      <div style="position:relative;">
-        <div class="voice-hero-pre">We started Layout Studio because</div>
-        <div class="voice-hero-headline">Every Ambitious Company<br>Deserves Design That Matches<br>the Scale of What They're Building</div>
-        <div class="voice-hero-sub">Web3 moves fast. The visual layer should keep up. One studio, full-stack visual, ecosystem native, LFG.</div>
-      </div>
-    </div>
+function setActive() {
+  const y = window.scrollY + 120;
+  let current = '';
+  sections.forEach(s => {
+    if (s.offsetTop <= y) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}
 
-    <div class="voice-cards">
-      <div class="voice-card">
-        <div class="voice-card-tag purple">For Protocol Teams</div>
-        <div class="voice-card-headline">No onboarding overhead.</div>
-        <div class="voice-card-body">Skip the "what is an L2" conversations. We've shipped design for protocols since small. Brand systems, DApp interfaces, documentation. We know the deliverables and the deadlines.</div>
-      </div>
-      <div class="voice-card">
-        <div class="voice-card-tag purple">For Protocol Teams</div>
-        <div class="voice-card-headline">Ship ready, not concept-ready.</div>
-        <div class="voice-card-body">Every deliverable is production-ready. Visual systems that get built. Assets optimised for every surface. Docs. Discord. Twitter. DApp.</div>
-      </div>
-      <div class="voice-card">
-        <div class="voice-card-tag">For NFT Projects</div>
-        <div class="voice-card-headline">Art direction that defines the collection.</div>
-        <div class="voice-card-body">Beyond individual pieces — we create the visual system your collection lives in. Style guides, trait systems, creative direction. Everything that makes your project yours.</div>
-      </div>
-      <div class="voice-card">
-        <div class="voice-card-tag">For NFT Projects</div>
-        <div class="voice-card-headline">Motion that earns attention.</div>
-        <div class="voice-card-body">Reveal videos. Teaser campaigns. Animated loops. Motion design that communicates your collection's story in seconds.</div>
-      </div>
-    </div>
+window.addEventListener('scroll', setActive, { passive: true });
+setActive();
 
-    <!-- script accent -->
-    <div style="text-align:center;margin-top:64px;padding:40px;border:1px solid var(--ls-border-dark);border-radius:var(--radius-card);">
-      <div style="font-family:'Caveat',cursive;font-size:52px;color:rgba(255,255,255,0.6);line-height:1;">The Occasional Deviation!</div>
-      <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-top:12px;">Sailhill script — personality moments only</div>
-    </div>
-  </div>
-</section>
+// ============================================================
+// Copy-to-clipboard for code blocks
+// ============================================================
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const target = document.getElementById(btn.dataset.copy);
+    if (!target) return;
+    try {
+      await navigator.clipboard.writeText(target.innerText);
+      const original = btn.innerText;
+      btn.innerText = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerText = original;
+        btn.classList.remove('copied');
+      }, 1400);
+    } catch (e) {
+      console.error('Copy failed', e);
+    }
+  });
+});
 
-<div style="height:1px;background:var(--ls-border-dark);"></div>
-
-<!-- MOTION -->
-<section id="motion" class="section" style="background:var(--ls-surface-dark);">
-  <div class="container">
-    <div class="label label-purple">Motion</div>
-    <h2 class="section-title">Motion Tokens</h2>
-    <p class="section-sub">Hover each card to preview the easing. All motion uses ease-out by default — enter fast, exit slow never applies.</p>
-
-    <div class="motion-grid">
-      <div class="motion-card">
-        <div class="motion-demo motion-demo-fast"></div>
-        <div class="motion-name">Fast</div>
-        <div class="motion-value">160ms ease-out</div>
-        <div class="motion-desc">Micro-interactions: button hover, toggle, tooltip appear.</div>
-      </div>
-      <div class="motion-card">
-        <div class="motion-demo motion-demo-base"></div>
-        <div class="motion-name">Base</div>
-        <div class="motion-value">280ms ease-out</div>
-        <div class="motion-desc">Panel transitions, card reveals, modal enter.</div>
-      </div>
-      <div class="motion-card">
-        <div class="motion-demo motion-demo-slow"></div>
-        <div class="motion-name">Slow</div>
-        <div class="motion-value">520ms ease-out</div>
-        <div class="motion-desc">Page transitions, hero entrances, large content loads.</div>
-      </div>
-    </div>
-
-    <div style="background:var(--ls-surface-mid);border:1px solid var(--ls-border-dark);border-radius:var(--radius-card);padding:32px;margin-top:16px;">
-      <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.35);line-height:1.8;">
-        <span style="color:rgba(255,255,255,0.2);">/* Easing curve */</span><br>
-        <span style="color:var(--ls-lavender);">--ease-out:</span> <span style="color:var(--ls-cream);">cubic-bezier(0.16, 1, 0.3, 1)</span>;<br>
-        <span style="color:var(--ls-lavender);">--ease-in-out:</span> <span style="color:var(--ls-cream);">cubic-bezier(0.45, 0, 0.55, 1)</span>;<br><br>
-        <span style="color:rgba(255,255,255,0.2);">/* Duration */</span><br>
-        <span style="color:var(--ls-lavender);">--duration-fast:</span> <span style="color:var(--ls-cream);">160ms</span>;<br>
-        <span style="color:var(--ls-lavender);">--duration-base:</span> <span style="color:var(--ls-cream);">280ms</span>;<br>
-        <span style="color:var(--ls-lavender);">--duration-slow:</span> <span style="color:var(--ls-cream);">520ms</span>;<br>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-left">
-    <svg width="24" height="24" viewBox="0 0 56 56" fill="none">
-      <defs>
-        <linearGradient id="lm-footer" x1="0" y1="56" x2="56" y2="0">
-          <stop offset="0%" stop-color="#FF9F94"/>
-          <stop offset="50%" stop-color="#AD72BD"/>
-          <stop offset="100%" stop-color="#7152DA"/>
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0"  width="24" height="24" rx="3" fill="url(#lm-footer)"/>
-      <rect x="0" y="28" width="32" height="28" rx="3" fill="url(#lm-footer)"/>
-      <rect x="28" y="0" width="28" height="16" rx="3" fill="url(#lm-footer)"/>
-      <rect x="36" y="40" width="20" height="16" rx="3" fill="url(#lm-footer)"/>
-    </svg>
-    <div>
-      <div style="font-family:var(--font-display);font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;color:#fff;">Layout Studio</div>
-      <div class="footer-version">Design System v2.0 · 2026</div>
-    </div>
-  </div>
-  <div class="footer-right">
-    www.layoutstudios.com<br>
-    Shaping the visual layer of Web3
-  </div>
-</footer>
+// ============================================================
+// Click-to-copy on swatch hex values
+// ============================================================
+document.querySelectorAll('.swatch-hex').forEach(el => {
+  el.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(el.innerText);
+      const o = el.innerText;
+      el.innerText = 'Copied';
+      setTimeout(() => el.innerText = o, 1000);
+    } catch (e) {}
+  });
+});
+</script>
 
 </body>
 </html>
