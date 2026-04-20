@@ -12,6 +12,20 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 <style>
+@font-face {
+  font-family: 'CoolveticaW05-CondHeavy';
+  src: url('fonts/CoolveticaW05-CondHeavy.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('fonts/coolvetica-condensed.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 /* =========================================================
    LAYOUT STUDIO DESIGN SYSTEM — TOKENS
    Single source of truth. Link directly from GitHub.
@@ -41,7 +55,7 @@
   --ls-gradient-purple: linear-gradient(180deg, #5A28DD 0%, #3B1FA8 100%);
 
   /* ---- Typography ---- */
-  --font-display: 'Coolvetica', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --font-display: 'CoolveticaW05-CondHeavy', 'Coolvetica', 'Arial Black', 'Helvetica Neue', sans-serif;
   --font-body:    'Founders Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
@@ -307,7 +321,7 @@ code, pre { font-family: var(--font-mono); }
   margin-bottom: var(--space-5);
 }
 
-.hero-title span { color: var(--ls-lavender); }
+.hero-title span { color: var(--ls-white); }
 
 .hero-lede {
   font-size: 18px;
@@ -1229,7 +1243,7 @@ section:first-of-type { border-top: none; }
           <span class="hero-word">Layout's</span> <span class="hero-word is-gradient">visual</span> <span class="hero-word">layer.</span>
         </h1>
         <div class="font-switcher" id="fontSwitcher">
-          <button class="fs-btn active" data-font="'Coolvetica','Arial Black','Helvetica Neue',sans-serif">
+          <button class="fs-btn active" data-font="'CoolveticaW05-CondHeavy','Coolvetica','Arial Black','Helvetica Neue',sans-serif">
             <span class="fs-preview" style="font-family:'Arial Black',sans-serif;font-weight:900;">Aa</span>
             CoolveticaW05-CondHeavy
           </button>
