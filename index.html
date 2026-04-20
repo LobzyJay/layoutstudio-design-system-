@@ -13,16 +13,16 @@
 
 <style>
 @font-face {
-  font-family: 'CoolveticaW05-CondHeavy';
-  src: url('fonts/CoolveticaW05-CondHeavy.ttf') format('truetype');
-  font-weight: 900;
+  font-family: 'CoolveticaRg';
+  src: url('fonts/CoolveticaRg.otf') format('opentype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Coolvetica';
-  src: url('fonts/coolvetica-condensed.ttf') format('truetype');
-  font-weight: 400;
+  font-family: 'CoolveticaCondHeavy';
+  src: url('fonts/CoolveticaW05-CondHeavy.ttf') format('truetype');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -312,7 +312,7 @@ code, pre { font-family: var(--font-mono); }
 }
 
 .hero-title {
-  font-family: 'Coolvetica', 'Arial Black', 'Helvetica Neue', sans-serif;
+  font-family: 'CoolveticaRg', 'Arial Black', 'Helvetica Neue', sans-serif;
   font-weight: 400;
   font-size: clamp(48px, 7vw, 96px);
   line-height: 0.88;
@@ -1256,17 +1256,13 @@ section:first-of-type { border-top: none; }
           <span class="hero-word">Layout's</span> <span class="hero-word is-gradient">visual</span> <span class="hero-word">layer.</span>
         </h1>
         <div class="font-switcher" id="fontSwitcher">
-          <button class="fs-btn active" data-font="'Coolvetica','Arial Black','Helvetica Neue',sans-serif" data-weight="400">
-            <span class="fs-preview" style="font-family:'Coolvetica','Arial Black',sans-serif;font-weight:400;">Aa</span>
+          <button class="fs-btn active" data-font="'CoolveticaRg','Arial Black','Helvetica Neue',sans-serif" data-weight="400">
+            <span class="fs-preview" style="font-family:'CoolveticaRg','Arial Black',sans-serif;font-weight:400;">Aa</span>
             Coolvetica Regular
           </button>
-          <button class="fs-btn" data-font="'CoolveticaW05-CondHeavy','Coolvetica','Arial Black','Helvetica Neue',sans-serif" data-weight="900">
-            <span class="fs-preview" style="font-family:'CoolveticaW05-CondHeavy','Arial Black',sans-serif;font-weight:900;">Aa</span>
-            Coolvetica Cond Heavy
-          </button>
-          <button class="fs-btn" data-font="'Founders Grotesk','Inter',sans-serif" data-weight="700">
-            <span class="fs-preview" style="font-family:'Inter',sans-serif;font-weight:700;">Aa</span>
-            Founders Grotesk
+          <button class="fs-btn" data-font="'CoolveticaCondHeavy','Arial Black','Helvetica Neue',sans-serif" data-weight="900">
+            <span class="fs-preview" style="font-family:'CoolveticaCondHeavy','Arial Black',sans-serif;font-weight:900;">Aa</span>
+            Coolvetica Compressed
           </button>
         </div>
         <p class="hero-lede">
