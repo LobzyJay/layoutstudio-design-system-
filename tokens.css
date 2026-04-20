@@ -1,0 +1,269 @@
+/* =========================================================
+   LAYOUT STUDIO — DESIGN TOKENS
+   v1.0 · 2026
+   Import into any project:
+   <link rel="stylesheet" href="tokens.css" />
+   ========================================================= */
+
+:root {
+  /* ---- Core Colors ---- */
+  --ls-black:        #000000;
+  --ls-charcoal:     #1E1E1E;
+  --ls-purple:       #5A28DD;
+  --ls-deep-purple:  #3B1FA8;
+  --ls-lavender:     #9B7FE8;
+  --ls-white:        #FFFFFF;
+  --ls-off-white:    #F5F5F0;
+  --ls-coral:        #E8453C;
+  --ls-cream:        #FFF3CA;
+  --ls-peach:        #FF9F94;
+
+  /* ---- Surfaces ---- */
+  --ls-surface-dark:      #1A1A1A;
+  --ls-surface-dark-alt:  #2A2A2A;
+  --ls-surface-light:     #F0F0F0;
+  --ls-border-dark:       rgba(255,255,255,0.08);
+  --ls-border-light:      #E0E0E0;
+
+  /* ---- Signature Gradient ---- */
+  --ls-gradient:        linear-gradient(135deg, #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%);
+  --ls-gradient-purple: linear-gradient(180deg, #5A28DD 0%, #3B1FA8 100%);
+
+  /* ---- Typography ---- */
+  --font-display: 'Coolvetica', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --font-body:    'Founders Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Type Scale ---- */
+  --fs-hero:     72px;   /* Cover / statement */
+  --fs-display:  48px;   /* Section headlines */
+  --fs-h1:       40px;   /* Page titles */
+  --fs-h2:       32px;
+  --fs-h3:       24px;
+  --fs-h4:       18px;
+  --fs-body:     15px;
+  --fs-small:    13px;
+  --fs-caption:  11px;
+  --fs-chrome:   10px;
+
+  /* ---- Spacing · 8px base ---- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  30px;
+  --space-8:  40px;
+  --space-10: 64px;
+  --space-12: 96px;
+
+  /* ---- Slide Canvas ---- */
+  --slide-w: 1440px;
+  --slide-h: 810px;
+
+  /* ---- Radius ---- */
+  --radius-card:   14px;
+  --radius-small:  8px;
+  --radius-pill:   100px;
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-glow: 0 0 80px rgba(90,40,221,0.35);
+
+  /* ---- Motion ---- */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 180ms;
+  --duration-base: 280ms;
+  --duration-slow: 520ms;
+}
+
+/* =========================================================
+   SIGNATURE COMPONENT CLASSES
+   ========================================================= */
+
+/* Dark card — the most reused Layout Studio component */
+.ls-card-dark {
+  background: var(--ls-surface-dark);
+  border: 1px solid var(--ls-border-dark);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: var(--ls-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.ls-card-dark .ls-card-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  color: var(--ls-white);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-3);
+  width: fit-content;
+}
+
+.ls-card-dark .ls-card-number {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--ls-purple);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.ls-card-dark .ls-card-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+}
+
+.ls-card-dark .ls-card-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: var(--space-3) 0;
+}
+
+.ls-card-dark .ls-card-body {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+}
+
+/* Pill */
+.ls-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  background: var(--ls-charcoal);
+  color: var(--ls-white);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ls-pill-purple { background: var(--ls-purple); }
+.ls-pill-light {
+  background: var(--ls-off-white);
+  color: var(--ls-charcoal);
+  border: 1px solid var(--ls-border-light);
+}
+
+/* Stat */
+.ls-stat {
+  padding: var(--space-5);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+}
+
+.ls-stat-value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--ls-charcoal);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.ls-stat-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(30,30,30,0.6);
+  line-height: 1.4;
+}
+
+/* =========================================================
+   GRID LAYOUTS (L01–L07)
+   ========================================================= */
+
+.layout-l01,
+.layout-l02,
+.layout-l03,
+.layout-l04 { display: grid; grid-template-columns: 24% 1fr; gap: var(--space-4); height: 100%; }
+
+.layout-l01 > .right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: var(--space-4); }
+.layout-l02 > .right { display: grid; grid-template-rows: 1fr 1fr; gap: var(--space-4); }
+.layout-l02 > .right > .top { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+.layout-l03 > .right { display: grid; grid-template-rows: 1fr 1fr; gap: var(--space-4); }
+
+.layout-l05 {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: var(--space-4);
+  height: 100%;
+}
+.layout-l05 > .top { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+.layout-l05 > .banner { height: 140px; border-radius: var(--radius-card); }
+
+.layout-l06 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); height: 100%; }
+.layout-l07 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); height: 100%; }
+
+/* =========================================================
+   SLIDE SHELL
+   ========================================================= */
+.slide {
+  width: var(--slide-w);
+  height: var(--slide-h);
+  padding: var(--space-7);
+  box-sizing: border-box;
+  position: relative;
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+.slide[data-theme="light"]   { background: var(--ls-white);    color: var(--ls-charcoal); }
+.slide[data-theme="dark"]    { background: var(--ls-black);    color: var(--ls-white); }
+.slide[data-theme="purple"]  { background: var(--ls-purple);   color: var(--ls-white); }
+.slide[data-theme="gradient"]{ background: var(--ls-gradient); color: var(--ls-black); }
+
+.slide .chrome-top,
+.slide .chrome-bottom {
+  position: absolute;
+  left: var(--space-7); right: var(--space-7);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0.55;
+  font-weight: 300;
+}
+.slide .chrome-top    { top: 16px; font-size: 10px; }
+.slide .chrome-bottom { bottom: 16px; font-size: 9px; }
+
+.slide .page-title {
+  position: absolute;
+  top: 44px;
+  left: var(--space-7);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 32px;
+  color: var(--ls-purple);
+  margin: 0;
+}
+.slide[data-theme="dark"]   .page-title,
+.slide[data-theme="purple"] .page-title { color: var(--ls-white); }
+
+.slide .content-area {
+  position: absolute;
+  top: 100px;
+  left: var(--space-7);
+  right: var(--space-7);
+  bottom: 44px;
+}

@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Layout Studio — Design System</title>
+<meta name="description" content="The design system for Layout Studio. Tokens, components, and patterns for building on-brand interfaces and prototypes." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* =========================================================
+   LAYOUT STUDIO DESIGN SYSTEM — TOKENS
+   Single source of truth. Link directly from GitHub.
+   ========================================================= */
+:root {
+  /* ---- Core Colors ---- */
+  --ls-black:        #000000;
+  --ls-charcoal:     #1E1E1E;
+  --ls-purple:       #5A28DD;
+  --ls-deep-purple:  #3B1FA8;
+  --ls-lavender:     #9B7FE8;
+  --ls-white:        #FFFFFF;
+  --ls-off-white:    #F5F5F0;
+  --ls-coral:        #E8453C;
+  --ls-cream:        #FFF3CA;
+  --ls-peach:        #FF9F94;
+
+  /* ---- Surfaces ---- */
+  --ls-surface-dark:      #1A1A1A;
+  --ls-surface-dark-alt:  #2A2A2A;
+  --ls-surface-light:     #F0F0F0;
+  --ls-border-dark:       rgba(255,255,255,0.08);
+  --ls-border-light:      #E0E0E0;
+
+  /* ---- Signature Gradient ---- */
+  --ls-gradient: linear-gradient(135deg, #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%);
+  --ls-gradient-purple: linear-gradient(180deg, #5A28DD 0%, #3B1FA8 100%);
+
+  /* ---- Typography ---- */
+  --font-display: 'Coolvetica', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --font-body:    'Founders Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Type Scale ---- */
+  --fs-hero:     72px;   /* Cover / statement */
+  --fs-display:  48px;   /* Section headlines */
+  --fs-h1:       40px;   /* Page titles */
+  --fs-h2:       32px;
+  --fs-h3:       24px;
+  --fs-h4:       18px;
+  --fs-body:     15px;
+  --fs-small:    13px;
+  --fs-caption:  11px;
+  --fs-chrome:   10px;
+
+  /* ---- Spacing (8px base) ---- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  30px;
+  --space-8:  40px;
+  --space-10: 64px;
+  --space-12: 96px;
+
+  /* ---- Slide Canvas ---- */
+  --slide-w: 1440px;
+  --slide-h: 810px;
+
+  /* ---- Radius ---- */
+  --radius-card:   14px;
+  --radius-small:  8px;
+  --radius-pill:   100px;
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-glow: 0 0 80px rgba(90,40,221,0.35);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 180ms;
+  --duration-base: 280ms;
+  --duration-slow: 520ms;
+}
+
+/* =========================================================
+   RESET + BASE
+   ========================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--ls-charcoal);
+  background: var(--ls-off-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+code, pre { font-family: var(--font-mono); }
+
+::selection { background: var(--ls-purple); color: #fff; }
+
+/* =========================================================
+   LAYOUT — SIDEBAR + CONTENT
+   ========================================================= */
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: static !important; height: auto !important; border-right: none !important; border-bottom: 1px solid var(--ls-border-light); }
+  .sidebar-nav { display: none; }
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: var(--space-7);
+  background: var(--ls-black);
+  color: var(--ls-white);
+  border-right: 1px solid var(--ls-border-dark);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--ls-border-dark);
+}
+
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand-text em {
+  font-style: normal;
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+.sidebar-meta {
+  font-size: var(--fs-caption);
+  font-weight: 300;
+  opacity: 0.5;
+  line-height: 1.5;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sidebar-section-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.sidebar-section-label:first-child { margin-top: 0; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  border-radius: 6px;
+  transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.nav-link:hover { background: rgba(255,255,255,0.06); color: var(--ls-white); }
+.nav-link.active { background: var(--ls-purple); color: var(--ls-white); }
+
+.nav-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  opacity: 0.5;
+  min-width: 20px;
+}
+
+.sidebar-footer {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--ls-border-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.sidebar-footer a:hover { color: var(--ls-lavender); opacity: 1; }
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+.content {
+  padding: var(--space-12) var(--space-10);
+  max-width: 1100px;
+}
+
+@media (max-width: 900px) {
+  .content { padding: var(--space-8) var(--space-6); }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  min-height: 560px;
+  padding: var(--space-12) var(--space-10);
+  background: var(--ls-black);
+  color: var(--ls-white);
+  position: relative;
+  overflow: hidden;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 700px;
+  background: radial-gradient(ellipse at center, rgba(90,40,221,0.55) 0%, rgba(90,40,221,0.15) 40%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.hero-chrome {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-chrome);
+  font-weight: 300;
+  opacity: 0.6;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-body {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+}
+
+.hero-title span { color: var(--ls-lavender); }
+
+.hero-lede {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 640px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: var(--space-6);
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+}
+
+.btn-primary {
+  background: var(--ls-purple);
+  color: var(--ls-white);
+}
+
+.btn-primary:hover {
+  background: var(--ls-deep-purple);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ls-white);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+section {
+  padding: var(--space-12) 0;
+  border-top: 1px solid var(--ls-border-light);
+}
+
+section:first-of-type { border-top: none; }
+
+.section-head {
+  margin-bottom: var(--space-8);
+  max-width: 720px;
+}
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ls-purple);
+  margin-bottom: var(--space-3);
+  letter-spacing: 0.05em;
+}
+
+.section-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+}
+
+.section-lede {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(30,30,30,0.7);
+  line-height: 1.6;
+}
+
+.subsection-title {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  margin: var(--space-8) 0 var(--space-5);
+  letter-spacing: -0.01em;
+}
+
+.subsection-title:first-of-type { margin-top: 0; }
+
+/* =========================================================
+   TOKEN GRID — GENERIC
+   ========================================================= */
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+/* =========================================================
+   COLOR SWATCHES
+   ========================================================= */
+.swatch {
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  border: 1px solid var(--ls-border-light);
+  background: var(--ls-white);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.swatch:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.swatch-fill {
+  height: 120px;
+  position: relative;
+}
+
+.swatch-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.swatch-meta {
+  padding: 12px;
+}
+
+.swatch-name {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.swatch-hex {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(30,30,30,0.5);
+  cursor: pointer;
+  user-select: all;
+}
+
+.swatch-hex:hover { color: var(--ls-purple); }
+
+.swatch.swatch-gradient .swatch-fill {
+  background: var(--ls-gradient);
+}
+
+/* =========================================================
+   TYPE SPECIMEN
+   ========================================================= */
+.type-specimen {
+  padding: var(--space-6);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+  margin-bottom: var(--space-3);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-6);
+  align-items: baseline;
+}
+
+.type-meta { font-family: var(--font-mono); font-size: 11px; color: rgba(30,30,30,0.6); line-height: 1.6; }
+.type-meta strong { display: block; color: var(--ls-charcoal); font-weight: 500; margin-bottom: 4px; }
+
+.type-sample-hero {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.type-sample-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.type-sample-h1 { font-weight: 700; font-size: 36px; line-height: 1.05; letter-spacing: -0.01em; }
+.type-sample-h2 { font-weight: 600; font-size: 28px; line-height: 1.1; }
+.type-sample-h3 { font-weight: 600; font-size: 22px; line-height: 1.15; }
+.type-sample-body { font-weight: 400; font-size: 16px; line-height: 1.6; }
+.type-sample-caption { font-weight: 300; font-size: 12px; line-height: 1.4; color: rgba(30,30,30,0.7); }
+
+/* =========================================================
+   LOGO DISPLAY
+   ========================================================= */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.logo-card {
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  border: 1px solid var(--ls-border-light);
+}
+
+.logo-stage {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.logo-stage-light { background: var(--ls-white); }
+.logo-stage-dark  { background: var(--ls-black); }
+.logo-stage-purple{ background: var(--ls-purple); }
+.logo-stage-gradient { background: var(--ls-gradient); }
+
+.logo-stage svg { max-width: 100%; height: 32px; }
+
+.logo-card-meta {
+  padding: 12px;
+  background: var(--ls-white);
+  border-top: 1px solid var(--ls-border-light);
+  font-size: 12px;
+}
+
+.logo-card-meta strong { display: block; font-weight: 500; }
+.logo-card-meta span { color: rgba(30,30,30,0.5); font-size: 11px; }
+
+/* =========================================================
+   GRID DIAGRAMS
+   ========================================================= */
+.grid-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.grid-card {
+  padding: var(--space-5);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+}
+
+.grid-card-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-3);
+}
+
+.grid-card-label strong {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.grid-card-label span {
+  font-size: 11px;
+  color: rgba(30,30,30,0.55);
+}
+
+.grid-diagram {
+  background: var(--ls-off-white);
+  aspect-ratio: 16 / 9;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  border-radius: 6px;
+}
+
+.grid-cell {
+  background: var(--ls-charcoal);
+  border-radius: 3px;
+  opacity: 0.9;
+}
+
+.grid-cell.accent { background: var(--ls-purple); }
+
+/* L01 */ .grid-l01 { grid-template-columns: 24% 1fr; }
+.grid-l01 .right  { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; }
+/* L02 */ .grid-l02 { grid-template-columns: 24% 1fr; }
+.grid-l02 .right  { display: grid; grid-template-rows: 1fr 1fr; gap: 6px; }
+.grid-l02 .right .top { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+/* L03 */ .grid-l03 { grid-template-columns: 24% 1fr; }
+.grid-l03 .right  { display: grid; grid-template-rows: 1fr 1fr; gap: 6px; }
+/* L04 */ .grid-l04 { grid-template-columns: 24% 1fr; }
+/* L05 */ .grid-l05 { grid-template-rows: 1fr 30%; }
+.grid-l05 .top   { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+/* L06 */ .grid-l06 { grid-template-columns: repeat(4, 1fr); }
+/* L07 */ .grid-l07 { grid-template-columns: repeat(3, 1fr); }
+
+.grid-card-desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(30,30,30,0.65);
+  margin-top: var(--space-3);
+  line-height: 1.5;
+}
+
+/* =========================================================
+   COMPONENT EXAMPLES
+   ========================================================= */
+.component-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+/* Dark Card — signature component */
+.ls-card-dark {
+  background: var(--ls-surface-dark);
+  border: 1px solid var(--ls-border-dark);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 320px;
+  color: var(--ls-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.ls-card-dark::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(90,40,221,0.35), transparent 70%);
+  pointer-events: none;
+}
+
+.ls-card-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  color: var(--ls-white);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-3);
+  width: fit-content;
+  position: relative;
+  z-index: 1;
+}
+
+.ls-card-number {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--ls-purple);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+  position: relative;
+  z-index: 1;
+}
+
+.ls-card-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.ls-card-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: var(--space-3) 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ls-card-body {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* Pill / Tag */
+.ls-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  background: var(--ls-charcoal);
+  color: var(--ls-white);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-right: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.ls-pill-light {
+  background: var(--ls-off-white);
+  color: var(--ls-charcoal);
+  border: 1px solid var(--ls-border-light);
+}
+
+.ls-pill-purple {
+  background: var(--ls-purple);
+  color: var(--ls-white);
+}
+
+/* Stat Row */
+.ls-stat {
+  padding: var(--space-5);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+}
+
+.ls-stat-value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--ls-charcoal);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.ls-stat-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(30,30,30,0.6);
+  line-height: 1.4;
+}
+
+/* =========================================================
+   CODE BLOCK
+   ========================================================= */
+.code-block {
+  background: var(--ls-charcoal);
+  color: #E8E8E8;
+  border-radius: var(--radius-small);
+  padding: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+  position: relative;
+}
+
+.code-block .token-comment { color: #7A7A7A; font-style: italic; }
+.code-block .token-prop    { color: #9B7FE8; }
+.code-block .token-value   { color: #FFF3CA; }
+.code-block .token-selector{ color: #FF9F94; }
+
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-pill);
+  color: var(--ls-white);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.copy-btn:hover { background: rgba(255,255,255,0.14); }
+.copy-btn.copied { background: var(--ls-purple); border-color: var(--ls-purple); }
+
+/* =========================================================
+   SPACING VISUALIZER
+   ========================================================= */
+.spacing-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.spacing-row {
+  display: grid;
+  grid-template-columns: 60px 80px 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 10px var(--space-4);
+  background: var(--ls-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: 6px;
+}
+
+.spacing-key {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ls-purple);
+  font-weight: 500;
+}
+
+.spacing-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(30,30,30,0.7);
+}
+
+.spacing-bar {
+  height: 12px;
+  background: var(--ls-purple);
+  border-radius: 2px;
+}
+
+.spacing-note {
+  font-size: 12px;
+  color: rgba(30,30,30,0.5);
+}
+
+/* =========================================================
+   VOICE DO/DONT
+   ========================================================= */
+.voice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 700px) { .voice-grid { grid-template-columns: 1fr; } }
+
+.voice-card {
+  padding: var(--space-6);
+  border-radius: var(--radius-small);
+  border: 1px solid var(--ls-border-light);
+  background: var(--ls-white);
+}
+
+.voice-card.do  { border-left: 3px solid var(--ls-purple); }
+.voice-card.dont { border-left: 3px solid var(--ls-coral); }
+
+.voice-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+.voice-card.do .voice-label { color: var(--ls-purple); }
+.voice-card.dont .voice-label { color: var(--ls-coral); }
+
+.voice-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.voice-list li {
+  font-size: 14px;
+  line-height: 1.5;
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.voice-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 10px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+
+.voice-card.do  .voice-list li::before { background: var(--ls-purple); }
+.voice-card.dont .voice-list li::before { background: var(--ls-coral); }
+
+/* =========================================================
+   PREVIEW CANVAS — inline slide example
+   ========================================================= */
+.preview-wrapper {
+  background: var(--ls-off-white);
+  border: 1px solid var(--ls-border-light);
+  border-radius: var(--radius-small);
+  padding: var(--space-5);
+  overflow: hidden;
+}
+
+.preview-scale {
+  width: 1440px;
+  height: 810px;
+  transform-origin: top left;
+  transform: scale(0.45);
+  margin-bottom: calc(-810px * 0.55);
+  margin-right: calc(-1440px * 0.55);
+}
+
+@media (max-width: 900px) {
+  .preview-scale { transform: scale(0.22); margin-bottom: calc(-810px * 0.78); margin-right: calc(-1440px * 0.78); }
+}
+
+/* ========= inline slide ========= */
+.slide {
+  width: 1440px;
+  height: 810px;
+  padding: 30px;
+  box-sizing: border-box;
+  position: relative;
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+.slide[data-theme="light"]   { background: var(--ls-white); color: var(--ls-charcoal); }
+.slide[data-theme="dark"]    { background: var(--ls-black); color: var(--ls-white); }
+.slide[data-theme="purple"]  { background: var(--ls-purple); color: var(--ls-white); }
+
+.slide .chrome-top, .slide .chrome-bottom {
+  position: absolute;
+  left: 30px; right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 300;
+  opacity: 0.55;
+}
+
+.slide .chrome-top { top: 20px; }
+.slide .chrome-bottom { bottom: 20px; font-size: 9px; }
+
+.slide .page-title {
+  position: absolute;
+  top: 60px; left: 30px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--ls-purple);
+  margin: 0;
+}
+
+.slide[data-theme="dark"] .page-title,
+.slide[data-theme="purple"] .page-title { color: var(--ls-white); }
+
+.slide .content-area {
+  position: absolute;
+  top: 120px;
+  left: 30px;
+  right: 30px;
+  bottom: 50px;
+  display: grid;
+  gap: 16px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--ls-border-light);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-6);
+  align-items: end;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 96px;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--ls-charcoal);
+  letter-spacing: -0.02em;
+}
+
+.footer-meta {
+  font-size: 11px;
+  color: rgba(30,30,30,0.5);
+  text-align: right;
+  line-height: 1.7;
+}
+
+.footer-meta a { color: var(--ls-purple); }
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+.muted { color: rgba(30,30,30,0.6); }
+.mono  { font-family: var(--font-mono); font-size: 13px; }
+.tight { letter-spacing: -0.01em; }
+
+.token-string {
+  background: #F4EEFF;
+  color: var(--ls-deep-purple);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.anchor { scroll-margin-top: 40px; }
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+@media print {
+  .sidebar, .copy-btn { display: none; }
+  .app { grid-template-columns: 1fr; }
+  .content { padding: 20mm; max-width: none; }
+  section { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <!-- Inline logomark (3 panels) -->
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lsgrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFF3CA"/>
+            <stop offset="35%" stop-color="#FF9F94"/>
+            <stop offset="70%" stop-color="#AD72BD"/>
+            <stop offset="100%" stop-color="#7152DA"/>
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2"  width="13" height="13" rx="1.5" fill="url(#lsgrad)"/>
+        <rect x="17" y="17" width="13" height="13" rx="1.5" fill="url(#lsgrad)"/>
+        <rect x="2" y="17" width="13" height="13" rx="1.5" fill="url(#lsgrad)"/>
+      </svg>
+      <div class="brand-text">Layout <em>DS</em></div>
+    </div>
+
+    <div class="sidebar-meta">
+      Design System v1.0<br/>
+      Last updated Apr 2026
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Foundations</div>
+      <a class="nav-link" href="#brand"><span class="nav-num">00</span> Brand</a>
+      <a class="nav-link" href="#colors"><span class="nav-num">01</span> Color</a>
+      <a class="nav-link" href="#typography"><span class="nav-num">02</span> Typography</a>
+      <a class="nav-link" href="#logo"><span class="nav-num">03</span> Logo</a>
+      <a class="nav-link" href="#spacing"><span class="nav-num">04</span> Spacing</a>
+
+      <div class="sidebar-section-label">System</div>
+      <a class="nav-link" href="#grid"><span class="nav-num">05</span> Grid</a>
+      <a class="nav-link" href="#components"><span class="nav-num">06</span> Components</a>
+      <a class="nav-link" href="#slide-preview"><span class="nav-num">07</span> Slide anatomy</a>
+
+      <div class="sidebar-section-label">Expression</div>
+      <a class="nav-link" href="#voice"><span class="nav-num">08</span> Voice</a>
+      <a class="nav-link" href="#usage"><span class="nav-num">09</span> Usage</a>
+      <a class="nav-link" href="#tokens-export"><span class="nav-num">10</span> Tokens</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="https://www.layoutstudio.co" target="_blank">layoutstudio.co</a>
+      <span>Lagos · Dubai · Zurich · London</span>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN ==================== -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-chrome">
+        <span>Layout Studio 2026 <span style="opacity:0.4">/</span> Design System</span>
+        <span>v1.0</span>
+      </div>
+
+      <div class="hero-body">
+        <span class="hero-eyebrow">Design System — 2026</span>
+        <h1 class="hero-title">Build on<br/>Layout's <span>visual layer.</span></h1>
+        <p class="hero-lede">
+          The tokens, components, and rules behind every piece of Layout Studio work. One source of truth for decks, prototypes, landing pages, and everything in between.
+        </p>
+        <div class="hero-cta-row">
+          <a class="btn btn-primary" href="#colors">
+            Browse the system
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#tokens-export">
+            Copy tokens
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 10V3a1 1 0 0 1 1-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ========== 00 BRAND ========== -->
+      <section id="brand" class="anchor">
+        <div class="section-head">
+          <div class="section-num">00 — Foundations</div>
+          <h2 class="section-title">We design for companies building the future.</h2>
+          <p class="section-lede">
+            Layout Studio is a full-service design agency out of Lagos, working across brand, product, motion, 3D, and frontend. This system exists so every output — from a pitch deck to a shipped product — feels like it came from the same room.
+          </p>
+        </div>
+
+        <div class="component-row">
+          <div class="ls-stat"><div class="ls-stat-value">6+</div><div class="ls-stat-label">Years across brand, product &amp; 3D</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">5</div><div class="ls-stat-label">Disciplines under one roof</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">4</div><div class="ls-stat-label">Countries served regularly</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">1</div><div class="ls-stat-label">Source of truth (this doc)</div></div>
+        </div>
+
+        <h3 class="subsection-title">Brand pillars</h3>
+        <div class="component-row">
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Culture</span>
+            <div class="ls-card-number">01</div>
+            <div class="ls-card-title">Ecosystem<br/>Native</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Fluent in tech, startups, and Web3. No onboarding needed, no translation layer.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Discipline</span>
+            <div class="ls-card-number">02</div>
+            <div class="ls-card-title">Full-Stack<br/>Visual</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">One studio, every discipline. Brand, product, motion, 3D, frontend.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Execution</span>
+            <div class="ls-card-number">03</div>
+            <div class="ls-card-title">Built<br/>to Ship</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Production-ready, always. Every file handoff is a working file.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Reach</span>
+            <div class="ls-card-number">04</div>
+            <div class="ls-card-title">Without<br/>Borders</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Based in Lagos, operating at the global standard of craft.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 01 COLORS ========== -->
+      <section id="colors" class="anchor">
+        <div class="section-head">
+          <div class="section-num">01 — Color</div>
+          <h2 class="section-title">A sharp palette, used with intent.</h2>
+          <p class="section-lede">
+            Dark-first, purple-accented. Gradients are reserved for signature moments — never filler. Coral is campaign-only.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">Core</h3>
+        <div class="token-grid">
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#000000;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Pure Black</div><div class="swatch-hex">#000000</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#1E1E1E;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Midnight Charcoal</div><div class="swatch-hex">#1E1E1E</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#5A28DD;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Electric Purple</div><div class="swatch-hex">#5A28DD</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#FFFFFF; border-bottom: 1px solid #E0E0E0;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Pure White</div><div class="swatch-hex">#FFFFFF</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#F5F5F0;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Off White</div><div class="swatch-hex">#F5F5F0</div></div>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Extended</h3>
+        <div class="token-grid">
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#3B1FA8;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Deep Purple</div><div class="swatch-hex">#3B1FA8</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#9B7FE8;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Lavender</div><div class="swatch-hex">#9B7FE8</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#E8453C;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Coral <span style="opacity:0.5">(campaign only)</span></div><div class="swatch-hex">#E8453C</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#FFF3CA;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Warm Cream</div><div class="swatch-hex">#FFF3CA</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-fill" style="background:#FF9F94;"></div>
+            <div class="swatch-meta"><div class="swatch-name">Peach</div><div class="swatch-hex">#FF9F94</div></div>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Signature gradient</h3>
+        <div class="swatch swatch-gradient" style="grid-column: span 2;">
+          <div class="swatch-fill" style="height: 180px;"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Layout Gradient</div>
+            <div class="swatch-hex">#FFF3CA → #FF9F94 → #AD72BD → #7152DA</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <button class="copy-btn" data-copy="gradient-code">Copy</button>
+<pre id="gradient-code"><span class="token-selector">background</span>: <span class="token-value">linear-gradient(135deg, #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%);</span></pre>
+        </div>
+      </section>
+
+      <!-- ========== 02 TYPOGRAPHY ========== -->
+      <section id="typography" class="anchor">
+        <div class="section-head">
+          <div class="section-num">02 — Typography</div>
+          <h2 class="section-title">Coolvetica commands. Founders Grotesk carries the weight.</h2>
+          <p class="section-lede">
+            Coolvetica for headlines that need to hold a room. Founders Grotesk for everything else. Never Helvetica, never Arial — not on designed surfaces.
+          </p>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Hero / Statement</strong>
+            Coolvetica<br/>
+            Heavy Compressed<br/>
+            72px · 0.9 lh
+          </div>
+          <div class="type-sample-hero">Every ambitious company deserves design that matches the scale of what they're building.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Display</strong>
+            Coolvetica<br/>
+            Heavy Condensed<br/>
+            40px · 0.95 lh
+          </div>
+          <div class="type-sample-display">Stop the scroll</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Page title (H1)</strong>
+            Founders Grotesk<br/>
+            Bold · 700<br/>
+            36px · 1.05 lh
+          </div>
+          <div class="type-sample-h1">We design for companies building the future.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Section (H2)</strong>
+            Founders Grotesk<br/>
+            Semibold · 600<br/>
+            28px · 1.1 lh
+          </div>
+          <div class="type-sample-h2">Four areas where design moves the needle.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Subhead (H3)</strong>
+            Founders Grotesk<br/>
+            Semibold · 600<br/>
+            22px · 1.15 lh
+          </div>
+          <div class="type-sample-h3">Serving clients worldwide</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Body</strong>
+            Founders Grotesk<br/>
+            Regular · 400<br/>
+            16px · 1.6 lh
+          </div>
+          <div class="type-sample-body">We embed into your team's workflow, treating every project as a true partnership. Collaboration isn't a pitch deck word for us.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-meta">
+            <strong>Caption / Chrome</strong>
+            Founders Grotesk<br/>
+            Light · 300<br/>
+            12px · 1.4 lh
+          </div>
+          <div class="type-sample-caption">Layout Studios 2026 ⊛ Proposal · Introduction</div>
+        </div>
+
+        <div class="code-block">
+          <button class="copy-btn" data-copy="font-code">Copy</button>
+<pre id="font-code"><span class="token-prop">--font-display</span>: <span class="token-value">'Coolvetica', 'Arial Black', sans-serif;</span>
+<span class="token-prop">--font-body</span>:    <span class="token-value">'Founders Grotesk', 'Inter', sans-serif;</span>
+
+<span class="token-comment">/* Font files in /assets/fonts/ — see layout-studio-brand skill */</span>
+<span class="token-comment">/* Most used: Coolvetica_Hv_Comp.otf · FoundersGrotesk-Regular.otf */</span></pre>
+        </div>
+      </section>
+
+      <!-- ========== 03 LOGO ========== -->
+      <section id="logo" class="anchor">
+        <div class="section-head">
+          <div class="section-num">03 — Logo</div>
+          <h2 class="section-title">The mark and how it behaves.</h2>
+          <p class="section-lede">
+            Three interlocking panels. Gradient is default on digital. Solid white or black only when gradient can't reproduce. The wordmark never travels without the mark.
+          </p>
+        </div>
+
+        <div class="logo-grid">
+          <!-- Gradient on light -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-light">
+              <svg viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#FFF3CA"/>
+                    <stop offset="35%" stop-color="#FF9F94"/>
+                    <stop offset="70%" stop-color="#AD72BD"/>
+                    <stop offset="100%" stop-color="#7152DA"/>
+                  </linearGradient>
+                </defs>
+                <rect x="2" y="2"  width="13" height="13" rx="1.5" fill="url(#g1)"/>
+                <rect x="17" y="17" width="13" height="13" rx="1.5" fill="url(#g1)"/>
+                <rect x="2" y="17" width="13" height="13" rx="1.5" fill="url(#g1)"/>
+                <text x="40" y="22" font-family="Founders Grotesk, Inter, sans-serif" font-size="20" font-weight="700" fill="#1E1E1E">Layout</text>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Primary · Gradient</strong>
+              <span>Default for digital</span>
+            </div>
+          </div>
+
+          <!-- White on dark -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-dark">
+              <svg viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2"  width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                <rect x="17" y="17" width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                <rect x="2" y="17" width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                <text x="40" y="22" font-family="Founders Grotesk, Inter, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">Layout</text>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Primary · White</strong>
+              <span>Dark backgrounds, photo overlays</span>
+            </div>
+          </div>
+
+          <!-- Black on light -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-light">
+              <svg viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2"  width="13" height="13" rx="1.5" fill="#1E1E1E"/>
+                <rect x="17" y="17" width="13" height="13" rx="1.5" fill="#1E1E1E"/>
+                <rect x="2" y="17" width="13" height="13" rx="1.5" fill="#1E1E1E"/>
+                <text x="40" y="22" font-family="Founders Grotesk, Inter, sans-serif" font-size="20" font-weight="700" fill="#1E1E1E">Layout</text>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Primary · Black</strong>
+              <span>Print, embossing, single-tone</span>
+            </div>
+          </div>
+
+          <!-- Gradient on purple -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-purple">
+              <svg viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2"  width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                <rect x="17" y="17" width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                <rect x="2" y="17" width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                <text x="40" y="22" font-family="Founders Grotesk, Inter, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">Layout</text>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>On Purple</strong>
+              <span>Brand moments, section breaks</span>
+            </div>
+          </div>
+
+          <!-- Full logo black -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-light">
+              <svg viewBox="0 0 200 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g2" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#FFF3CA"/>
+                    <stop offset="35%" stop-color="#FF9F94"/>
+                    <stop offset="70%" stop-color="#AD72BD"/>
+                    <stop offset="100%" stop-color="#7152DA"/>
+                  </linearGradient>
+                </defs>
+                <rect x="2" y="2"  width="13" height="13" rx="1.5" fill="url(#g2)"/>
+                <rect x="17" y="17" width="13" height="13" rx="1.5" fill="url(#g2)"/>
+                <rect x="2" y="17" width="13" height="13" rx="1.5" fill="url(#g2)"/>
+                <text x="40" y="18" font-family="Founders Grotesk, Inter, sans-serif" font-size="16" font-weight="700" fill="#1E1E1E">Layout</text>
+                <text x="40" y="28" font-family="Founders Grotesk, Inter, sans-serif" font-size="10" font-weight="400" fill="#1E1E1E" opacity="0.6">Studio</text>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Full · Gradient</strong>
+              <span>Proposals, pitch decks, formal</span>
+            </div>
+          </div>
+
+          <!-- Mark only -->
+          <div class="logo-card">
+            <div class="logo-stage logo-stage-gradient">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2"  width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                <rect x="17" y="17" width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                <rect x="2" y="17" width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+              </svg>
+            </div>
+            <div class="logo-card-meta">
+              <strong>Logomark only</strong>
+              <span>Favicons, social avatars, watermarks</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Clearance &amp; minimum size</h3>
+        <ul class="voice-list" style="max-width: 640px;">
+          <li>Clear space equal to the logomark "x" height on all sides</li>
+          <li>Minimum print size 30mm · Minimum digital size 100px</li>
+          <li>Logomark alone: 7mm print · 24px digital</li>
+          <li>Never stretch, rotate, shadow, or recolor outside the approved set</li>
+        </ul>
+      </section>
+
+      <!-- ========== 04 SPACING ========== -->
+      <section id="spacing" class="anchor">
+        <div class="section-head">
+          <div class="section-num">04 — Spacing</div>
+          <h2 class="section-title">Eight-pixel base. No odd numbers.</h2>
+          <p class="section-lede">
+            All spacing is a multiple of 4 or 8. When in doubt, round to the nearest 8. Never 7, never 13, never 22.
+          </p>
+        </div>
+
+        <div class="spacing-list">
+          <div class="spacing-row">
+            <div class="spacing-key">--space-1</div>
+            <div class="spacing-value">4px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:4px;"></div><span class="spacing-note">Micro gaps · tag padding, divider margins</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-2</div>
+            <div class="spacing-value">8px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:8px;"></div><span class="spacing-note">Tight gaps · between related elements</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-3</div>
+            <div class="spacing-value">12px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:12px;"></div><span class="spacing-note">Default internal card spacing</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-4</div>
+            <div class="spacing-value">16px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:16px;"></div><span class="spacing-note">Gap between panels / cards</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-6</div>
+            <div class="spacing-value">24px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:24px;"></div><span class="spacing-note">Card internal padding</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-7</div>
+            <div class="spacing-value">30px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:30px;"></div><span class="spacing-note">Outer slide margin</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-8</div>
+            <div class="spacing-value">40px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:40px;"></div><span class="spacing-note">Breathing space · major section gaps</span></div>
+          </div>
+          <div class="spacing-row">
+            <div class="spacing-key">--space-10</div>
+            <div class="spacing-value">64px</div>
+            <div style="display:flex; align-items:center; gap: 12px;"><div class="spacing-bar" style="width:64px;"></div><span class="spacing-note">Section padding on web layouts</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 05 GRID ========== -->
+      <section id="grid" class="anchor">
+        <div class="section-head">
+          <div class="section-num">05 — Grid</div>
+          <h2 class="section-title">Seven canonical layouts.</h2>
+          <p class="section-lede">
+            Every slide, mockup, or content page starts from one of these. The tall left column at 24% is the signature anchor. Right side gets the remaining 76%.
+          </p>
+        </div>
+
+        <div class="grid-showcase">
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L01</strong><span>Split + 2×2</span></div>
+            <div class="grid-diagram grid-l01">
+              <div class="grid-cell"></div>
+              <div class="right"><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div></div>
+            </div>
+            <p class="grid-card-desc">Portfolio grids, case studies, image-heavy content</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L02</strong><span>Split + wide bottom</span></div>
+            <div class="grid-diagram grid-l02">
+              <div class="grid-cell"></div>
+              <div class="right">
+                <div class="top"><div class="grid-cell"></div><div class="grid-cell"></div></div>
+                <div class="grid-cell"></div>
+              </div>
+            </div>
+            <p class="grid-card-desc">Hero image top, supporting visual bottom</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L03</strong><span>Split + 2 stacked</span></div>
+            <div class="grid-diagram grid-l03">
+              <div class="grid-cell"></div>
+              <div class="right"><div class="grid-cell"></div><div class="grid-cell"></div></div>
+            </div>
+            <p class="grid-card-desc">Before / after, comparison, two key visuals</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L04</strong><span>Split + single large</span></div>
+            <div class="grid-diagram grid-l04">
+              <div class="grid-cell"></div>
+              <div class="grid-cell accent"></div>
+            </div>
+            <p class="grid-card-desc">Hero shot, key mockup, most-used split</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L05</strong><span>4-col + banner</span></div>
+            <div class="grid-diagram grid-l05">
+              <div class="top"><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div></div>
+              <div class="grid-cell accent"></div>
+            </div>
+            <p class="grid-card-desc">Team grid, feature row, services + banner</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L06</strong><span>4 equal</span></div>
+            <div class="grid-diagram grid-l06">
+              <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            </div>
+            <p class="grid-card-desc">Four pillars, services, team members</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L07</strong><span>3 equal</span></div>
+            <div class="grid-diagram grid-l07">
+              <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            </div>
+            <p class="grid-card-desc">Three services, three steps, why us</p>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <button class="copy-btn" data-copy="grid-code">Copy</button>
+<pre id="grid-code"><span class="token-comment">/* L04 — Split Column + Single Large (most common) */</span>
+<span class="token-selector">.layout-l04</span> {
+  <span class="token-prop">display</span>: <span class="token-value">grid</span>;
+  <span class="token-prop">grid-template-columns</span>: <span class="token-value">24% 1fr</span>;
+  <span class="token-prop">gap</span>: <span class="token-value">var(--space-4)</span>;
+  <span class="token-prop">height</span>: <span class="token-value">100%</span>;
+}</pre>
+        </div>
+      </section>
+
+      <!-- ========== 06 COMPONENTS ========== -->
+      <section id="components" class="anchor">
+        <div class="section-head">
+          <div class="section-num">06 — Components</div>
+          <h2 class="section-title">The five components that show up everywhere.</h2>
+          <p class="section-lede">
+            Signature pieces of the system. Copy the markup, use the tokens, keep the geometry.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">Dark card — numbered pillar</h3>
+        <div class="component-row">
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Speed</span>
+            <div class="ls-card-number">01</div>
+            <div class="ls-card-title">Startup<br/>Native</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">We get early-stage companies. What moves fast, what investors look for.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Craft</span>
+            <div class="ls-card-number">02</div>
+            <div class="ls-card-title">Premium<br/>Quality</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Every pixel earns its place. Work that holds up against any agency, anywhere.</p>
+          </div>
+          <div class="ls-card-dark">
+            <span class="ls-card-tag">Reach</span>
+            <div class="ls-card-number">03</div>
+            <div class="ls-card-title">Global<br/>Perspective</div>
+            <div class="ls-card-divider"></div>
+            <p class="ls-card-body">Working across continents gives us a unique lens on diverse markets.</p>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Tag pills</h3>
+        <div>
+          <span class="ls-pill">Brand Systems</span>
+          <span class="ls-pill">Product Design</span>
+          <span class="ls-pill ls-pill-purple">Motion Graphics</span>
+          <span class="ls-pill ls-pill-light">3D Design</span>
+          <span class="ls-pill ls-pill-light">Frontend</span>
+        </div>
+
+        <h3 class="subsection-title">Stat block</h3>
+        <div class="component-row">
+          <div class="ls-stat"><div class="ls-stat-value">$200M</div><div class="ls-stat-label">Assets under management across portfolio</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">10+</div><div class="ls-stat-label">Ventures in active incubation</div></div>
+          <div class="ls-stat"><div class="ls-stat-value">6yrs</div><div class="ls-stat-label">Operating across tech and Web3</div></div>
+        </div>
+
+        <h3 class="subsection-title">Buttons</h3>
+        <div style="display:flex; gap: 12px; flex-wrap: wrap; padding: var(--space-5); background: var(--ls-black); border-radius: var(--radius-small);">
+          <button class="btn btn-primary">Meet with Layout <span>→</span></button>
+          <button class="btn btn-ghost">View portfolio</button>
+        </div>
+
+        <h3 class="subsection-title">Component CSS</h3>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="card-code">Copy</button>
+<pre id="card-code"><span class="token-selector">.ls-card-dark</span> {
+  <span class="token-prop">background</span>: <span class="token-value">var(--ls-surface-dark)</span>;
+  <span class="token-prop">border</span>: <span class="token-value">1px solid var(--ls-border-dark)</span>;
+  <span class="token-prop">border-radius</span>: <span class="token-value">var(--radius-card)</span>;
+  <span class="token-prop">padding</span>: <span class="token-value">var(--space-6)</span>;
+  <span class="token-prop">display</span>: <span class="token-value">flex</span>;
+  <span class="token-prop">flex-direction</span>: <span class="token-value">column</span>;
+  <span class="token-prop">justify-content</span>: <span class="token-value">flex-end</span>;
+  <span class="token-prop">color</span>: <span class="token-value">var(--ls-white)</span>;
+}</pre>
+        </div>
+      </section>
+
+      <!-- ========== 07 SLIDE ANATOMY ========== -->
+      <section id="slide-preview" class="anchor">
+        <div class="section-head">
+          <div class="section-num">07 — Slide anatomy</div>
+          <h2 class="section-title">How a single slide is built.</h2>
+          <p class="section-lede">
+            Chrome top and bottom, page title, content area. Canvas is 1440×810 at 16:9. Every slide inherits the same scaffolding.
+          </p>
+        </div>
+
+        <div class="preview-wrapper">
+          <div class="preview-scale">
+            <div class="slide" data-theme="dark">
+              <div class="chrome-top">
+                <span>Layout Studio 2026 · Design System</span>
+                <span>Components</span>
+                <svg width="80" height="16" viewBox="0 0 140 32" fill="none">
+                  <rect x="2" y="2"  width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                  <rect x="17" y="17" width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                  <rect x="2" y="17" width="13" height="13" rx="1.5" fill="#FFFFFF"/>
+                  <text x="40" y="22" font-family="Founders Grotesk, Inter, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">Layout</text>
+                </svg>
+              </div>
+
+              <h2 class="page-title">Brand pillars</h2>
+
+              <div class="content-area" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="ls-card-dark">
+                  <span class="ls-card-tag">Culture</span>
+                  <div class="ls-card-number">01</div>
+                  <div class="ls-card-title">Ecosystem<br/>Native</div>
+                  <div class="ls-card-divider"></div>
+                  <p class="ls-card-body">Fluent in tech, startups, and Web3. No translation layer.</p>
+                </div>
+                <div class="ls-card-dark">
+                  <span class="ls-card-tag">Discipline</span>
+                  <div class="ls-card-number">02</div>
+                  <div class="ls-card-title">Full-Stack<br/>Visual</div>
+                  <div class="ls-card-divider"></div>
+                  <p class="ls-card-body">One studio, every discipline. Brand, product, motion, 3D.</p>
+                </div>
+                <div class="ls-card-dark">
+                  <span class="ls-card-tag">Execution</span>
+                  <div class="ls-card-number">03</div>
+                  <div class="ls-card-title">Built<br/>to Ship</div>
+                  <div class="ls-card-divider"></div>
+                  <p class="ls-card-body">Production-ready, always. Every file is a working file.</p>
+                </div>
+                <div class="ls-card-dark">
+                  <span class="ls-card-tag">Reach</span>
+                  <div class="ls-card-number">04</div>
+                  <div class="ls-card-title">Without<br/>Borders</div>
+                  <div class="ls-card-divider"></div>
+                  <p class="ls-card-body">Based in Lagos, operating at the global standard of craft.</p>
+                </div>
+              </div>
+
+              <div class="chrome-bottom">
+                <span>www.layoutstudio.co</span>
+                <span>07</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <button class="copy-btn" data-copy="slide-code">Copy</button>
+<pre id="slide-code"><span class="token-comment">&lt;!-- Base slide shell --&gt;</span>
+&lt;<span class="token-selector">div</span> <span class="token-prop">class</span>=<span class="token-value">"slide"</span> <span class="token-prop">data-theme</span>=<span class="token-value">"dark"</span>&gt;
+  &lt;<span class="token-selector">div</span> <span class="token-prop">class</span>=<span class="token-value">"chrome-top"</span>&gt;...&lt;/div&gt;
+  &lt;<span class="token-selector">h2</span> <span class="token-prop">class</span>=<span class="token-value">"page-title"</span>&gt;Brand pillars&lt;/h2&gt;
+  &lt;<span class="token-selector">div</span> <span class="token-prop">class</span>=<span class="token-value">"content-area layout-l06"</span>&gt;...&lt;/div&gt;
+  &lt;<span class="token-selector">div</span> <span class="token-prop">class</span>=<span class="token-value">"chrome-bottom"</span>&gt;...&lt;/div&gt;
+&lt;/<span class="token-selector">div</span>&gt;</pre>
+        </div>
+      </section>
+
+      <!-- ========== 08 VOICE ========== -->
+      <section id="voice" class="anchor">
+        <div class="section-head">
+          <div class="section-num">08 — Voice</div>
+          <h2 class="section-title">Direct. Confident. No corporate filler.</h2>
+          <p class="section-lede">
+            Short sentences. Real verbs. Fragments when they land. Numbers over adjectives.
+          </p>
+        </div>
+
+        <div class="voice-grid">
+          <div class="voice-card do">
+            <div class="voice-label">Do</div>
+            <ul class="voice-list">
+              <li>"We design for companies building the future."</li>
+              <li>"Ship ready, not concept-ready."</li>
+              <li>"One studio. Full-stack visual. Ecosystem native."</li>
+              <li>"Every pixel earns its place."</li>
+              <li>"1,500 NFTs sold. 57.7 ETH volume."</li>
+              <li>Use commas and full stops. Nothing else.</li>
+            </ul>
+          </div>
+          <div class="voice-card dont">
+            <div class="voice-label">Don't</div>
+            <ul class="voice-list">
+              <li>"Leveraging end-to-end solutions" — cut it</li>
+              <li>"Spearheading a paradigm shift" — cut it</li>
+              <li>"Best-in-class synergy" — delete</li>
+              <li>Em dashes in copy. They read as AI.</li>
+              <li>Helvetica or Arial on designed materials</li>
+              <li>Generic blue. Purple is the accent.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Core messages</h3>
+        <div class="component-row">
+          <div class="ls-stat" style="background: var(--ls-off-white);">
+            <div class="ls-stat-label" style="margin-bottom: 8px;">Tagline</div>
+            <div style="font-size: 20px; font-weight: 600; line-height: 1.2;">We design for companies building the future.</div>
+          </div>
+          <div class="ls-stat" style="background: var(--ls-off-white);">
+            <div class="ls-stat-label" style="margin-bottom: 8px;">Positioning</div>
+            <div style="font-size: 20px; font-weight: 600; line-height: 1.2;">You build the product. We build the visual layer.</div>
+          </div>
+          <div class="ls-stat" style="background: var(--ls-off-white);">
+            <div class="ls-stat-label" style="margin-bottom: 8px;">Value prop</div>
+            <div style="font-size: 20px; font-weight: 600; line-height: 1.2;">One studio. Full-stack visual. Ecosystem native.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 09 USAGE ========== -->
+      <section id="usage" class="anchor">
+        <div class="section-head">
+          <div class="section-num">09 — Usage</div>
+          <h2 class="section-title">How to pull this into Claude Design AI.</h2>
+          <p class="section-lede">
+            This file is self-contained. Host it on GitHub and point Claude Design AI at the raw URL. Every token and component becomes referenceable context.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">1 · Host on GitHub</h3>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="git-code">Copy</button>
+<pre id="git-code"><span class="token-comment"># Create repo</span>
+git init layoutstudio-design-system
+cd layoutstudio-design-system
+
+<span class="token-comment"># Add this file as index.html</span>
+cp ~/Downloads/index.html .
+
+<span class="token-comment"># Commit and push</span>
+git add .
+git commit -m <span class="token-value">"Initial design system v1.0"</span>
+git remote add origin https://github.com/lobzyjay/layoutstudio-design-system.git
+git push -u origin main
+
+<span class="token-comment"># Enable GitHub Pages in repo settings → Pages → Branch: main</span>
+<span class="token-comment"># Your system lives at: https://lobzyjay.github.io/layoutstudio-design-system/</span></pre>
+        </div>
+
+        <h3 class="subsection-title">2 · Point Claude Design AI at it</h3>
+        <p class="muted" style="max-width: 680px; margin-bottom: var(--space-4);">
+          In Claude Design AI, reference either the GitHub Pages URL or the raw file URL directly in your prompt.
+        </p>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="prompt-code">Copy</button>
+<pre id="prompt-code"><span class="token-comment"># Prompt template for Claude Design AI</span>
+
+Use the Layout Studio design system at
+https://lobzyjay.github.io/layoutstudio-design-system/
+
+Apply all tokens (colors, typography, spacing),
+components (ls-card-dark, ls-pill, ls-stat),
+and grid templates (L01–L07) exactly as defined.
+
+Build: <span class="token-value">[your brief here]</span></pre>
+        </div>
+
+        <h3 class="subsection-title">3 · Link specific sections</h3>
+        <p class="muted" style="max-width: 680px; margin-bottom: var(--space-4);">
+          Every section has a stable anchor. Reference them directly when you want Claude to focus on a specific part of the system.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px;">
+          <code class="token-string">/#colors</code>
+          <code class="token-string">/#typography</code>
+          <code class="token-string">/#logo</code>
+          <code class="token-string">/#spacing</code>
+          <code class="token-string">/#grid</code>
+          <code class="token-string">/#components</code>
+          <code class="token-string">/#voice</code>
+          <code class="token-string">/#tokens-export</code>
+        </div>
+      </section>
+
+      <!-- ========== 10 TOKENS EXPORT ========== -->
+      <section id="tokens-export" class="anchor">
+        <div class="section-head">
+          <div class="section-num">10 — Tokens</div>
+          <h2 class="section-title">Copy the whole thing.</h2>
+          <p class="section-lede">
+            Every token in one block. Drop it into any project, any stack. CSS variables below; JSON export follows.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">CSS variables</h3>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="all-tokens-css">Copy</button>
+<pre id="all-tokens-css"><span class="token-selector">:root</span> {
+  <span class="token-comment">/* Colors */</span>
+  <span class="token-prop">--ls-black</span>:        <span class="token-value">#000000</span>;
+  <span class="token-prop">--ls-charcoal</span>:     <span class="token-value">#1E1E1E</span>;
+  <span class="token-prop">--ls-purple</span>:       <span class="token-value">#5A28DD</span>;
+  <span class="token-prop">--ls-deep-purple</span>:  <span class="token-value">#3B1FA8</span>;
+  <span class="token-prop">--ls-lavender</span>:     <span class="token-value">#9B7FE8</span>;
+  <span class="token-prop">--ls-white</span>:        <span class="token-value">#FFFFFF</span>;
+  <span class="token-prop">--ls-off-white</span>:    <span class="token-value">#F5F5F0</span>;
+  <span class="token-prop">--ls-coral</span>:        <span class="token-value">#E8453C</span>;
+  <span class="token-prop">--ls-cream</span>:        <span class="token-value">#FFF3CA</span>;
+  <span class="token-prop">--ls-peach</span>:        <span class="token-value">#FF9F94</span>;
+
+  <span class="token-comment">/* Gradient */</span>
+  <span class="token-prop">--ls-gradient</span>: <span class="token-value">linear-gradient(135deg, #FFF3CA 0%, #FF9F94 33%, #AD72BD 66%, #7152DA 100%)</span>;
+
+  <span class="token-comment">/* Typography */</span>
+  <span class="token-prop">--font-display</span>: <span class="token-value">'Coolvetica', 'Arial Black', sans-serif</span>;
+  <span class="token-prop">--font-body</span>:    <span class="token-value">'Founders Grotesk', 'Inter', sans-serif</span>;
+
+  <span class="token-comment">/* Type scale */</span>
+  <span class="token-prop">--fs-hero</span>:    <span class="token-value">72px</span>;
+  <span class="token-prop">--fs-display</span>: <span class="token-value">48px</span>;
+  <span class="token-prop">--fs-h1</span>:      <span class="token-value">40px</span>;
+  <span class="token-prop">--fs-h2</span>:      <span class="token-value">32px</span>;
+  <span class="token-prop">--fs-h3</span>:      <span class="token-value">24px</span>;
+  <span class="token-prop">--fs-body</span>:    <span class="token-value">15px</span>;
+  <span class="token-prop">--fs-caption</span>: <span class="token-value">11px</span>;
+
+  <span class="token-comment">/* Spacing · 8px base */</span>
+  <span class="token-prop">--space-1</span>:  <span class="token-value">4px</span>;
+  <span class="token-prop">--space-2</span>:  <span class="token-value">8px</span>;
+  <span class="token-prop">--space-3</span>:  <span class="token-value">12px</span>;
+  <span class="token-prop">--space-4</span>:  <span class="token-value">16px</span>;
+  <span class="token-prop">--space-6</span>:  <span class="token-value">24px</span>;
+  <span class="token-prop">--space-7</span>:  <span class="token-value">30px</span>;
+  <span class="token-prop">--space-8</span>:  <span class="token-value">40px</span>;
+
+  <span class="token-comment">/* Slide canvas */</span>
+  <span class="token-prop">--slide-w</span>: <span class="token-value">1440px</span>;
+  <span class="token-prop">--slide-h</span>: <span class="token-value">810px</span>;
+
+  <span class="token-comment">/* Radius */</span>
+  <span class="token-prop">--radius-card</span>:  <span class="token-value">14px</span>;
+  <span class="token-prop">--radius-small</span>: <span class="token-value">8px</span>;
+  <span class="token-prop">--radius-pill</span>:  <span class="token-value">100px</span>;
+}</pre>
+        </div>
+
+        <h3 class="subsection-title">JSON (design tokens spec)</h3>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="all-tokens-json">Copy</button>
+<pre id="all-tokens-json">{
+  <span class="token-selector">"color"</span>: {
+    <span class="token-prop">"black"</span>:       { <span class="token-prop">"value"</span>: <span class="token-value">"#000000"</span> },
+    <span class="token-prop">"charcoal"</span>:    { <span class="token-prop">"value"</span>: <span class="token-value">"#1E1E1E"</span> },
+    <span class="token-prop">"purple"</span>:      { <span class="token-prop">"value"</span>: <span class="token-value">"#5A28DD"</span> },
+    <span class="token-prop">"deepPurple"</span>:  { <span class="token-prop">"value"</span>: <span class="token-value">"#3B1FA8"</span> },
+    <span class="token-prop">"lavender"</span>:    { <span class="token-prop">"value"</span>: <span class="token-value">"#9B7FE8"</span> },
+    <span class="token-prop">"white"</span>:       { <span class="token-prop">"value"</span>: <span class="token-value">"#FFFFFF"</span> },
+    <span class="token-prop">"offWhite"</span>:    { <span class="token-prop">"value"</span>: <span class="token-value">"#F5F5F0"</span> },
+    <span class="token-prop">"coral"</span>:       { <span class="token-prop">"value"</span>: <span class="token-value">"#E8453C"</span> }
+  },
+  <span class="token-selector">"font"</span>: {
+    <span class="token-prop">"display"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"Coolvetica, 'Arial Black', sans-serif"</span> },
+    <span class="token-prop">"body"</span>:    { <span class="token-prop">"value"</span>: <span class="token-value">"'Founders Grotesk', Inter, sans-serif"</span> }
+  },
+  <span class="token-selector">"space"</span>: {
+    <span class="token-prop">"1"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"4px"</span> },
+    <span class="token-prop">"2"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"8px"</span> },
+    <span class="token-prop">"3"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"12px"</span> },
+    <span class="token-prop">"4"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"16px"</span> },
+    <span class="token-prop">"6"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"24px"</span> },
+    <span class="token-prop">"7"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"30px"</span> },
+    <span class="token-prop">"8"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"40px"</span> }
+  },
+  <span class="token-selector">"radius"</span>: {
+    <span class="token-prop">"card"</span>:  { <span class="token-prop">"value"</span>: <span class="token-value">"14px"</span> },
+    <span class="token-prop">"small"</span>: { <span class="token-prop">"value"</span>: <span class="token-value">"8px"</span> },
+    <span class="token-prop">"pill"</span>:  { <span class="token-prop">"value"</span>: <span class="token-value">"100px"</span> }
+  }
+}</pre>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="footer-brand">Layout.</div>
+        <div class="footer-meta">
+          Design System v1.0 · 2026<br/>
+          <a href="https://www.layoutstudio.co" target="_blank">www.layoutstudio.co</a><br/>
+          Lagos · Dubai · Zurich · London
+        </div>
+      </div>
+
+    </div><!-- /.content -->
+
+  </main>
+</div>
+
+<script>
+// ============================================================
+// Sidebar active state on scroll
+// ============================================================
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id], .anchor');
+
+function setActive() {
+  const y = window.scrollY + 120;
+  let current = '';
+  sections.forEach(s => {
+    if (s.offsetTop <= y) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', setActive, { passive: true });
+setActive();
+
+// ============================================================
+// Copy-to-clipboard for code blocks
+// ============================================================
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const target = document.getElementById(btn.dataset.copy);
+    if (!target) return;
+    try {
+      await navigator.clipboard.writeText(target.innerText);
+      const original = btn.innerText;
+      btn.innerText = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerText = original;
+        btn.classList.remove('copied');
+      }, 1400);
+    } catch (e) {
+      console.error('Copy failed', e);
+    }
+  });
+});
+
+// ============================================================
+// Click-to-copy on swatch hex values
+// ============================================================
+document.querySelectorAll('.swatch-hex').forEach(el => {
+  el.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(el.innerText);
+      const o = el.innerText;
+      el.innerText = 'Copied';
+      setTimeout(() => el.innerText = o, 1000);
+    } catch (e) {}
+  });
+});
+</script>
+
+</body>
+</html>
