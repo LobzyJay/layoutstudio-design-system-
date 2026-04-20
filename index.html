@@ -625,6 +625,15 @@ section + section {
 .grid-l05 .top   { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 /* L06 */ .grid-l06 { grid-template-columns: repeat(4, 1fr); }
 /* L07 */ .grid-l07 { grid-template-columns: repeat(3, 1fr); }
+/* L08 */ .grid-l08 { grid-template-columns: 1fr 38%; }
+/* L09 */ .grid-l09 { grid-template-rows: 38% 1fr; }
+.grid-l09 .bottom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+/* L10 */ .grid-l10 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.grid-l10 .wide { grid-column: 1 / -1; }
+/* L11 */ .grid-l11 { grid-template-columns: repeat(5, 1fr); }
+/* L12 */ .grid-l12 { grid-template-columns: 38% 1fr; }
+.grid-l12 .right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; }
+.grid-l12 .left-stack { display: grid; grid-template-rows: 2fr 1fr; gap: 6px; }
 
 .grid-card-desc {
   font-size: 12px;
@@ -1712,7 +1721,7 @@ section + section {
       <section id="grid" class="anchor">
         <div class="section-head">
           <div class="section-num">05 — Grid</div>
-          <h2 class="section-title">Seven canonical layouts.</h2>
+          <h2 class="section-title">Twelve canonical layouts.</h2>
           <p class="section-lede">
             Every slide, mockup, or content page starts from one of these. The tall left column at 24% is the signature anchor. Right side gets the remaining 76%.
           </p>
@@ -1781,6 +1790,50 @@ section + section {
               <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
             </div>
             <p class="grid-card-desc">Three services, three steps, why us</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L08</strong><span>Wide left + narrow right</span></div>
+            <div class="grid-diagram grid-l08">
+              <div class="grid-cell accent"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <p class="grid-card-desc">Hero visual dominant left, supporting info right</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L09</strong><span>Hero top + 3-col bottom</span></div>
+            <div class="grid-diagram grid-l09">
+              <div class="grid-cell accent"></div>
+              <div class="bottom"><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div></div>
+            </div>
+            <p class="grid-card-desc">Statement image + supporting trio below</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L10</strong><span>2×2 + full-width top</span></div>
+            <div class="grid-diagram grid-l10">
+              <div class="grid-cell accent wide"></div>
+              <div class="grid-cell"></div><div class="grid-cell"></div>
+            </div>
+            <p class="grid-card-desc">Banner headline, two supporting cards below</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L11</strong><span>5 equal</span></div>
+            <div class="grid-diagram grid-l11">
+              <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell accent"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            </div>
+            <p class="grid-card-desc">Five stats, awards, client logos, milestones</p>
+          </div>
+
+          <div class="grid-card">
+            <div class="grid-card-label"><strong>L12</strong><span>Wide split + 2×2 right</span></div>
+            <div class="grid-diagram grid-l12">
+              <div class="left-stack"><div class="grid-cell accent"></div><div class="grid-cell"></div></div>
+              <div class="right"><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div></div>
+            </div>
+            <p class="grid-card-desc">Editorial left column + detail grid right</p>
           </div>
         </div>
 
