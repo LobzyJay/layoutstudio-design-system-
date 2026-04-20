@@ -1036,6 +1036,116 @@ section:first-of-type { border-top: none; }
 .anchor { scroll-margin-top: 40px; }
 
 /* =========================================================
+   HERO INTERACTIVE — Font Switcher + Word Gradient
+   ========================================================= */
+.hero-interact-hint {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-interact-hint::before {
+  content: '';
+  display: inline-block;
+  width: 16px; height: 1px;
+  background: rgba(255,255,255,0.22);
+}
+
+/* Each word is individually clickable */
+.hero-word {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  transition: opacity 80ms;
+  white-space: nowrap;
+}
+
+/* Underline hint on hover */
+.hero-word::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 0; right: 0;
+  height: 3px;
+  background: var(--ls-purple);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms var(--ease-out);
+}
+.hero-word:hover::after { transform: scaleX(1); }
+
+/* Active gradient state */
+.hero-word.is-gradient {
+  background: var(--ls-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-word.is-gradient::after { display: none; }
+
+/* Pulse on first load to hint interactivity */
+@keyframes word-pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+.hero-word.pulse-hint { animation: word-pulse 1.2s ease 1s 2; }
+
+/* Title fades during font swap */
+.hero-title { transition: opacity 100ms ease; }
+.hero-title.switching { opacity: 0; pointer-events: none; }
+
+/* Font switcher row */
+.font-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 28px;
+  align-items: center;
+}
+
+.fs-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: var(--radius-pill);
+  color: rgba(255,255,255,0.45);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: border-color 160ms, color 160ms, background 160ms;
+  user-select: none;
+}
+.fs-btn:hover {
+  border-color: rgba(255,255,255,0.40);
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.04);
+}
+.fs-btn.active {
+  background: var(--ls-purple);
+  border-color: var(--ls-purple);
+  color: var(--ls-white);
+}
+
+/* Tiny specimen preview inside each button */
+.fs-preview {
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.75;
+  letter-spacing: 0;
+  margin-right: 2px;
+}
+
+/* =========================================================
    PRINT
    ========================================================= */
 @media print {
@@ -1113,7 +1223,25 @@ section:first-of-type { border-top: none; }
 
       <div class="hero-body">
         <span class="hero-eyebrow">Design System — 2026</span>
-        <h1 class="hero-title">Build on<br/>Layout's <span>visual layer.</span></h1>
+        <div class="hero-interact-hint">click any word · swap font below</div>
+        <h1 class="hero-title" id="heroTitle">
+          <span class="hero-word pulse-hint">Build</span> <span class="hero-word">on</span><br/>
+          <span class="hero-word">Layout's</span> <span class="hero-word is-gradient">visual</span> <span class="hero-word">layer.</span>
+        </h1>
+        <div class="font-switcher" id="fontSwitcher">
+          <button class="fs-btn active" data-font="'Coolvetica','Arial Black','Helvetica Neue',sans-serif">
+            <span class="fs-preview" style="font-family:'Arial Black',sans-serif;font-weight:900;">Aa</span>
+            CoolveticaW05-CondHeavy
+          </button>
+          <button class="fs-btn" data-font="'Founders Grotesk','Inter',sans-serif">
+            <span class="fs-preview" style="font-family:'Inter',sans-serif;font-weight:700;">Aa</span>
+            Founders Grotesk
+          </button>
+          <button class="fs-btn" data-font="'JetBrains Mono',monospace">
+            <span class="fs-preview" style="font-family:'JetBrains Mono',monospace;">Aa</span>
+            JetBrains Mono
+          </button>
+        </div>
         <p class="hero-lede">
           The tokens, components, and rules behind every piece of Layout Studio work. One source of truth for decks, prototypes, landing pages, and everything in between.
         </p>
@@ -2083,6 +2211,34 @@ document.querySelectorAll('.swatch-hex').forEach(el => {
       el.innerText = 'Copied';
       setTimeout(() => el.innerText = o, 1000);
     } catch (e) {}
+  });
+});
+
+// ============================================================
+// Interactive hero — font switcher + word gradient toggle
+// ============================================================
+const heroTitle = document.getElementById('heroTitle');
+const fontBtns  = document.querySelectorAll('.fs-btn');
+
+fontBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('active')) return;
+    heroTitle.classList.add('switching');
+    setTimeout(() => {
+      heroTitle.style.fontFamily = btn.dataset.font;
+      heroTitle.classList.remove('switching');
+      fontBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }, 120);
+  });
+});
+
+document.querySelectorAll('.hero-word').forEach(word => {
+  word.addEventListener('click', () => {
+    document.querySelectorAll('.hero-word').forEach(w => {
+      if (w !== word) w.classList.remove('is-gradient');
+    });
+    word.classList.toggle('is-gradient');
   });
 });
 </script>
